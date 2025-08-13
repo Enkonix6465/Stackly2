@@ -1,4 +1,3 @@
-
 export default function Services() {
     useEffect(() => {
         AOS.init({ duration: 1000, once: false });
@@ -218,7 +217,7 @@ export default function Services() {
                     </div>
                     {/* Right: Image */}
                     <div className="md:w-1/2 w-full flex justify-center">
-                        <img src="/src/assets/awards.jpg" alt="Awards & Recognitions" className="max-w-xs w-full rounded-2xl shadow-xl border border-[#f3e8ff] bg-[#f8fafc]" />
+                        <img src={awardsImg} alt="Awards & Recognitions" className="max-w-xs w-full rounded-2xl shadow-xl border border-[#f3e8ff] bg-[#f8fafc]" />
                     </div>
                 </div>
             </section>
@@ -242,3 +241,4 @@ import "aos/dist/aos.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import servicesHero from "../assets/serviceshero.mp4";
+import awardsImg from "../assets/awards.jpg";
