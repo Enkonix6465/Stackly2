@@ -1,5 +1,15 @@
 
 import React from "react";
+import awardsImg from "../assets/awards.jpg";
+import seoImg from "../assets/seo.jpg";
+import smmImg from "../assets/Social Media Marketing.jpg";
+import contentImg from "../assets/content.jpg";
+import emailImg from "../assets/email-marketing.jpg";
+import websiteImg from "../assets/website.jpg";
+import ourservicesImg from "../assets/ourservices.jpg";
+import ppcImg from "../assets/ppc.jpg";
+import impactImg from "../assets/impact.jpg";
+import homeheroVideo from "../assets/homehero.mp4";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -59,13 +69,13 @@ export default function Home() {
   }, []);
   const serviceCards = [
     {
-      image: "/src/assets/seo.jpg",
+      image: seoImg,
       title: "Search Engine Optimization (SEO)",
       subtitle: "Boost your search rankings and drive organic traffic to your website with our comprehensive SEO strategies. Our SEO experts use the latest techniques in keyword research, on-page and off-page optimization, and technical SEO to ensure your business stands out in search engine results and attracts high-quality leads.",
       bg: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)'
     },
     {
-      image: "/src/assets/Social Media Marketing.jpg",
+      image: smmImg,
       title: "Social Media Marketing (SMM)",
       subtitle: "Engage with your audience across all major social platforms and build meaningful connections. We create tailored content, manage your profiles, and run targeted ad campaigns to grow your brand presence, increase followers, and drive measurable engagement and conversions.",
       bg: '#fff'
@@ -77,19 +87,19 @@ export default function Home() {
       bg: '#fff'
     },
     {
-      image: "/src/assets/content.jpg",
+      image: contentImg,
       title: "Content Marketing",
       subtitle: "Create compelling content that resonates with your audience and drives meaningful engagement. Our team crafts blogs, articles, infographics, videos, and more to establish your brand as an authority, improve SEO, and nurture customer relationships.",
       bg: '#fff'
     },
     {
-      image: "/src/assets/email-marketing.jpg",
+      image: emailImg,
       title: "Email Marketing & Automation",
       subtitle: "Nurture leads and drive conversions with personalized email campaigns and automation. We design, segment, and automate email flows to deliver the right message at the right time, increasing open rates, click-throughs, and customer loyalty.",
       bg: '#fff'
     },
     {
-      image: "/src/assets/website.jpg",
+      image: websiteImg,
       title: "Website Design & Development",
       subtitle: "Create stunning, responsive websites that convert visitors into customers and drive growth. Our web design and development team builds fast, secure, and user-friendly sites tailored to your brand and business goals, ensuring a seamless experience across all devices.",
       bg: '#fff'
@@ -109,13 +119,13 @@ export default function Home() {
   const extendedServiceCards = [
     ...serviceCards,
     {
-      image: "/src/assets/ourservices.jpg",
+      image: ourservicesImg,
       title: "Brand Strategy & Consulting",
       subtitle: "Develop a powerful brand identity and strategy to stand out in your market. We help you define your mission, values, and unique selling proposition, and create a cohesive brand experience that resonates with your target audience.",
       bg: '#fff'
     },
     {
-      image: "/src/assets/ppc.jpg",
+      image: ppcImg,
       title: "Analytics & Conversion Optimization",
       subtitle: "Leverage analytics to optimize conversions and maximize your marketing ROI. We track user behavior, analyze data, and implement A/B testing to continuously improve your website and campaigns, turning more visitors into loyal customers.",
       bg: '#fff'
@@ -157,7 +167,7 @@ export default function Home() {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src="/src/assets/homehero.mp4" type="video/mp4" />
+            <source src={homeheroVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -217,8 +227,8 @@ export default function Home() {
             <div className="relative h-full" data-aos="fade-right">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl h-full">
                 <img
-                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
-                  alt="Who We Are"
+                  src={awardsImg}
+                  alt="Awards"
                   className="w-full h-full object-cover animate-zoom-in"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
@@ -436,7 +446,7 @@ export default function Home() {
             {/* Impact Image on the right */}
             <div className="flex-1 flex justify-center items-center mt-8 lg:mt-0" data-aos="fade-left">
               <img
-                src="/src/assets/impact.jpg"
+                src={impactImg}
                 alt="Impact Metrics"
                 className="w-full max-w-md rounded-2xl shadow-2xl object-cover"
                 style={{ minHeight: '260px', maxHeight: '340px' }}
@@ -635,7 +645,7 @@ export default function Home() {
             </div>
             {/* Right: Image */}
             <div className="flex justify-center order-1 md:order-2">
-              <img src="/src/assets/website.jpg" alt="Get Started" className="w-full max-w-md rounded-2xl shadow-2xl object-cover" style={{ minHeight: '260px', maxHeight: '340px' }} />
+              <img src={websiteImg} alt="Get Started" className="w-full max-w-md rounded-2xl shadow-2xl object-cover" style={{ minHeight: '260px', maxHeight: '340px' }} />
             </div>
           </div>
         </div>
