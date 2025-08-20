@@ -425,7 +425,7 @@ export default function BlogHero({ darkTheme, setDarkTheme }) {
 
       <section className="w-full bg-[#c7a6fa] py-16">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12">
-          {/* Left side: Categories list or matter */}
+          {/* Left side: Categories list  */}
           <div className="md:w-2/4">
             <h2 className="text-3xl font-bold mb-6 border-b text-violet-900 border-violet-400 pb-3">
               Categories
