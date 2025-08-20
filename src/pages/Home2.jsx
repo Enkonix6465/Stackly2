@@ -332,7 +332,7 @@ const Home2 = ({ darkTheme, setDarkTheme }) => {
           </div>
       </section>
 
-      {/* Trends & Tips Corner Section (inlined) */}
+      {/* Trends  Tips Corner Section (inlined) */}
   <section className="w-full py-20 flex flex-col items-center" style={{ background: '#BF77F6' }} data-aos="fade-up">
         <div className="w-full max-w-4xl mx-auto rounded-3xl shadow-xl bg-white p-8 md:p-12 flex flex-col items-center">
           <h2 className="text-3xl md:text-4xl font-extrabold text-[#a259c6] mb-6 text-center">Trends & Tips Corner</h2>
@@ -340,7 +340,7 @@ const Home2 = ({ darkTheme, setDarkTheme }) => {
         </div>
       </section>
 
-      {/* Insights Section (redesigned) */}
+      {/* Insights Section */}
   <section className={`w-full py-20 flex justify-center items-center ${darkTheme ? 'bg-black text-white' : 'bg-white'}`}> 
           {/* Left: Image */}
           <div className="flex-1 flex items-center justify-center min-h-300" data-aos="fade-left">
