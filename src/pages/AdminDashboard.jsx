@@ -262,18 +262,20 @@ export default function AdminDashboard({ darkTheme, setDarkTheme }) {
             <table className="w-full bg-white rounded shadow overflow-hidden mb-8">
               <thead>
                 <tr className="bg-[#a259c6] text-white">
-                  <th className="p-3 text-left">Full Name</th>
+                  <th className="p-3 text-left">First Name</th>
+                  <th className="p-3 text-left">Last Name</th>
                   <th className="p-3 text-left">Email</th>
                   <th className="p-3 text-left">Registered At</th>
                 </tr>
               </thead>
               <tbody>
                 {users.length === 0 ? (
-                  <tr><td colSpan={3} className="p-3 text-center text-gray-400">No registered users yet.</td></tr>
+                  <tr><td colSpan={4} className="p-3 text-center text-gray-400">No registered users yet.</td></tr>
                 ) : (
                   users.map((u, i) => (
                     <tr key={i} className="border-b border-[#e5d6fa] hover:bg-[#f3eaff]">
-                      <td className="p-3 text-[#53295a]">{u.name}</td>
+                      <td className="p-3 text-[#53295a]">{u.firstName || (u.name ? u.name.split(' ')[0] : '')}</td>
+                      <td className="p-3 text-[#53295a]">{u.lastName || (u.name ? u.name.split(' ').slice(1).join(' ') : '')}</td>
                       <td className="p-3 text-[#53295a]">{u.email}</td>
                       <td className="p-3 text-[#53295a]">{u.registeredAt}</td>
                     </tr>
