@@ -9,7 +9,7 @@ import contact1 from "../assets/contact1.jpg"; // Location image
 import contact2 from "../assets/contact2.jpg"; // Email image
 import contact3 from "../assets/contact3.jpg"; // Phone image
 
-const ContactUsHero = () => {
+const ContactUsHero = ({ darkTheme, setDarkTheme }) => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
@@ -98,7 +98,7 @@ const ContactUsHero = () => {
   <div className="w-full overflow-x-hidden">
       {/* Hero Section */}
   <section className="relative w-full h-screen overflow-hidden">
-        <Header />
+  <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
         <video
           className="absolute top-0 left-0 w-full h-full object-cover"
           src={contactusher}
@@ -120,7 +120,7 @@ const ContactUsHero = () => {
       </section>
 
 
-  <section className="py-16 bg-gray-100 w-full">
+  <section className={`py-16 w-full ${darkTheme ? 'bg-black' : 'bg-gray-100'}`}> 
   <div className="w-full px-2 grid gap-8 md:grid-cols-3">
         {cards.map((card, index) => (
           <div
@@ -142,14 +142,14 @@ const ContactUsHero = () => {
     </section>
 
       {/* Contact Form Section */}
-      <section className="py-16 bg-white w-full">
+  <section className={`py-16 w-full ${darkTheme ? 'bg-black' : 'bg-white'}`}> 
         <div className="w-full px-2">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-violet-700">
             Contact Us
           </h2>
 
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-2xl p-8 space-y-6">
+            <form onSubmit={handleSubmit} className={`${darkTheme ? 'bg-black text-white' : 'bg-white'} shadow-lg rounded-2xl p-8 space-y-6`}>
               {/* Name */}
               <div>
                 <label className="block text-violet-700 mb-2 font-semibold">Name</label>
@@ -216,7 +216,7 @@ const ContactUsHero = () => {
                   required
                   className="mt-1 mr-2"
                 />
-                <label className="text-black text-sm">
+                <label className={`${darkTheme ? 'text-white' : 'text-black'} text-sm`}>
                   I accept the{' '}
                   <a href="/privacy-policy" className="text-violet-600 hover:underline" target="_blank" rel="noopener noreferrer">
                     Privacy Policy
@@ -233,7 +233,7 @@ const ContactUsHero = () => {
               </button>
             </form>
           ) : (
-            <div className="shadow-lg rounded-2xl p-8 text-center">
+            <div className={`shadow-lg rounded-2xl p-8 text-center ${darkTheme ? 'bg-[#232136] text-white' : ''}`}>
               <h3 className="text-2xl font-semibold text-green-600 mb-4">
                 ✅ Submitted Successfully!
               </h3>
@@ -279,7 +279,7 @@ const ContactUsHero = () => {
           </div>
         </div>
       </section>
-  <section className="w-full bg-gray-100 py-16">
+  <section className={`w-full py-16 ${darkTheme ? 'bg-black' : 'bg-gray-100'}`}> 
   <div className="w-full px-2">
         <h2 className="text-3xl md:text-4xl text-violet-700 font-bold text-left mb-8">
           Our Location
@@ -318,7 +318,7 @@ const ContactUsHero = () => {
 
 
     
-      <Footer />
+  <Footer darkTheme={darkTheme} />
   </div>
   );
 };

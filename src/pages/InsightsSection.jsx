@@ -33,8 +33,8 @@ const insights = [
 export default function InsightsSection() {
   return (
     <section className="w-full flex justify-center py-8 md:py-16 bg-white">
-      <div className="w-full max-w-6xl bg-white rounded-3xl shadow-md flex flex-col md:flex-row items-center px-2 md:px-12 py-6 md:py-10 relative overflow-hidden">
-        {/* Left: Content */}
+      <div className="w-full max-w-6xl bg-white rounded-3xl shadow-md flex flex-col-reverse md:flex-row items-center px-2 md:px-12 py-6 md:py-10 relative overflow-hidden">
+        {/* Left: Content (now below image on mobile) */}
         <div className="flex-1 flex flex-col items-start justify-center pr-0 md:pr-10 z-10 w-full">
           <h2 className="text-3xl md:text-5xl font-extrabold mb-3 text-[#222]">
             <span className="text-black">Wellness </span>
@@ -55,8 +55,8 @@ export default function InsightsSection() {
             ))}
           </div>
         </div>
-        {/* Right: Image with decorative circles */}
-        <div className="flex-1 flex items-center justify-center relative mt-6 md:mt-0 z-10 w-full">
+  {/* Right: Image with decorative circles (now above content on mobile) */}
+  <div className="flex-1 flex items-center justify-center relative mt-6 md:mt-0 z-10 w-full">
           <div className="w-full max-w-xs md:max-w-md h-48 md:h-80 rounded-2xl overflow-hidden shadow-lg relative">
             <img src="https://img.freepik.com/free-photo/doctor-holding-tablet-with-medical-icons_23-2148827746.jpg?w=900" alt="Wellness Insights" className="w-full h-full object-cover" />
             {/* Decorative circles */}

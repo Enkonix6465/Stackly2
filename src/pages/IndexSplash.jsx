@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function IndexSplash() {
+  const [darkTheme, setDarkTheme] = useState(false);
   useEffect(() => {
     const timer = setTimeout(() => {
       window.location.href = "/login";
@@ -9,7 +10,7 @@ export default function IndexSplash() {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className={`min-h-screen flex items-center justify-center relative ${darkTheme ? 'bg-[#18181c]' : 'bg-gray-100'}`}>
       <img
         src="https://i.postimg.cc/Nj51fNVZ/startinglogo.png"
         alt="Logo"

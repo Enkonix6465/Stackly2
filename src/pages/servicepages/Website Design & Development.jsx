@@ -11,10 +11,10 @@ import faqImg from "../../assets/faq.jpg";
 
 
 
-export default function WebsiteDesignDevelopment() {
-    return (
-        <>
-            <Header />
+export default function WebsiteDesignDevelopment({ darkTheme, setDarkTheme }) {
+  return (
+    <>
+      <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
             {/* Hero Section */}
             <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
                 <video
@@ -36,26 +36,26 @@ export default function WebsiteDesignDevelopment() {
                 </div>
             </section>
 
-            {/* Why This Service Matters Section */}
-            <section className="w-full py-16 bg-white flex flex-col items-center">
-                <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-12 px-4">
-                    {/* Left: Image */}
-                    <div className="md:w-1/2 w-full flex justify-center items-center mb-8 md:mb-0 min-h-[350px]">
-                        <img src={web1Img} alt="Website Design & Development" className="rounded-2xl shadow-xl max-w-lg w-full h-full object-cover" />
-                    </div>
-                    {/* Right: Content */}
-                    <div className="md:w-1/2 w-full flex flex-col items-start">
-                        <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-wide text-[#7c5dc7]">Why Website Design & Development?</h2>
-                        <p className="text-lg text-[#232136] mb-4 text-justify">Your website is your digital storefront. A beautiful, user-friendly site builds trust, engages visitors, and turns them into loyal customers.</p>
-                        <ul className="list-disc pl-6 text-[#232136] space-y-2 text-justify">
-                            <li>Make a powerful first impression with modern design</li>
-                            <li>Deliver seamless experiences on any device</li>
-                            <li>Convert visitors into leads and customers</li>
-                            <li>Showcase your brand and services 24/7</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+      {/* Why This Service Matters Section (Theme Aware) */}
+      <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-black' : 'bg-white'}`}>
+        <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-12 px-4">
+          {/* Left: Image */}
+          <div className="md:w-1/2 w-full flex justify-center items-center mb-8 md:mb-0 min-h-[350px]">
+            <img src={web1Img} alt="Website Design & Development" className="rounded-2xl shadow-xl max-w-lg w-full h-full object-cover" />
+          </div>
+          {/* Right: Content */}
+          <div className="md:w-1/2 w-full flex flex-col items-start">
+            <h2 className={`text-3xl md:text-4xl font-extrabold mb-4 tracking-wide ${darkTheme ? 'text-white' : 'text-[#7c5dc7]'}`}>Why Website Design & Development?</h2>
+            <p className={`text-lg mb-4 text-justify ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>Your website is your digital storefront. A beautiful, user-friendly site builds trust, engages visitors, and turns them into loyal customers.</p>
+            <ul className={`list-disc pl-6 space-y-2 text-justify ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>
+              <li>Make a powerful first impression with modern design</li>
+              <li>Deliver seamless experiences on any device</li>
+              <li>Convert visitors into leads and customers</li>
+              <li>Showcase your brand and services 24/7</li>
+            </ul>
+          </div>
+        </div>
+      </section>
             {/* Our Approach Section */}
             <section className="w-full py-16 bg-[#c7a6fa] text-white flex flex-col items-center">
   <h2 className="text-3xl md:text-4xl font-extrabold mb-10 tracking-wide text-black text-center">Our Approach</h2>
@@ -90,39 +90,39 @@ export default function WebsiteDesignDevelopment() {
   </div>
 </section>
 
-           {/* Benefits Section (Website Design & Development) */}
-           <section className="w-full py-16 bg-white flex flex-col items-center">
-               <h2 className="text-3xl md:text-4xl font-extrabold mb-10 tracking-wide text-[#7c3aed] text-center">Website Design & Development Benefits</h2>
-                                            <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-12 px-4">
-                {/* Left: Content (2x2 Grid of Cards) */}
-                <div className="md:w-1/2 w-full grid grid-cols-1 md:grid-cols-2 gap-8 order-1 md:order-1">
-                                                                               {/* Card 1 */}
-                                                                               <div className="rounded-tl-3xl rounded-br-[60px] bg-gradient-to-br from-[#a78bfa] to-[#7c3aed] p-6 shadow-lg text-white">
-                                                                                   <h3 className="font-bold text-lg mb-2 text-white">Modern Design</h3>
-                                                                                   <p>Impress visitors with a beautiful, professional website that reflects your brand identity.</p>
-                                                                               </div>
-                                                                               {/* Card 2 */}
-                                                                               <div className="rounded-tr-3xl rounded-bl-[60px] bg-white p-6 shadow-lg text-[#7c3aed]">
-                                                                                   <h3 className="font-bold text-lg mb-2 text-[#7c3aed]">Mobile Responsive</h3>
-                                                                                   <p>Deliver a seamless experience on every device—desktop, tablet, and mobile.</p>
-                                                                               </div>
-                                                                               {/* Card 3 */}
-                                                                               <div className="rounded-bl-3xl rounded-tr-[60px] bg-white p-6 shadow-lg text-[#7c3aed]">
-                                                                                   <h3 className="font-bold text-lg mb-2 text-[#7c3aed]">Conversion Focused</h3>
-                                                                                   <p>Turn visitors into leads and customers with clear calls-to-action and optimized layouts.</p>
-                                                                               </div>
-                                                                               {/* Card 4 */}
-                                                                               <div className="rounded-br-3xl rounded-tl-[60px] bg-gradient-to-br from-[#a78bfa] to-[#7c3aed] p-6 shadow-lg text-white">
-                                                                                   <h3 className="font-bold text-lg mb-2 text-white">SEO & Speed Optimized</h3>
-                                                                                   <p>Get found on Google and keep users engaged with fast load times and best SEO practices.</p>
-                                                                               </div>
-                                                            </div>
-                                                            {/* Right: Image */}
-                <div className="md:w-1/2 w-full flex justify-center mb-8 md:mb-0 order-2 md:order-2">
-                                            <img src={web2Img} alt="Website Design & Development Benefits" className="rounded-2xl shadow-xl max-w-md w-full object-cover" />
-                            </div>
-                                            </div>
-                            </section>
+       {/* Benefits Section (Theme Aware) */}
+       <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-black' : 'bg-white'}`}>
+         <h2 className={`text-3xl md:text-4xl font-extrabold mb-10 tracking-wide text-center ${darkTheme ? 'text-white' : 'text-[#7c3aed]'}`}>Website Design & Development Benefits</h2>
+         <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-12 px-4">
+        {/* Left: Content (2x2 Grid of Cards) */}
+        <div className="md:w-1/2 w-full grid grid-cols-1 md:grid-cols-2 gap-8 order-1 md:order-1">
+          {/* Card 1 */}
+          <div className="rounded-tl-3xl rounded-br-[60px] bg-gradient-to-br from-[#a78bfa] to-[#7c3aed] p-6 shadow-lg text-white">
+            <h3 className="font-bold text-lg mb-2 text-white">Modern Design</h3>
+            <p>Impress visitors with a beautiful, professional website that reflects your brand identity.</p>
+          </div>
+          {/* Card 2 */}
+          <div className={`${darkTheme ? 'bg-[#232136] text-white' : 'bg-white text-[#7c3aed]'} rounded-tr-3xl rounded-bl-[60px] p-6 shadow-lg`}>
+            <h3 className={`font-bold text-lg mb-2 ${darkTheme ? 'text-white' : 'text-[#7c3aed]'}`}>Mobile Responsive</h3>
+            <p>Deliver a seamless experience on every device—desktop, tablet, and mobile.</p>
+          </div>
+          {/* Card 3 */}
+          <div className={`${darkTheme ? 'bg-[#232136] text-white' : 'bg-white text-[#7c3aed]'} rounded-bl-3xl rounded-tr-[60px] p-6 shadow-lg`}>
+            <h3 className={`font-bold text-lg mb-2 ${darkTheme ? 'text-white' : 'text-[#7c3aed]'}`}>Conversion Focused</h3>
+            <p>Turn visitors into leads and customers with clear calls-to-action and optimized layouts.</p>
+          </div>
+          {/* Card 4 */}
+          <div className="rounded-br-3xl rounded-tl-[60px] bg-gradient-to-br from-[#a78bfa] to-[#7c3aed] p-6 shadow-lg text-white">
+            <h3 className="font-bold text-lg mb-2 text-white">SEO & Speed Optimized</h3>
+            <p>Get found on Google and keep users engaged with fast load times and best SEO practices.</p>
+          </div>
+        </div>
+        {/* Right: Image */}
+        <div className="md:w-1/2 w-full flex justify-center mb-8 md:mb-0 order-2 md:order-2">
+          <img src={web2Img} alt="Website Design & Development Benefits" className="rounded-2xl shadow-xl max-w-md w-full object-cover" />
+        </div>
+         </div>
+      </section>
 
                     {/* FAQs Section */}
                        <section className="w-full py-16 bg-[#c7a6fa] text-white flex flex-col items-center">
@@ -176,15 +176,15 @@ export default function WebsiteDesignDevelopment() {
   </div>
 </section>
 
-                    {/* CTA Section */}
-                       <section className="w-full py-16 bg-white flex flex-col items-center">
-                           <div className="w-full max-w-3xl mx-auto text-center">
-                               <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-[#7c3aed]">Ready to Build Your Dream Website?</h2>
-                               <p className="text-lg text-[#6d28d9] mb-8">Let our web design experts help you create a site that stands out and delivers results. Contact us today for a free consultation!</p>
-                               <a href="/contact" className="inline-block bg-gradient-to-r from-[#a78bfa] to-[#7c3aed] text-white font-bold px-8 py-4 rounded-full shadow-lg hover:from-[#7c3aed] hover:to-[#a78bfa] transition">Get Started</a>
-                           </div>
-                       </section>
-            <Footer />
+          {/* CTA Section (Theme Aware) */}
+             <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-black' : 'bg-white'}`}>
+               <div className="w-full max-w-3xl mx-auto text-center">
+                 <h2 className={`text-3xl md:text-4xl font-extrabold mb-4 ${darkTheme ? 'text-white' : 'text-[#7c3aed]'}`}>Ready to Build Your Dream Website?</h2>
+                 <p className={`text-lg mb-8 ${darkTheme ? 'text-white' : 'text-[#6d28d9]'}`}>Let our web design experts help you create a site that stands out and delivers results. Contact us today for a free consultation!</p>
+                 <a href="/contact" className="inline-block bg-gradient-to-r from-[#a78bfa] to-[#7c3aed] text-white font-bold px-8 py-4 rounded-full shadow-lg hover:from-[#7c3aed] hover:to-[#a78bfa] transition">Get Started</a>
+               </div>
+             </section>
+      <Footer darkTheme={darkTheme} />
         </>
     );
 }

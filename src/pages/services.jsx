@@ -1,12 +1,12 @@
-export default function Services() {
+export default function Services({ darkTheme, setDarkTheme }) {
     useEffect(() => {
         AOS.init({ duration: 1000, once: false });
     }, []);
     return (
         <>
-            <Header />
+            <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
             {/* Hero Section */}
-            <section className="relative w-full h-screen flex items-center justify-center overflow-hidden" data-aos="fade-up">
+            <section className={`relative w-full h-screen flex items-center justify-center overflow-hidden ${darkTheme ? 'bg-black' : ''}`} data-aos="fade-up">
                 <video
                     className="absolute inset-0 w-full h-full object-cover z-0"
                     src={servicesHero}
@@ -17,14 +17,14 @@ export default function Services() {
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-60 z-10"></div>
                 <div className="relative z-20 flex flex-col items-center justify-center text-center w-full px-4">
-                    <h1 className="text-4xl md:text-6xl font-extrabold text-[#a259c6] mb-2 drop-shadow-lg">Our Services</h1>
-                    <p className="text-lg md:text-xl text-white mb-2 max-w-2xl mx-auto drop-shadow-md">Discover the full suite of digital marketing solutions we offer to grow your business online.</p>
+                    <h1 className={`text-4xl md:text-6xl font-extrabold mb-2 drop-shadow-lg ${darkTheme ? 'text-white' : 'text-[#a259c6]'}`}>Our Services</h1>
+                    <p className={`text-lg md:text-xl mb-2 max-w-2xl mx-auto drop-shadow-md ${darkTheme ? 'text-white' : 'text-white'}`}>Discover the full suite of digital marketing solutions we offer to grow your business online.</p>
                 </div>
             </section>
 
             {/* Our Services Section (modern grid cards) */}
-            <section className="w-full py-16 bg-[#f3e8ff] flex flex-col items-center" data-aos="fade-up">
-                <h2 className="text-3xl md:text-4xl font-extrabold mb-12 tracking-wide text-[#232136]">Our Services</h2>
+            <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-[#18181c]' : 'bg-[#f3e8ff]'}`} data-aos="fade-up">
+                <h2 className={`text-3xl md:text-4xl font-extrabold mb-12 tracking-wide ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>Our Services</h2>
                 <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
                     {/* Card 1 */}
                     <div className="rounded-3xl p-8 bg-gradient-to-br from-[#2d1b3c] to-[#18181c] text-white shadow-2xl flex flex-col min-h-[220px] relative overflow-hidden">
@@ -77,8 +77,8 @@ export default function Services() {
                 </div>
             </section>
             {/* How We Work Section */}
-            <section className="w-full py-16 bg-[#c7a6fa] flex text-justify flex-col items-center" data-aos="fade-right">
-                <h2 className="text-3xl md:text-4xl font-extrabold mb-12 tracking-wide text-[#232136]">How We Work</h2>
+            <section className={`w-full py-16 flex text-justify flex-col items-center ${darkTheme ? 'bg-[#232136]' : 'bg-[#c7a6fa]'}`} data-aos="fade-right">
+                <h2 className={`text-3xl md:text-4xl font-extrabold mb-12 tracking-wide ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>How We Work</h2>
                 <div className="w-full max-w-3xl mx-auto flex flex-col gap-0 relative">
                     {/* Timeline Dots and Line */}
                     <div className="absolute left-1/2 -translate-x-1/2 h-full w-2 flex flex-col items-center z-0">
@@ -154,8 +154,8 @@ export default function Services() {
                 </div>
             </section>
             {/* Industries We Serve Section (Home1 color theme) */}
-            <section className="w-full py-16 bg-gradient-to-br from-[#f5f3ff] via-[#f3e8ff] to-[#f8fafc] flex flex-col items-center" data-aos="fade-up">
-                <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-wide text-[#7c5dc7] text-center">Industries We Serve</h2>
+            <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-black' : 'bg-gradient-to-br from-[#f5f3ff] via-[#f3e8ff] to-[#f8fafc]'}`} data-aos="fade-up">
+                <h2 className={`text-3xl md:text-4xl font-extrabold mb-4 tracking-wide text-center ${darkTheme ? 'text-white' : 'text-[#7c5dc7]'}`}>Industries We Serve</h2>
                 <p className="text-lg text-[#232136] mb-10 text-center max-w-2xl">We empower a diverse range of industries with tailored digital marketing strategies that drive measurable results and sustainable growth.</p>
                 <div className="w-full max-w-6xl grid text-justify grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
                     {/* Card 1 */}
@@ -201,11 +201,11 @@ export default function Services() {
                 </div>
             </section>
             {/* Awards & Recognitions Section */}
-            <section className="w-full py-16 bg-[#c7a6fa] flex flex-col items-center" data-aos="fade-left">
+            <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-[#232136]' : 'bg-[#c7a6fa]'}`} data-aos="fade-left">
                 <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-12 px-4">
                     {/* Left: Info */}
                     <div className="md:w-1/2 w-full flex flex-col items-start">
-                        <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-wide text-[#000]">Awards & Recognitions</h2>
+                        <h2 className={`text-3xl md:text-4xl font-extrabold mb-4 tracking-wide ${darkTheme ? 'text-white' : 'text-[#000]'}`}>Awards & Recognitions</h2>
                         <p className="text-lg text-justify text-[#232136] mb-6">Our commitment to excellence has been recognized by industry leaders and trusted organizations. These achievements reflect our dedication to delivering outstanding digital marketing results for our clients.</p>
                         <ul className="mb-6 space-y-3">
                             <li className="flex items-center"><span className="inline-block w-3 h-3 rounded-full bg-[#a259c6] mr-3"></span><span className="font-semibold text-[#232136]">Google Partner Agency</span></li>
@@ -223,15 +223,15 @@ export default function Services() {
             </section>
 
             {/* CTA Section */}
-            <section className="w-full py-16 bg-gradient-to-br from-[#f5f3ff] via-[#f3e8ff] to-[#f8fafc] flex flex-col items-center" data-aos="fade-up">
-                <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-[#7c5dc7]">Ready to Grow Your Business Online?</h2>
+            <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-black' : 'bg-gradient-to-br from-[#f5f3ff] via-[#f3e8ff] to-[#f8fafc]'}`} data-aos="fade-up">
+                <h2 className={`text-4xl md:text-5xl font-extrabold text-center mb-4 ${darkTheme ? 'text-white' : 'text-[#7c5dc7]'}`}>Ready to Grow Your Business Online?</h2>
                 <p className="text-lg text-[#232136] mb-8 text-center max-w-2xl">Join hundreds of businesses who have accelerated their digital marketing success with our expert team and proven strategies.</p>
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
                     <button className="bg-[#7c5dc7] hover:bg-[#a259c6] text-white font-semibold px-10 py-3 rounded-xl shadow-lg transition-all text-lg">Get Started Today</button>
                     <button className="border-2 border-[#7c5dc7] text-[#7c5dc7] font-semibold px-10 py-3 rounded-xl bg-white hover:bg-[#f5fafd] transition-all text-lg">Learn More</button>
                 </div>
             </section>
-            <Footer />
+            <Footer darkTheme={darkTheme} />
         </>
     );
 }

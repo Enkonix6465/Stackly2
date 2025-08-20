@@ -2,18 +2,14 @@ import React from "react";
 import Header from "../../Header";
 import Footer from "../../Footer";
 import socialHeroVideo from "../../assets/socialhero.mp4";
-
-
 import social1Img from "../../assets/social1.jpg";
 import social2Img from "../../assets/social2.jpg";
 import faqImg from "../../assets/faq.jpg";
 
-
-
-export default function SocialMediaMarketing() {
-    return (
-        <>
-            <Header />
+export default function SocialMediaMarketing({ darkTheme, setDarkTheme }) {
+  return (
+    <>
+      <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
             {/* Hero Section */}
             <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
                 <video
@@ -35,26 +31,26 @@ export default function SocialMediaMarketing() {
                 </div>
             </section>
 
-            {/* Why This Service Matters Section */}
-            <section className="w-full py-16 bg-white flex flex-col items-center">
-                <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-12 px-4">
-                    {/* Left: Image */}
-                    <div className="md:w-1/2 w-full flex justify-center items-center mb-8 md:mb-0 min-h-[350px]">
-                        <img src={social1Img} alt="Why Social Media Marketing" className="rounded-2xl shadow-xl max-w-lg w-full h-full object-cover" />
-                    </div>
-                    {/* Right: Content */}
-                    <div className="md:w-1/2 w-full flex flex-col items-start">
-                        <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-wide text-[#7c5dc7]">Why Social Media Marketing?</h2>
-                        <p className="text-lg text-[#232136] mb-4 text-justify">Social media is where your customers spend their time. A strong social presence builds brand awareness, drives engagement, and turns followers into loyal customers.</p>
-                        <ul className="list-disc pl-6 text-[#232136] space-y-2 text-justify">
-                            <li>Grow your audience and reach new customers</li>
-                            <li>Boost engagement with creative, shareable content</li>
-                            <li>Build brand loyalty and community</li>
-                            <li>Drive website traffic and conversions</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+      {/* Why This Service Matters Section (Theme Aware) */}
+      <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-black' : 'bg-white'}`}>
+        <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-12 px-4">
+          {/* Left: Image */}
+          <div className="md:w-1/2 w-full flex justify-center items-center mb-8 md:mb-0 min-h-[350px]">
+            <img src={social1Img} alt="Why Social Media Marketing" className="rounded-2xl shadow-xl max-w-lg w-full h-full object-cover" />
+          </div>
+          {/* Right: Content */}
+          <div className="md:w-1/2 w-full flex flex-col items-start">
+            <h2 className={`text-3xl md:text-4xl font-extrabold mb-4 tracking-wide ${darkTheme ? 'text-white' : 'text-[#7c5dc7]'}`}>Why Social Media Marketing?</h2>
+            <p className={`text-lg mb-4 text-justify ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>Social media is where your customers spend their time. A strong social presence builds brand awareness, drives engagement, and turns followers into loyal customers.</p>
+            <ul className={`list-disc pl-6 space-y-2 text-justify ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>
+              <li>Grow your audience and reach new customers</li>
+              <li>Boost engagement with creative, shareable content</li>
+              <li>Build brand loyalty and community</li>
+              <li>Drive website traffic and conversions</li>
+            </ul>
+          </div>
+        </div>
+      </section>
             {/* Our Approach Section */}
             <section className="w-full py-16 bg-[#c7a6fa] text-white flex flex-col items-center">
   <h2 className="text-3xl md:text-4xl font-extrabold mb-10 tracking-wide text-black text-center">Our Approach</h2>
@@ -89,39 +85,39 @@ export default function SocialMediaMarketing() {
   </div>
 </section>
 
-           {/* Benefits Section (Social Media Marketing) */}
-           <section className="w-full py-16 bg-white flex flex-col items-center">
-               <h2 className="text-3xl md:text-4xl font-extrabold mb-10 tracking-wide text-[#7c3aed] text-center">Social Media Marketing Benefits</h2>
-                                            <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-12 px-4">
-                {/* Left: Content (2x2 Grid of Cards) */}
-                <div className="md:w-1/2 w-full grid grid-cols-1 md:grid-cols-2 gap-8 order-1 md:order-1">
-                                                                               {/* Card 1 */}
-                                                                               <div className="rounded-tl-3xl rounded-br-[60px] bg-gradient-to-br from-[#a78bfa] to-[#7c3aed] p-6 shadow-lg text-white">
-                                                                                   <h3 className="font-bold text-lg mb-2 text-white">Brand Awareness</h3>
-                                                                                   <p>Expand your brand’s reach and recognition across all major social platforms with consistent, creative content.</p>
-                                                                               </div>
-                                                                               {/* Card 2 */}
-                                                                               <div className="rounded-tr-3xl rounded-bl-[60px] bg-white p-6 shadow-lg text-[#7c3aed]">
-                                                                                   <h3 className="font-bold text-lg mb-2 text-[#7c3aed]">Audience Engagement</h3>
-                                                                                   <p>Connect with your audience through interactive posts, stories, and campaigns that spark conversations and loyalty.</p>
-                                                                               </div>
-                                                                               {/* Card 3 */}
-                                                                               <div className="rounded-bl-3xl rounded-tr-[60px] bg-white p-6 shadow-lg text-[#7c3aed]">
-                                                                                   <h3 className="font-bold text-lg mb-2 text-[#7c3aed]">Lead Generation</h3>
-                                                                                   <p>Drive targeted traffic to your website and generate quality leads with strategic social media advertising.</p>
-                                                                               </div>
-                                                                               {/* Card 4 */}
-                                                                               <div className="rounded-br-3xl rounded-tl-[60px] bg-gradient-to-br from-[#a78bfa] to-[#7c3aed] p-6 shadow-lg text-white">
-                                                                                   <h3 className="font-bold text-lg mb-2 text-white">Performance Tracking</h3>
-                                                                                   <p>Measure your success with in-depth analytics and reporting to optimize your campaigns for maximum ROI.</p>
-                                                                               </div>
-                                                            </div>
-                                                            {/* Right: Image */}
-                <div className="md:w-1/2 w-full flex justify-center mb-8 md:mb-0 order-2 md:order-2">
-                    <img src={social2Img} alt="Social Media Marketing Benefits" className="rounded-2xl shadow-xl max-w-lg w-full h-full object-cover" />
-                </div>
-                                            </div>
-                            </section>
+       {/* Benefits Section (Theme Aware) */}
+       <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-black' : 'bg-white'}`}>
+         <h2 className={`text-3xl md:text-4xl font-extrabold mb-10 tracking-wide text-center ${darkTheme ? 'text-white' : 'text-[#7c3aed]'}`}>Social Media Marketing Benefits</h2>
+         <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-12 px-4">
+        {/* Left: Content (2x2 Grid of Cards) */}
+        <div className="md:w-1/2 w-full grid grid-cols-1 md:grid-cols-2 gap-8 order-1 md:order-1">
+          {/* Card 1 */}
+          <div className="rounded-tl-3xl rounded-br-[60px] bg-gradient-to-br from-[#a78bfa] to-[#7c3aed] p-6 shadow-lg text-white">
+            <h3 className="font-bold text-lg mb-2 text-white">Brand Awareness</h3>
+            <p>Expand your brand’s reach and recognition across all major social platforms with consistent, creative content.</p>
+          </div>
+          {/* Card 2 */}
+          <div className={`${darkTheme ? 'bg-[#232136] text-white' : 'bg-white text-[#7c3aed]'} rounded-tr-3xl rounded-bl-[60px] p-6 shadow-lg`}>
+            <h3 className={`font-bold text-lg mb-2 ${darkTheme ? 'text-white' : 'text-[#7c3aed]'}`}>Audience Engagement</h3>
+            <p>Connect with your audience through interactive posts, stories, and campaigns that spark conversations and loyalty.</p>
+          </div>
+          {/* Card 3 */}
+          <div className={`${darkTheme ? 'bg-[#232136] text-white' : 'bg-white text-[#7c3aed]'} rounded-bl-3xl rounded-tr-[60px] p-6 shadow-lg`}>
+            <h3 className={`font-bold text-lg mb-2 ${darkTheme ? 'text-white' : 'text-[#7c3aed]'}`}>Lead Generation</h3>
+            <p>Drive targeted traffic to your website and generate quality leads with strategic social media advertising.</p>
+          </div>
+          {/* Card 4 */}
+          <div className="rounded-br-3xl rounded-tl-[60px] bg-gradient-to-br from-[#a78bfa] to-[#7c3aed] p-6 shadow-lg text-white">
+            <h3 className="font-bold text-lg mb-2 text-white">Performance Tracking</h3>
+            <p>Measure your success with in-depth analytics and reporting to optimize your campaigns for maximum ROI.</p>
+          </div>
+        </div>
+        {/* Right: Image */}
+        <div className="md:w-1/2 w-full flex justify-center mb-8 md:mb-0 order-2 md:order-2">
+          <img src={social2Img} alt="Social Media Marketing Benefits" className="rounded-2xl shadow-xl max-w-lg w-full h-full object-cover" />
+        </div>
+         </div>
+      </section>
 
                     {/* FAQs Section */}
                        <section className="w-full py-16 bg-[#c7a6fa] text-white flex flex-col items-center">
@@ -175,15 +171,15 @@ export default function SocialMediaMarketing() {
   </div>
 </section>
 
-                    {/* CTA Section */}
-                       <section className="w-full py-16 bg-white flex flex-col items-center">
-                           <div className="w-full max-w-3xl mx-auto text-center">
-                               <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-[#7c3aed]">Ready to Grow with Social Media?</h2>
-                               <p className="text-lg text-[#6d28d9] mb-8">Let our experts help you build your brand, engage your audience, and drive results through social media. Contact us today for a free consultation!</p>
-                               <a href="/contact" className="inline-block bg-gradient-to-r from-[#a78bfa] to-[#7c3aed] text-white font-bold px-8 py-4 rounded-full shadow-lg hover:from-[#7c3aed] hover:to-[#a78bfa] transition">Get Started</a>
-                           </div>
-                       </section>
-            <Footer />
+          {/* CTA Section (Theme Aware) */}
+             <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-black' : 'bg-white'}`}>
+               <div className="w-full max-w-3xl mx-auto text-center">
+                 <h2 className={`text-3xl md:text-4xl font-extrabold mb-4 ${darkTheme ? 'text-white' : 'text-[#7c3aed]'}`}>Ready to Grow with Social Media?</h2>
+                 <p className={`text-lg mb-8 ${darkTheme ? 'text-white' : 'text-[#6d28d9]'}`}>Let our experts help you build your brand, engage your audience, and drive results through social media. Contact us today for a free consultation!</p>
+                 <a href="/contact" className="inline-block bg-gradient-to-r from-[#a78bfa] to-[#7c3aed] text-white font-bold px-8 py-4 rounded-full shadow-lg hover:from-[#7c3aed] hover:to-[#a78bfa] transition">Get Started</a>
+               </div>
+             </section>
+      <Footer darkTheme={darkTheme} />
         </>
-    );
+  );
 }

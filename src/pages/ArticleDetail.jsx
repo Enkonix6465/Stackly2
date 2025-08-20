@@ -201,7 +201,7 @@ const articleDetails = [
   
 import { useLocation } from "react-router-dom";
 
-export default function ArticleDetail() {
+export default function ArticleDetail({ darkTheme, setDarkTheme }) {
   const { id } = useParams();
   const location = useLocation();
   const article = articleDetails.find((a) => a.id === id);
@@ -214,23 +214,23 @@ export default function ArticleDetail() {
     // If it's a user-created blog (not in articleDetails), show info from location.state
     if (location.state) {
       return (
-        <div className="w-full px-4">
-          <Header />
+        <div className={`w-full px-4 min-h-screen ${darkTheme ? 'bg-black text-white' : 'bg-white text-[#232136]'}`}>
+          <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
           <Link to="/blog" className="text-violet-600 pt-20mt-20 hover:underline">← Back to Blog</Link>
           <img src={location.state.image} alt={location.state.title} className="w-full h-100 object-cover rounded-lg mb-8" />
           <div className="flex items-center gap-2 mb-4">
             <img src={authorImage} alt={author} className="w-10 h-10 rounded-full object-cover" />
-            <span className="text-sm text-gray-600">By {author}</span>
+            <span className={`text-sm ${darkTheme ? 'text-gray-300' : 'text-gray-600'}`}>By {author}</span>
           </div>
           <h1 className="text-4xl font-bold mb-6 text-violet-700">{location.state.title}</h1>
-          <div className="text-lg text-gray-800 mb-8">{location.state.content}</div>
+          <div className="text-lg mb-8">{location.state.content}</div>
           <Link to="/blog" className="text-violet-600 hover:underline">← Back to Blog</Link>
-          <Footer />
+          <Footer darkTheme={darkTheme} />
         </div>
       );
     }
     return (
-      <div className="max-w-2xl mx-auto py-16 px-4 text-center">
+      <div className={`max-w-2xl mx-auto py-16 px-4 text-center ${darkTheme ? 'bg-black text-white' : 'bg-white text-[#232136]'}`}>
         <h2 className="text-2xl font-bold mb-4">Article Not Found</h2>
         <Link to="/blog" className="text-violet-600 hover:underline">Back to Blog</Link>
       </div>
@@ -238,18 +238,18 @@ export default function ArticleDetail() {
   }
 
   return (
-    <div className="w-full  px-4">
-      <Header />
+    <div className={`w-full px-4 min-h-screen ${darkTheme ? 'bg-black text-white' : 'bg-white text-[#232136]'}`}>
+      <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
       <Link to="/blog" className="text-violet-600 pt-20mt-20 hover:underline">← Back to Blog</Link>
       <img src={article.imgSrc} alt={article.title} className="w-full h-100 object-cover rounded-lg mb-8" />
       <div className="flex items-center gap-2 mb-4">
         <img src={authorImage} alt={author} className="w-10 h-10 rounded-full object-cover" />
-        <span className="text-sm text-gray-600">By {author}</span>
+        <span className={`text-sm ${darkTheme ? 'text-gray-300' : 'text-gray-600'}`}>By {author}</span>
       </div>
       <h1 className="text-4xl font-bold mb-6 text-violet-700">{article.title}</h1>
-      <div className="text-lg text-gray-800 mb-8">{article.content}</div>
+      <div className="text-lg mb-8">{article.content}</div>
       <Link to="/blog" className="text-violet-600 hover:underline">← Back to Blog</Link>
-      <Footer />
+      <Footer darkTheme={darkTheme} />
     </div>
   );
 }

@@ -9,14 +9,14 @@ import valuesImg from "../assets/values.jpg";
 import Header from "../Header";
 import Footer from "../Footer";
 
-export default function AboutUs() {
+export default function AboutUs({ darkTheme, setDarkTheme }) {
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
   }, []);
   return (
     <>
-      <Header />
-      <main className="w-full min-h-screen bg-white">
+      <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+      <main className={`w-full min-h-screen ${darkTheme ? 'bg-[#18181c]' : 'bg-white'}`}>
       {/* Hero Section with Video Background */}
   <section className="relative w-full h-screen flex items-center justify-center overflow-hidden" data-aos="fade-up">
         <video
@@ -38,7 +38,7 @@ export default function AboutUs() {
       </section>
 
       {/* Our Growth Through Years Section (inline, matches image) */}
-  <section className="w-full bg-white py-20 flex flex-col items-center" data-aos="fade-up">
+  <section className={`w-full py-20 flex flex-col items-center ${darkTheme ? 'bg-black' : 'bg-white'}`} data-aos="fade-up">
         <h2 className="text-3xl md:text-4xl font-extrabold mb-12 tracking-wide" style={{color:'#a259c6'}}>Our Growth Through Years</h2>
         <div className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 px-4">
           {[
@@ -51,7 +51,7 @@ export default function AboutUs() {
           ].map((item, i) => (
             <div
               key={i}
-              className="flex flex-col items-center text-center bg-[#18181c] rounded-xl py-8 px-4 shadow-lg relative h-64 border border-[#2d1b3c]"
+              className={`flex flex-col items-center text-center rounded-xl py-8 px-4 shadow-lg relative h-64 border ${darkTheme ? 'bg-white border-[#2d1b3c]' : 'bg-[#18181c] border-[#2d1b3c]'}`}
             >
               <div
                 className={`text-2xl font-bold mb-2 bg-gradient-to-b ${item.color} text-transparent bg-clip-text`}
@@ -59,15 +59,15 @@ export default function AboutUs() {
               >
                 {item.year}
               </div>
-              <div className="text-white font-semibold text-base mb-2 tracking-wide">{item.title}</div>
-              <div className="text-gray-300 text-sm leading-relaxed  max-w-[180px] mx-auto" dangerouslySetInnerHTML={{__html: item.desc}}></div>
+              <div className={`${darkTheme ? 'text-black' : 'text-white'} font-semibold text-base mb-2 tracking-wide`}>{item.title}</div>
+              <div className={`${darkTheme ? 'text-black' : 'text-gray-300'} text-sm leading-relaxed  max-w-[180px] mx-auto`} dangerouslySetInnerHTML={{__html: item.desc}}></div>
             </div>
           ))}
         </div>
       </section>
       {/* What Makes Us Unique Section */}
       {/* Our Vision & Our Mission Section */}
-  <section className="w-full py-16 bg-[#c7a6fa] flex flex-col items-center" data-aos="fade-right">
+  <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-[#232136]' : 'bg-[#c7a6fa]'}`} data-aos="fade-right">
         <div className="w-full max-w-5xl flex flex-col md:flex-row gap-10 items-center justify-center">
           {/* Left: Image */}
           <div className="flex-1 flex items-center justify-center mb-8 md:mb-0" data-aos="zoom-in">
@@ -77,19 +77,19 @@ export default function AboutUs() {
           </div>
           {/* Right: Vision & Mission Cards */}
           <div className="flex-1 flex flex-col gap-8 min-w-[260px] max-w-md" data-aos="fade-left">
-            <div className="bg-white rounded-[2.5rem] shadow-xl p-8 flex flex-col items-center text-center">
+            <div className={`rounded-[2.5rem] shadow-xl p-8 flex flex-col items-center text-center ${darkTheme ? 'bg-black' : 'bg-white'}`}>
               <h3 className="text-2xl font-bold mb-3" style={{color:'#a259c6'}}>Our Vision</h3>
-              <p className="text-gray-700 text-justify text-base">To empower businesses of all sizes to thrive in the digital world by delivering innovative, data-driven marketing solutions that inspire growth and lasting impact.</p>
+              <p className={`${darkTheme ? 'text-white' : 'text-gray-700'} text-justify text-base`}>To empower businesses of all sizes to thrive in the digital world by delivering innovative, data-driven marketing solutions that inspire growth and lasting impact.</p>
             </div>
-            <div className="bg-white rounded-[2.5rem] shadow-xl p-8 flex flex-col items-center text-center">
+            <div className={`rounded-[2.5rem] shadow-xl p-8 flex flex-col items-center text-center ${darkTheme ? 'bg-black' : 'bg-white'}`}>
               <h3 className="text-2xl font-bold mb-3" style={{color:'#a259c6'}}>Our Mission</h3>
-              <p className="text-gray-700 text-justify text-base">To partner with our clients on their digital journey, providing expert guidance, creative strategies, and measurable results that drive their business forward.</p>
+              <p className={`${darkTheme ? 'text-white' : 'text-gray-700'} text-justify text-base`}>To partner with our clients on their digital journey, providing expert guidance, creative strategies, and measurable results that drive their business forward.</p>
             </div>
           </div>
         </div>
       </section>
       {/* What Makes Us Unique Section (moved and themed) */}
-  <section className="w-full py-16 bg-[#f7f7f7] flex flex-col items-center" data-aos="fade-up">
+  <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-black' : 'bg-[#f7f7f7]'}`} data-aos="fade-up">
         <h2 className="text-3xl md:text-4xl font-extrabold mb-12 tracking-wide text-[#a259c6]">What Makes Us Unique</h2>
         <div className="w-full max-w-6xl flex flex-col md:flex-row gap-10 items-center justify-between px-4">
           {/* Left: Unique Image */}
@@ -151,54 +151,54 @@ export default function AboutUs() {
       </section>
        
       {/* Our Values Section */}
-  <section className="w-full py-16 bg-white flex flex-col items-center" data-aos="fade-up">
-        <h2 className="text-3xl md:text-4xl font-extrabold mb-12 tracking-wide text-[#a259c6]">Our Values</h2>
-        <div className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-between px-4 gap-10">
+  <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-black' : 'bg-white'}`} data-aos="fade-up">
+  <h2 className="text-3xl md:text-4xl font-extrabold mb-12 tracking-wide text-[#a259c6]">Our Values</h2>
+  <div className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-between px-4 gap-10">
           {/* Left: Diamond Cards */}
           <div className="flex-1 flex flex-col items-center" data-aos="fade-right">
             <div className="flex flex-row justify-center items-end gap-10 mb-[-30px]">
               {/* Card 1 */}
               <div className="relative flex flex-col items-center">
-                <div className="transform rotate-45 w-40 h-40 bg-white border-2 border-[#a259c6] flex flex-col items-center justify-center shadow-xl">
+                <div className={`transform rotate-45 w-40 h-40 border-2 border-[#a259c6] flex flex-col items-center justify-center shadow-xl ${darkTheme ? 'bg-black' : 'bg-white'}`}> 
                   <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-3xl font-bold text-[#a259c6]">1</span>
-                  <span className="transform -rotate-45 text-[#232136] font-bold text-lg">Transparency</span>
-                  <span className="transform -rotate-45 text-xs text-gray-600 text-center mt-2">Open, honest reporting on every campaign.</span>
+                  <span className={`transform -rotate-45 font-bold text-lg ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>Transparency</span>
+                  <span className={`transform -rotate-45 text-xs text-center mt-2 ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Open, honest reporting on every campaign.</span>
                 </div>
               </div>
               {/* Card 2 */}
               <div className="relative flex flex-col items-center">
-                <div className="transform rotate-45 w-40 h-40 bg-white border-2 border-[#a259c6] flex flex-col items-center justify-center shadow-xl">
+                <div className={`transform rotate-45 w-40 h-40 border-2 border-[#a259c6] flex flex-col items-center justify-center shadow-xl ${darkTheme ? 'bg-black' : 'bg-white'}`}> 
                   <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-3xl font-bold text-[#a259c6]">2</span>
-                  <span className="transform -rotate-45 text-[#232136] font-bold text-lg">Innovation</span>
-                  <span className="transform -rotate-45 text-xs text-gray-600 text-center mt-2">Creative, data-driven digital strategies.</span>
+                  <span className={`transform -rotate-45 font-bold text-lg ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>Innovation</span>
+                  <span className={`transform -rotate-45 text-xs text-center mt-2 ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Creative, data-driven digital strategies.</span>
                 </div>
               </div>
             </div>
             <div className="flex flex-row justify-center items-center gap-10 mb-[-30px]">
               {/* Card 3 (center) */}
               <div className="relative flex flex-col items-center">
-                <div className="transform rotate-45 w-40 h-40 bg-white border-2 border-[#a259c6] flex flex-col items-center justify-center shadow-xl">
+                <div className={`transform rotate-45 w-40 h-40 border-2 border-[#a259c6] flex flex-col items-center justify-center shadow-xl ${darkTheme ? 'bg-black' : 'bg-white'}`}> 
                   <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-3xl font-bold text-[#a259c6]">3</span>
-                  <span className="transform -rotate-45 text-[#232136] font-bold text-lg">Collaboration</span>
-                  <span className="transform -rotate-45 text-xs text-gray-600 text-center mt-2">Working together for your success.</span>
+                  <span className={`transform -rotate-45 font-bold text-lg ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>Collaboration</span>
+                  <span className={`transform -rotate-45 text-xs text-center mt-2 ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Working together for your success.</span>
                 </div>
               </div>
             </div>
             <div className="flex flex-row justify-center items-start gap-10 mt-[-30px]">
               {/* Card 4 */}
               <div className="relative flex flex-col items-center">
-                <div className="transform rotate-45 w-40 h-40 bg-white border-2 border-[#a259c6] flex flex-col items-center justify-center shadow-xl">
+                <div className={`transform rotate-45 w-40 h-40 border-2 border-[#a259c6] flex flex-col items-center justify-center shadow-xl ${darkTheme ? 'bg-black' : 'bg-white'}`}> 
                   <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-3xl font-bold text-[#a259c6]">4</span>
-                  <span className="transform -rotate-45 text-[#232136] font-bold text-lg">Results</span>
-                  <span className="transform -rotate-45 text-xs text-gray-600 text-center mt-2">Focused on measurable growth.</span>
+                  <span className={`transform -rotate-45 font-bold text-lg ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>Results</span>
+                  <span className={`transform -rotate-45 text-xs text-center mt-2 ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Focused on measurable growth.</span>
                 </div>
               </div>
               {/* Card 5 */}
               <div className="relative flex flex-col items-center">
-                <div className="transform rotate-45 w-40 h-40 bg-white border-2 border-[#a259c6] flex flex-col items-center justify-center shadow-xl">
+                <div className={`transform rotate-45 w-40 h-40 border-2 border-[#a259c6] flex flex-col items-center justify-center shadow-xl ${darkTheme ? 'bg-black' : 'bg-white'}`}> 
                   <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-3xl font-bold text-[#a259c6]">5</span>
-                  <span className="transform -rotate-45 text-[#232136] font-bold text-lg">Growth</span>
-                  <span className="transform -rotate-45 text-xs text-gray-600 text-center mt-2">Always learning, always improving.</span>
+                  <span className={`transform -rotate-45 font-bold text-lg ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>Growth</span>
+                  <span className={`transform -rotate-45 text-xs text-center mt-2 ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Always learning, always improving.</span>
                 </div>
               </div>
             </div>
@@ -213,7 +213,7 @@ export default function AboutUs() {
       </section>
       {/* More sections will go here */}
       </main>
-      <Footer />
+  <Footer darkTheme={darkTheme} />
     </>
   );
 }

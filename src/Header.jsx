@@ -2,27 +2,42 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "./assets/logo.png";
 
-export default function Header() {
+export default function Header({ darkTheme, setDarkTheme }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  // ...existing code...
   const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
-  // Get logged-in user initials
+  // Robust initials logic: handle both string and object for loggedInUser
   let initials = "?";
-  const loggedInEmail = localStorage.getItem("loggedInUser");
-  if (loggedInEmail) {
+  let loggedInUser = localStorage.getItem("loggedInUser");
+  let email = null;
+  try {
+    // Try to parse as object (if stored as JSON)
+    const parsed = JSON.parse(loggedInUser);
+    if (parsed && typeof parsed === 'object' && parsed.email) {
+      email = parsed.email;
+    } else if (typeof parsed === 'string') {
+      email = parsed;
+    }
+  } catch {
+    // Not JSON, treat as plain string
+    email = loggedInUser;
+  }
+  if (email) {
     const users = JSON.parse(localStorage.getItem("users")) || [];
-    const user = users.find(u => u.email === loggedInEmail);
+    const user = users.find(u => u.email === email);
     if (user) {
       const first = user.firstName && user.firstName.trim().length > 0 ? user.firstName.trim()[0] : "";
       const last = user.lastName && user.lastName.trim().length > 0 ? user.lastName.trim()[0] : "";
       if (first || last) {
         initials = `${first}${last}`.toUpperCase();
+      } else if (first) {
+        initials = first.toUpperCase();
       }
+    } else {
+      initials = "U"; // Unknown user
     }
   }
   const [isHomeDropdownOpen, setIsHomeDropdownOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleHomeDropdown = () => {
     setIsHomeDropdownOpen(!isHomeDropdownOpen);
@@ -35,12 +50,12 @@ export default function Header() {
   };
 
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+    setDarkTheme((prev) => !prev);
   };
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 relative z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className={`${darkTheme ? 'bg-[#18181c] text-white border-[#232136]' : 'bg-white text-[#232136] border-gray-200'} shadow-sm border-b relative z-50`}>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
@@ -50,12 +65,12 @@ export default function Header() {
           </div>
 
           {/* Navigation and Icons */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className={`hidden md:flex items-center space-x-8 ${darkTheme ? 'text-white' : 'text-gray-700'}`}>
             {/* Home Dropdown */}
             <div className="relative">
               <button
                 onClick={toggleHomeDropdown}
-                className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                className={`flex items-center space-x-1 transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
               >
                 <span>Home</span>
                 <svg
@@ -99,7 +114,7 @@ export default function Header() {
 
             <Link
               to="/about"
-              className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
+              className={`transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
             >
               About Us
             </Link>
@@ -108,7 +123,7 @@ export default function Header() {
             <div className="relative flex items-center">
               <Link
                 to="/services"
-                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 pr-1"
+                className={`transition-colors duration-200 pr-1 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
                 style={{ display: 'flex', alignItems: 'center' }}
                 onClick={() => setIsServicesDropdownOpen(false)}
               >
@@ -116,7 +131,7 @@ export default function Header() {
               </Link>
               <button
                 onClick={toggleServicesDropdown}
-                className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                className={`flex items-center transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
                 style={{ paddingLeft: 2 }}
                 aria-label="Toggle Services Dropdown"
               >
@@ -186,14 +201,14 @@ export default function Header() {
 
             <Link
               to="/blog"
-              className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
+              className={`transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
             >
               Blog
             </Link>
 
             <Link
               to="/contactus"
-              className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
+              className={`transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
             >
               Contact Us
             </Link>
@@ -203,10 +218,11 @@ export default function Header() {
               {/* Dark mode toggle */}
               <button
                 onClick={toggleDarkMode}
-                className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+                className={`p-2 rounded-lg transition-colors duration-200 ${darkTheme ? 'bg-[#232136] text-[#a259c6] hover:bg-[#a259c6] hover:text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                aria-label="Toggle dark theme"
               >
                 <svg
-                  className="w-5 h-5 text-gray-600"
+                  className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -222,43 +238,32 @@ export default function Header() {
 
               {/* Profile button */}
               <div className="relative">
-                {(() => {
-                  let initials = '';
-                  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
-                  if (loggedInUser) {
-                    const first = loggedInUser.firstName ? loggedInUser.firstName.trim()[0] : '';
-                    const last = loggedInUser.lastName ? loggedInUser.lastName.trim()[0] : '';
-                    initials = `${first}${last}`.toUpperCase();
-                  }
-                  return (
-                    <>
+                <>
+                  <button
+                    className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full flex items-center justify-center font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-200"
+                    onClick={() => setIsAvatarDropdownOpen((v) => !v)}
+                  >
+                    {initials}
+                  </button>
+                  {isAvatarDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
                       <button
-                        className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full flex items-center justify-center font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-200"
-                        onClick={() => setIsAvatarDropdownOpen((v) => !v)}
+                        className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-orange-100"
+                        onClick={() => { setIsAvatarDropdownOpen(false); window.location.href = '/'; }}
                       >
-                        {initials}
+                        Logout
                       </button>
-                      {isAvatarDropdownOpen && (
-                        <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
-                          <button
-                            className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-orange-100"
-                            onClick={() => { setIsAvatarDropdownOpen(false); window.location.href = '/'; }}
-                          >
-                            Logout
-                          </button>
-                        </div>
-                      )}
-                    </>
-                  );
-                })()}
+                    </div>
+                  )}
+                </>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu button */}
-      <div className="md:hidden relative">
+      {/* Mobile menu button - moved to right */}
+      <div className="md:hidden absolute right-4 top-4">
         <button
           className="p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100"
           onClick={() => setIsMobileMenuOpen((open) => !open)}
@@ -279,14 +284,24 @@ export default function Header() {
           </svg>
         </button>
         {isMobileMenuOpen && (
-          <div className="fixed top-0 left-0 w-full bg-white rounded-b-md shadow-lg border-b border-gray-200 z-50">
-            <nav className="flex flex-col py-2">
+          <div className="fixed top-0 left-0 h-full w-4/5 max-w-xs bg-white shadow-lg border-r border-gray-200 z-50 transition-transform duration-300" style={{ minHeight: '100vh' }}>
+            <nav className="flex flex-col py-2 sticky top-0">
               <Link to="/" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
               <Link to="/home1" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Home1</Link>
               <Link to="/home2" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Home2</Link>
               <Link to="/about" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
-              <details>
-                <summary className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Services</summary>
+              <details open>
+                <summary
+                  className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
+                  onClick={e => {
+                    e.preventDefault();
+                    window.location.href = '/services';
+                    setIsMobileMenuOpen(false);
+                  }}
+                  style={{ listStyle: 'none' }}
+                >
+                  Services
+                </summary>
                 <div className="flex flex-col ml-4">
                   <Link to="/services/seo" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Search Engine Optimization (SEO)</Link>
                   <Link to="/services/smm" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Social Media Marketing (SMM)</Link>

@@ -11,7 +11,7 @@ const sections = [
   { key: "integrations", label: "Integrations" },
 ];
 
-export default function AdminDashboard() {
+export default function AdminDashboard({ darkTheme, setDarkTheme }) {
   // State for editing a blog
   const [editForm, setEditForm] = useState({
     title: '',
@@ -28,7 +28,6 @@ export default function AdminDashboard() {
   });
   const [editIndex, setEditIndex] = useState(null);
   const [activeSection, setActiveSection] = useState("users");
-  const [darkMode, setDarkMode] = useState(true);
   // State for Edit Modal
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -219,26 +218,41 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-[#f8f6ff] to-[#f3eaff] text-[#222] flex flex-col">
-      <Header />
-      <div className="flex flex-1">
-      {/* Sidebar */}
-      <aside className="w-56 bg-[#f3eaff] flex flex-col p-4 border-r border-[#e5d6fa]">
-        <h2 className="text-xl font-bold text-center mb-6 text-[#53295a]">☰ Dashboard</h2>
-        {sections.map((sec) => (
-          <button
-            key={sec.key}
-            className={`text-left px-4 py-2 rounded mb-2 font-medium flex items-center transition ${activeSection === sec.key ? "bg-[#a259c6] text-white border-2 border-[#53295a]" : "text-[#53295a] hover:bg-[#e5d6fa]"}`}
-            style={activeSection === sec.key ? { boxShadow: '0 0 0 2px #a259c6' } : {}}
-            onClick={() => setActiveSection(sec.key)}
+  <div className={`relative max-w-screen min-h-screen ${darkTheme ? 'bg-[#18181c]' : ''}`}> 
+      <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+      <div className="flex flex-1 flex-col md:flex-row">
+        {/* Mobile Sidebar Toggle */}
+        <div className="md:hidden w-full flex justify-between items-center px-4 py-2 bg-[#f3eaff] border-b border-[#e5d6fa] sticky top-0 z-30">
+          <h2 className={`text-xl font-bold ${darkTheme ? 'text-[#f3eaff]' : 'text-[#53295a]'}`}>☰ Dashboard</h2>
+          <select
+            className="rounded px-2 py-1 border border-[#a259c6] text-[#a259c6] bg-white"
+            value={activeSection}
+            onChange={e => setActiveSection(e.target.value)}
           >
-            {sec.label}
-          </button>
-        ))}
-      </aside>
-      {/* Main Content */}
-      <main className="flex-1 p-8">
-        <header className="bg-white p-4 rounded mb-6 text-2xl font-bold border border-[#e5d6fa] shadow-sm text-[#a259c6] tracking-wide">
+            {sections.map(sec => (
+              <option key={sec.key} value={sec.key}>{sec.label}</option>
+            ))}
+          </select>
+        </div>
+        {/* Sidebar for desktop */}
+        <aside className={`hidden md:flex w-56 flex-col p-4 border-r ${darkTheme ? 'bg-[#232136] border-[#3a2352]' : 'bg-[#f3eaff] border-[#e5d6fa]'}`}> 
+          <div className="mb-6">
+            <h2 className={`text-xl font-bold text-center ${darkTheme ? 'text-[#f3eaff]' : 'text-[#53295a]'}`}>☰ Dashboard</h2>
+          </div>
+          {sections.map((sec) => (
+            <button
+              key={sec.key}
+              className={`text-left px-4 py-2 rounded mb-2 font-medium flex items-center transition ${activeSection === sec.key ? (darkTheme ? 'bg-[#a259c6] text-white border-2 border-[#f3eaff]' : 'bg-[#a259c6] text-white border-2 border-[#53295a]') : (darkTheme ? 'text-[#f3eaff] hover:bg-[#232136]' : 'text-[#53295a] hover:bg-[#e5d6fa]')}`}
+              style={activeSection === sec.key ? { boxShadow: `0 0 0 2px #a259c6` } : {}}
+              onClick={() => setActiveSection(sec.key)}
+            >
+              {sec.label}
+            </button>
+          ))}
+        </aside>
+        {/* Main Content */}
+        <main className={`flex-1 p-2 md:p-8 ${darkTheme ? 'bg-[#18181c] text-white' : ''}`}> 
+        <header className={`p-4 rounded mb-6 text-2xl font-bold border shadow-sm tracking-wide ${darkTheme ? 'bg-[#232136] border-[#3a2352] text-[#a259c6]' : 'bg-white border-[#e5d6fa] text-[#a259c6]'}`}> 
           Admin Dashboard
         </header>
         {/* Section Content */}

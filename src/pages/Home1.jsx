@@ -15,8 +15,7 @@ import "aos/dist/aos.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
-
-export default function Home() {
+export default function Home({ darkTheme, setDarkTheme }) {
   const navigate = useNavigate();
   const location = useLocation();
   const whoWeAreRef = React.useRef(null);
@@ -154,10 +153,10 @@ export default function Home() {
   };
 
   return (
-    <div className="relative overflow-hidden">
-      <Header />
+  <div className={`relative overflow-hidden min-h-screen ${darkTheme ? 'bg-black' : ''}`}> 
+  <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
       {/* Hero Section */}
-  <section className="relative h-screen" data-aos="fade-up">
+  <section className={`relative h-screen ${darkTheme ? 'bg-[#18181c]' : ''}`} data-aos="fade-up">
   {/* Video Background */}
   <div className="absolute inset-0 bg-black z-0 animate-fade-in">
           <video
@@ -176,7 +175,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
         
         {/* Hero Content */}
-        <div className="relative z-20 h-full flex flex-col items-center justify-center text-white text-center px-4">
+  <div className={`relative z-20 h-full flex flex-col items-center justify-center text-center px-4 ${darkTheme ? 'text-white' : ''}`}>
           <div className="max-w-4xl mx-auto animate-fade-in-up">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
               Transform Your Business with
@@ -220,8 +219,8 @@ export default function Home() {
       {/* Animated Metrics Script */}
 
       {/* Who We Are Section */}
-  <section ref={whoWeAreRef} className="relative z-20 bg-white py-20" data-aos="fade-right">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in-up">
+  <section ref={whoWeAreRef} className={`relative z-20 py-20 ${darkTheme ? 'bg-[#000] text-white' : 'bg-white'}`} data-aos="fade-right">
+  <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in-up ${darkTheme ? 'bg-black' : ''}`}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
             {/* Left Side - Image */}
             <div className="relative h-full" data-aos="fade-right">
@@ -250,45 +249,45 @@ export default function Home() {
 
             {/* Right Side - Content */}
             <div className="space-y-6" data-aos="fade-left">
-                <h2 className="text-4xl md:text-5xl font-bold" style={{ color: '#2d174d' }}>Why Choose Us</h2>
-                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                <h2 className={`text-4xl md:text-5xl font-bold   ${darkTheme ? 'text-white' : 'text-gray-700'}`}>Why Choose Us</h2>
+                <p className={`text-lg leading-relaxed mb-6 ${darkTheme ? 'text-white' : 'text-gray-700'}`}>
                   Discover what sets us apart: expertise, data-driven results, 24/7 support, and a proven track record of successful website projects. Partner with us for your website's digital growth and online success.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
-                  <div className="flex items-start gap-4 bg-[#f6f2fa] rounded-xl p-4">
+                  <div className={`flex items-start gap-4 rounded-xl p-4 ${darkTheme ? 'bg-black' : 'bg-[#f6f2fa]'}`}> 
                     <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-[#6c3477]">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#2d174d] mb-1">Expert Team</h3>
-                      <p className="text-gray-600 text-sm">Certified professionals with proven website project track records.</p>
+                      <h3 className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Expert Team</h3>
+                      <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Certified professionals with proven website project track records.</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4 bg-[#f6f2fa] rounded-xl p-4">
+                  <div className={`flex items-start gap-4 rounded-xl p-4 ${darkTheme ? 'bg-black' : 'bg-[#f6f2fa]'}`}> 
                     <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-[#6c3477]">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#2d174d] mb-1">Data-Driven</h3>
-                      <p className="text-gray-600 text-sm">Website results backed by analytics and insights.</p>
+                      <h3 className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`} >Data-Driven</h3>
+                      <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Website results backed by analytics and insights.</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4 bg-[#f6f2fa] rounded-xl p-4">
+                  <div className={`flex items-start gap-4 rounded-xl p-4 ${darkTheme ? 'bg-black' : 'bg-[#f6f2fa]'}`}> 
                     <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-[#6c3477]">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#2d174d] mb-1">24/7 Support</h3>
-                      <p className="text-gray-600 text-sm">Round-the-clock website assistance for your success.</p>
+                      <h3  className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>24/7 Support</h3>
+                      <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Round-the-clock website assistance for your success.</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4 bg-[#f6f2fa] rounded-xl p-4">
+                  <div className={`flex items-start gap-4 rounded-xl p-4 ${darkTheme ? 'bg-black' : 'bg-[#f6f2fa]'}`}> 
                     <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-[#6c3477]">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" strokeWidth="2" fill="none" />
@@ -296,8 +295,8 @@ export default function Home() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#2d174d] mb-1">Proven Results</h3>
-                      <p className="text-gray-600 text-sm">Proven track record of successful website campaigns.</p>
+                      <h3 className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Proven Results</h3>
+                      <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Proven track record of successful website campaigns.</p>
                     </div>
                   </div>
                 </div>
@@ -319,7 +318,7 @@ export default function Home() {
 
       {/* Our Top Services Section with purple background */}
       <section
-        className="relative z-20 py-20 animate-fade-in"
+        className={`relative z-20 py-20 animate-fade-in`}
         data-aos="fade-left"
         style={{
           backgroundColor: '#c7a6fa'
@@ -403,14 +402,21 @@ export default function Home() {
 
 
       {/* Impact Metrics Section (reference style) */}
-  <section className="relative z-10 py-20 bg-white" data-aos="fade-up">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
+  <section className={`relative z-10 py-20 ${darkTheme ? 'bg-[#000] text-white' : 'bg-white'}`} data-aos="fade-up">
+  <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in ${darkTheme ? 'bg-black' : ''}`}>
           <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between mb-12 gap-8">
             {/* Main Metric and Description (Digital Marketing) */}
             <div className="flex-1 flex flex-col items-start" data-aos="fade-right">
               {/* Styled lines as in the reference image */}
               <div className="mb-2">
-                <span style={{ display: 'block', color: '#111', fontWeight: 700, fontSize: '2.5rem', letterSpacing: '1px', lineHeight: 1 }}>marketing is</span>
+                <span style={{
+                  display: 'block',
+                  color: darkTheme ? '#fff' : '#111',
+                  fontWeight: 700,
+                  fontSize: '2.5rem',
+                  letterSpacing: '1px',
+                  lineHeight: 1
+                }}>marketing is</span>
                 <span style={{
                   display: 'block',
                   width: '12rem',
@@ -420,7 +426,7 @@ export default function Home() {
                 }}>
                   <span style={{
                     display: 'flex',
-                    color: '#53295a',
+                    color: darkTheme ? '#b57edc' : '#53295a',
                     fontWeight: 700,
                     fontSize: '2.5rem',
                     letterSpacing: '1px',
@@ -440,7 +446,7 @@ export default function Home() {
                 <span className="text-lg font-semibold slide-in-metric-label" style={{ color: '#8d6fd1' }}>Campaigns Launched</span>
               </div>
               <p className="text-lg text-justify text-[#53295a] max-w-2xl mb-4">
-                We have successfully launched 50+ digital marketing campaigns, helping brands increase their online presence, generate quality leads, and boost ROI. Our expertise covers SEO, social media, PPC, content marketing, and analytics—empowering businesses to reach their target audience and achieve measurable growth in the digital landscape.
+                <span className={`text-lg text-justify max-w-2xl mb-4 ${darkTheme ? 'text-white' : 'text-[#53295a]'}`}>We have successfully launched 50+ digital marketing campaigns, helping brands increase their online presence, generate quality leads, and boost ROI. Our expertise covers SEO, social media, PPC, content marketing, and analytics—empowering businesses to reach their target audience and achieve measurable growth in the digital landscape.</span>
               </p>
             </div>
             {/* Impact Image on the right */}
@@ -477,15 +483,15 @@ export default function Home() {
 
 
       {/* What Our Clients Say Section */}
-  <section className="relative z-10 py-20 bg-[#c7a6fa]" data-aos="fade-right">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in-up">
-          <div className="bg-white bg-opacity-80 rounded-2xl shadow-xl p-10">
+  <section className={`relative z-10 py-20`} data-aos="fade-right" style={{ backgroundColor: '#c7a6fa' }}>
+  <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in-up`}>
+          <div className={`rounded-2xl shadow-xl p-10 bg-white bg-opacity-80`}> 
             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-6">
               <div data-aos="fade-right">
                 <h2 className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#53295a' }}>
                   What Our <span style={{ color: '#a259c6' }}>Clients Say</span>
                 </h2>
-                <p className="text-lg text-gray-700 max-w-xl">
+                <p className="text-lg max-w-xl" style={{ color: darkTheme ? '#fff' : '#4b5563' }}>
                   Real feedback from businesses that trust us! See how we help brands grow.
                 </p>
               </div>
@@ -583,13 +589,13 @@ export default function Home() {
                               <svg className="w-6 h-6 mr-2" style={{ color: t.icon }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7v4a2 2 0 01-2 2h-3v3a2 2 0 01-2 2H7a2 2 0 01-2-2v-3a2 2 0 012-2h3V7a2 2 0 012-2h3a2 2 0 012 2z" /></svg>
                               <span className="text-xs text-gray-400">{t.title}</span>
                             </div>
-                            <p className="text-gray-700  text-justify text-sm mb-4">{t.text}</p>
+                            <p className="text-justify text-sm mb-4 text-black">{t.text}</p>
                           </div>
                           <div className="flex items-center mt-4" data-aos="fade-left">
                             <img src={t.img} alt={t.name} className="w-10 h-10 rounded-full mr-3" />
                             <div>
                               <span className="font-bold text-[#53295a] text-sm">{t.name}</span>
-                              <div className="text-xs text-gray-500">{t.role}</div>
+                              <div className={`text-xs ${darkTheme ? 'text-white' : 'text-gray-500'}`}>{t.role}</div>
                             </div>
                           </div>
                           <div className="flex mt-2">
@@ -621,18 +627,18 @@ export default function Home() {
         </div>
       </section>
       {/* CTA Section (moved below testimonials) */}
-  <section className="relative z-20 bg-white py-20" data-aos="fade-left">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
+  <section className={`relative z-20 py-20 ${darkTheme ? 'bg-[#000] text-white' : 'bg-white'}`} data-aos="fade-left">
+  <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in ${darkTheme ? 'bg-black' : ''}`}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Left: Content */}
             <div className="order-2 md:order-1">
               <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-                <span className="text-black">Get Started </span>
+                <span className={`${darkTheme ? 'text-white' : 'text-black'}`}>Get Started </span>
                 <span className="text-[#a259c6]">Today</span>
               </h2>
               <p className="text-lg mb-8 text-justify text-[#53295a] max-w-2xl">
-                Drive growth, increase engagement, and dominate your market with our cutting-edge digital marketing strategies. 
-                From SEO to social media, we've got your success covered.
+                <span className={`text-lg mb-8 text-justify max-w-2xl ${darkTheme ? 'text-white' : 'text-[#53295a]'}`}>Drive growth, increase engagement, and dominate your market with our cutting-edge digital marketing strategies. 
+                From SEO to social media, we've got your success covered.</span>
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
@@ -650,7 +656,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Footer />
+  <Footer darkTheme={darkTheme} />
     </div>
   );
 }

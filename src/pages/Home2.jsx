@@ -137,7 +137,7 @@ function TrendsTips() {
   );
 }
 
-const Home2 = () => {
+const Home2 = ({ darkTheme, setDarkTheme }) => {
   const navigate = useNavigate();
   useEffect(() => {
     AOS.init({
@@ -146,10 +146,10 @@ const Home2 = () => {
     });
   }, []);
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
-      <Header />
+    <div className={`relative min-h-screen w-full overflow-hidden ${darkTheme ? 'bg-black text-white' : ''}`}>
+      <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
       {/* Hero Section with Video Background */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden" data-aos="fade-up">
+  <section className={`relative h-screen flex items-center justify-center overflow-hidden ${darkTheme ? 'bg-black' : ''}`} data-aos="fade-up">
         {/* Video Background */}
         <video
           autoPlay
@@ -163,9 +163,9 @@ const Home2 = () => {
           Your browser does not support the video tag.
         </video>
         {/* Subtle Overlay for readability */}
-        <div className="absolute inset-0 bg-black bg-opacity-30 z-10"></div>
+  <div className="absolute inset-0 bg-black bg-opacity-30 z-10"></div>
         {/* Hero Content */}
-        <div className="relative z-20 flex flex-col items-center justify-center text-white text-center px-4 animate-fade-in-up w-full">
+  <div className={`relative z-20 flex flex-col items-center justify-center text-center px-4 animate-fade-in-up w-full ${darkTheme ? 'text-white' : ''}`}>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Elevate Your Brand with
             <span className="ml-3 bg-clip-text text-transparent inline-block" style={{
@@ -182,54 +182,54 @@ const Home2 = () => {
         </div>
       </section>
       {/* Meet Our Team Section (redesigned) */}
-  <section className="relative z-20 bg-white py-20" data-aos="fade-right">
+  <section className={`relative z-20 py-20 ${darkTheme ? 'bg-black text-white' : 'bg-white'}`} data-aos="fade-right">
         <div className="max-w-5xl mx-auto px-4 animate-fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-bold mb-2 text-center text-[#222]" style={{ fontFamily: 'serif' }}>Meet The Team</h2>
-          <p className="text-lg text-center mb-10 text-gray-600">Behind The Creative Process Of Building Your Brand</p>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-2 text-center ${darkTheme ? 'text-white' : 'text-[#222]'}`} style={{ fontFamily: 'serif' }}>Meet The Team</h2>
+          <p className={`text-lg text-center mb-10 ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Behind The Creative Process Of Building Your Brand</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-12 gap-x-6">
             {/* Row 1 */}
             <div className="flex flex-col items-center">
               <div className="w-32 h-32 rounded-full border-8 border-[#a259c6] flex items-center justify-center overflow-hidden mb-4">
                 <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Aaren Davis" className="w-full h-full object-cover" />
               </div>
-              <div className="text-lg font-semibold text-gray-800">Aaren Davis</div>
-              <div className="text-sm text-gray-500 mt-1">MARKETING EXPERT</div>
+              <div className={`text-lg ${darkTheme ? 'text-white' : 'text-gray-600'} font-semibold text-gray-800`}>Aaren Davis</div>
+              <div className={`text-lg ${darkTheme ? 'text-white' : 'text-gray-600'} text-sm text-gray-500 mt-1`}>MARKETING EXPERT</div>
             </div>
             <div className="flex flex-col items-center">
               <div className="w-32 h-32 rounded-full border-8 border-[#a259c6] flex items-center justify-center overflow-hidden mb-4">
                 <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Cadence Daniel" className="w-full h-full object-cover" />
               </div>
-              <div className="text-lg font-semibold text-gray-800">Cadence Daniel</div>
-              <div className="text-sm text-gray-500 mt-1">ADVERTISING HEAD</div>
+              <div className={`text-lg ${darkTheme ? 'text-white' : 'text-gray-600'} font-semibold text-gray-800`}>Cadence Daniel</div>
+              <div className={`text-lg ${darkTheme ? 'text-white' : 'text-gray-600'} text-sm text-gray-500 mt-1`}>ADVERTISING HEAD</div>
             </div>
             <div className="flex flex-col items-center">
               <div className="w-32 h-32 rounded-full border-8 border-[#a259c6] flex items-center justify-center overflow-hidden mb-4">
                 <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Oliver Wilson" className="w-full h-full object-cover" />
               </div>
-              <div className="text-lg font-semibold text-gray-800">Oliver Wilson</div>
-              <div className="text-sm text-gray-500 mt-1">CONTENT CREATOR</div>
+              <div className={`text-lg ${darkTheme ? 'text-white' : 'text-gray-600'} font-semibold text-gray-800`}>Oliver Wilson</div>
+              <div className={`text-lg ${darkTheme ? 'text-white' : 'text-gray-600'} text-sm text-gray-500 mt-1`}>CONTENT CREATOR</div>
             </div>
             {/* Row 2 */}
             <div className="flex flex-col items-center">
               <div className="w-32 h-32 rounded-full border-8 border-[#a259c6] flex items-center justify-center overflow-hidden mb-4">
                 <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Beatrice Dubois" className="w-full h-full object-cover" />
               </div>
-              <div className="text-lg font-semibold text-gray-800">Beatrice Dubois</div>
-              <div className="text-sm text-gray-500 mt-1">GRAPHICS DESIGNER</div>
+              <div className={`text-lg ${darkTheme ? 'text-white' : 'text-gray-600'} font-semibold text-gray-800`}>Beatrice Dubois</div>
+              <div className={`text-lg ${darkTheme ? 'text-white' : 'text-gray-600'} text-sm text-gray-500 mt-1`}>GRAPHICS DESIGNER</div>
             </div>
             <div className="flex flex-col items-center">
               <div className="w-32 h-32 rounded-full border-8 border-[#a259c6] flex items-center justify-center overflow-hidden mb-4">
                 <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Crystal Jerry" className="w-full h-full object-cover" />
               </div>
-              <div className="text-lg font-semibold text-gray-800">Crystal Jerry</div>
-              <div className="text-sm text-gray-500 mt-1">CAMPAIGN LEAD</div>
+              <div className={`text-lg ${darkTheme ? 'text-white' : 'text-gray-600'} font-semibold text-gray-800`}>Crystal Jerry</div>
+              <div className={`text-lg ${darkTheme ? 'text-white' : 'text-gray-600'} text-sm text-gray-500 mt-1`}>CAMPAIGN LEAD</div>
             </div>
             <div className="flex flex-col items-center">
               <div className="w-32 h-32 rounded-full border-8 border-[#a259c6] flex items-center justify-center overflow-hidden mb-4">
                 <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sulema Silva" className="w-full h-full object-cover" />
               </div>
-              <div className="text-lg font-semibold text-gray-800">Sulema Silva</div>
-              <div className="text-sm text-gray-500 mt-1">DIGITAL LEADER</div>
+              <div className={`text-lg ${darkTheme ? 'text-white' : 'text-gray-600'} font-semibold text-gray-800`}>Sulema Silva</div>
+              <div className={`text-lg ${darkTheme ? 'text-white' : 'text-gray-600'} text-sm text-gray-500 mt-1`}>DIGITAL LEADER</div>
             </div>
           </div>
         </div>
@@ -267,7 +267,7 @@ const Home2 = () => {
         </div>
       </section>
       {/* Why Choose Us Section (Who We Are) */}
-  <section className="relative w-full py-20 bg-white flex items-center justify-center" data-aos="fade-right">
+  <section className={`relative w-full py-20 flex items-center justify-center ${darkTheme ? 'bg-black text-white' : 'bg-white'}`} data-aos="fade-right">
         <div className="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-0 md:gap-8 px-4 md:px-0">
           {/* Left: Image */}
           <div className="flex-1 flex items-center justify-center relative mt-10 md:mt-0">
@@ -287,8 +287,8 @@ const Home2 = () => {
           </div>
           {/* Right: Content inside white box with dark purple icons */}
           <div className="flex-1 flex flex-col justify-center items-start md:pr-8">
-              <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-[#53295a]">Why Choose Us</h2>
-              <p className="text-gray-600 mb-8 max-w-md">Discover what sets us apart: expertise, data-driven results, 24/7 support, and a proven track record of successful website projects. Partner with us for your website's digital growth and online success.</p>
+              <h2 className={`text-3xl md:text-4xl font-extrabold mb-4 ${darkTheme ? 'text-white' : 'text-[#53295a]'}`}>Why Choose Us</h2>
+              <p className={`mb-8 max-w-md ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Discover what sets us apart: expertise, data-driven results, 24/7 support, and a proven track record of successful website projects. Partner with us for your website's digital growth and online success.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
                 {/* All icons in same dark purple (#53295a) */}
                 <div className="flex items-start gap-4">
@@ -296,8 +296,8 @@ const Home2 = () => {
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-[#53295a] mb-1">Expert Team</h3>
-                    <p className="text-gray-600 text-sm">Certified professionals with proven website project track records.</p>
+                    <h3 className={`${darkTheme ? 'text-white' : 'text-gray-600'} font-semibold text-[#53295a] mb-1`}>Expert Team</h3>
+                    <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Certified professionals with proven website project track records.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -305,8 +305,8 @@ const Home2 = () => {
                     <svg className="w-6 h-6 text-[#fff]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-[#53295a] mb-1">Data-Driven</h3>
-                    <p className="text-gray-600 text-sm">Website results backed by analytics and insights.</p>
+                    <h3 className={`${darkTheme ? 'text-white' : 'text-gray-600'} font-semibold text-[#53295a] mb-1`}>Data-Driven</h3>
+                    <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Website results backed by analytics and insights.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -314,8 +314,8 @@ const Home2 = () => {
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" /></svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-[#53295a] mb-1">24/7 Support</h3>
-                    <p className="text-gray-600 text-sm">Round-the-clock website assistance for your success.</p>
+                    <h3 className={`${darkTheme ? 'text-white' : 'text-gray-600'} font-semibold text-[#53295a] mb-1`}>24/7 Support</h3>
+                    <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Round-the-clock website assistance for your success.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -323,8 +323,8 @@ const Home2 = () => {
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" strokeWidth="2" fill="none" /><path strokeLinecap="round" strokeLinejoin="round" d="M8 17v-6a4 4 0 018 0v6" /></svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-[#53295a] mb-1">Proven Results</h3>
-                    <p className="text-gray-600 text-sm">Proven track record of successful campaigns.</p>
+                    <h3 className={`${darkTheme ? 'text-white' : 'text-gray-600'} font-semibold text-[#53295a] mb-1`}>Proven Results</h3>
+                    <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Proven track record of successful campaigns.</p>
                   </div>
                 </div>
               </div>
@@ -341,7 +341,7 @@ const Home2 = () => {
       </section>
 
       {/* Insights Section (redesigned) */}
-      <section className="w-full py-20 bg-white flex justify-center items-center">
+  <section className={`w-full py-20 flex justify-center items-center ${darkTheme ? 'bg-black text-white' : 'bg-white'}`}> 
           {/* Left: Image */}
           <div className="flex-1 flex items-center justify-center min-h-300" data-aos="fade-left">
             <div className="w-full max-w-lg h-[30rem] rounded-3xl shadow-2xl overflow-hidden bg-gray-100 flex items-center justify-center relative">
@@ -353,12 +353,12 @@ const Home2 = () => {
           </div>
           {/* Right: Content */}
           <div className="flex-1 flex flex-col justify-center items-start min-h-80" data-aos="fade-right">
-            <h2 className="text-4xl font-extrabold mb-4 text-[#222]">
-              <span className="text-[#222]">Digital </span>
+            <h2 className="text-4xl font-extrabold mb-4">
+              <span className={darkTheme ? 'text-white' : 'text-[#222]'}>Digital </span>
               <span className="text-[#a259c6]">Marketing</span>
-              <span className="text-[#222] ml-2">Insights</span>
+              <span className={darkTheme ? 'text-white ml-2' : 'text-[#222] ml-2'}>Insights</span>
             </h2>
-            <p className="text-gray-700 mb-8 max-w-xl">
+            <p className={`mb-8 max-w-xl ${darkTheme ? 'text-white' : 'text-gray-700'}`}>
               Discover the latest trends, research, and expert insights in digital marketing. Our comprehensive analysis helps you make informed decisions to grow your brand, reach your audience, and maximize ROI in the digital era.
             </p>
             <div className="flex flex-col gap-6 mb-8 w-full">
@@ -367,8 +367,8 @@ const Home2 = () => {
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                 </div>
                 <div>
-                  <h3 className="font-bold text-[#53295a] mb-1">Data-Driven Strategies</h3>
-                  <p className="text-gray-600 text-sm">All our recommendations are backed by analytics, industry research, and proven digital methodologies.</p>
+                  <h3 className={`${darkTheme ? 'text-white' : 'text-gray-600'} font-bold text-[#53295a] mb-1`}>Data-Driven Strategies</h3>
+                  <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>All our recommendations are backed by analytics, industry research, and proven digital methodologies.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -376,8 +376,8 @@ const Home2 = () => {
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 </div>
                 <div>
-                  <h3 className="font-bold text-[#53295a] mb-1">Personalized Campaigns</h3>
-                  <p className="text-gray-600 text-sm">Tailored marketing strategies that adapt to your unique business goals and audience.</p>
+                  <h3 className={`${darkTheme ? 'text-white' : 'text-gray-600'} font-bold text-[#53295a] mb-1`}>Personalized Campaigns</h3>
+                  <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Tailored marketing strategies that adapt to your unique business goals and audience.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -385,8 +385,8 @@ const Home2 = () => {
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-4V6a4 4 0 00-8 0v4m8 0a4 4 0 01-8 0" /></svg>
                 </div>
                 <div>
-                  <h3 className="font-bold text-[#53295a] mb-1">Community & Support</h3>
-                  <p className="text-gray-600 text-sm">Join a supportive network of marketers and get expert help on your digital journey.</p>
+                  <h3 className={`${darkTheme ? 'text-white' : 'text-gray-600'} font-bold text-[#53295a] mb-1`}>Community & Support</h3>
+                  <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Join a supportive network of marketers and get expert help on your digital journey.</p>
                 </div>
               </div>
             </div>
@@ -398,7 +398,7 @@ const Home2 = () => {
             </button>
           </div>
       </section>
-      <Footer />
+  <Footer darkTheme={darkTheme} />
     </div>
   );
 };
