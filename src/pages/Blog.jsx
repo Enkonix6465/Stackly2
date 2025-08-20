@@ -388,7 +388,7 @@ export default function BlogHero({ darkTheme, setDarkTheme }) {
 
       <section
         id="articles"
-        className={`max-w-7xl mx-auto px-6 py-16 rounded-lg ${darkTheme ? 'bg-black' : ''}`}
+        className={`max-w-full mx-auto px-6 py-16 rounded-lg ${darkTheme ? 'bg-black' : ''}`}
       >
         <h2 className={`text-3xl font-bold text-center mb-12 ${darkTheme ? 'text-white' : 'text-white'}`}>
           Featured Articles
@@ -409,7 +409,7 @@ export default function BlogHero({ darkTheme, setDarkTheme }) {
                 <h3 className="text-xl font-semibold mb-3">{title}</h3>
                 <p className={`text-justify mb-5 ${darkTheme ? 'text-white' : 'text-gray-700'}`}>{excerpt}</p>
                 <button
-                  className={`font-semibold hover:underline ${darkTheme ? 'text-[#a259c6]' : 'text-indigo-600'}`}
+                  className={`font-semibold hover:underline ${darkTheme ? 'text-[#fff]' : 'text-indigo-600'}`}
                   onClick={() => navigate(`/blog/article/${id}`, { state: { title, excerpt, imgSrc } })}
                 >
                   Read More →
@@ -554,7 +554,7 @@ export default function BlogHero({ darkTheme, setDarkTheme }) {
           </div>
         </div>
       </section>
-       <section className={`max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center rounded-lg shadow-md ${darkTheme ? 'bg-black' : 'bg-gray-50'}`}>
+       <section className={`max-w-full mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center rounded-lg shadow-md ${darkTheme ? 'bg-black' : 'bg-gray-50'}`}>
         {/* Left Side Image */}
         <div>
           <img
