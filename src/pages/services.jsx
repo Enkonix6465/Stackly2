@@ -22,7 +22,7 @@ export default function Services({ darkTheme, setDarkTheme }) {
                 </div>
             </section>
 
-            {/* Our Services Section (modern grid cards) */}
+            {/* Our Services Section */}
             <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-[#18181c]' : 'bg-[#f3e8ff]'}`} data-aos="fade-up">
                 <h2 className={`text-3xl md:text-4xl font-extrabold mb-12 tracking-wide ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>Our Services</h2>
                 <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
@@ -80,7 +80,7 @@ export default function Services({ darkTheme, setDarkTheme }) {
             <section className={`w-full py-16 flex text-justify flex-col items-center ${darkTheme ? 'bg-[#232136]' : 'bg-[#c7a6fa]'}`} data-aos="fade-right">
                 <h2 className={`text-3xl md:text-4xl font-extrabold mb-12 tracking-wide ${darkTheme ? 'text-white' : 'text-[#232136]'}`}>How We Work</h2>
                 <div className="w-full max-w-3xl mx-auto flex flex-col gap-0 relative">
-                    {/* Timeline Dots and Line */}
+                    {/* Timeline Dots */}
                     <div className="absolute left-1/2 -translate-x-1/2 h-full w-2 flex flex-col items-center z-0">
                         <div className="h-8 w-2"></div>
                         <div className="flex-1 w-1 bg-gradient-to-b from-[#a259c6] to-[#232136] rounded-full"></div>
