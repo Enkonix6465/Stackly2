@@ -1,6 +1,59 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "./assets/logo.png";
+const translations = {
+  English: {
+    languages: "Languages",
+    home: "Home",
+    home1: "Home1",
+    home2: "Home2",
+    about: "About Us",
+    services: "Services",
+    seo: "Search Engine Optimization (SEO)",
+    smm: "Social Media Marketing (SMM)",
+    ppc: "Pay-Per-Click Advertising (PPC)",
+    content: "Content Marketing",
+    email: "Email Marketing & Automation",
+    web: "Website Design & Development",
+    blog: "Blog",
+    contact: "Contact Us",
+    logout: "Logout"
+  },
+  Arabic: {
+    languages: "اللغات",
+    home: "الرئيسية",
+    home1: "الرئيسية 1",
+    home2: "الرئيسية 2",
+    about: "معلومات عنا",
+    services: "الخدمات",
+    seo: "تحسين محركات البحث (SEO)",
+    smm: "التسويق عبر وسائل التواصل الاجتماعي",
+    ppc: "إعلانات الدفع لكل نقرة (PPC)",
+    content: "تسويق المحتوى",
+    email: "التسويق عبر البريد الإلكتروني والأتمتة",
+    web: "تصميم وتطوير المواقع",
+    blog: "مدونة",
+    contact: "اتصل بنا",
+    logout: "تسجيل خروج"
+  },
+  Hebrew: {
+    languages: "שפות",
+    home: "בית",
+    home1: "בית 1",
+    home2: "בית 2",
+    about: "עלינו",
+    services: "שירותים",
+    seo: "קידום אתרים (SEO)",
+    smm: "שיווק במדיה חברתית",
+    ppc: "פרסום בתשלום לפי קליק (PPC)",
+    content: "שיווק תוכן",
+  email: "שיווק בדוא\"ל ואוטומציה",
+    web: "עיצוב ופיתוח אתרים",
+    blog: "בלוג",
+    contact: "צור קשר",
+    logout: "התנתק"
+  }
+};
 
 export default function Header({ darkTheme, setDarkTheme, language, setLanguage }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -57,9 +110,11 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
   const toggleDarkMode = () => {
     setDarkTheme((prev) => !prev);
   };
+  const isRTL = language === 'Arabic' || language === 'Hebrew';
+  const t = translations[language] || translations['English'];
 
   return (
-    <header className={`${darkTheme ? 'bg-[#18181c] text-white border-[#232136]' : 'bg-white text-[#232136] border-gray-200'} shadow-sm border-b relative z-50`}>
+    <header className={`${darkTheme ? 'bg-[#18181c] text-white border-[#232136]' : 'bg-white text-[#232136] border-gray-200'} shadow-sm border-b relative z-50`} style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -77,7 +132,7 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                 onClick={() => setIsLanguageDropdownOpen((v) => !v)}
                 className={`flex items-center space-x-1 transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
               >
-                <span>Languages</span>
+                <span>English</span>
                 <svg
                   className={`w-4 h-4 transition-transform duration-200 ${isLanguageDropdownOpen ? "rotate-180" : ""}`}
                   fill="none"
@@ -105,13 +160,13 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                       className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${language === 'Arabic' ? 'font-bold bg-gray-100' : ''}`}
                       onClick={() => handleLanguageSelect('Arabic')}
                     >
-                      Arabic
+                      {translations.Arabic.languages}
                     </button>
                     <button
                       className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${language === 'Hebrew' ? 'font-bold bg-gray-100' : ''}`}
                       onClick={() => handleLanguageSelect('Hebrew')}
                     >
-                      Hebrew
+                      {translations.Hebrew.languages}
                     </button>
                   </div>
                 </div>
@@ -123,7 +178,7 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                 onClick={toggleHomeDropdown}
                 className={`flex items-center space-x-1 transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
               >
-                <span>Home</span>
+                <span>{t.home}</span>
                 <svg
                   className={`w-4 h-4 transition-transform duration-200 ${
                     isHomeDropdownOpen ? "rotate-180" : ""
@@ -149,14 +204,14 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setIsHomeDropdownOpen(false)}
                     >
-                      Home1
+                      {t.home1}
                     </Link>
                     <Link
                       to="/home2"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setIsHomeDropdownOpen(false)}
                     >
-                      Home2
+                      {t.home2}
                     </Link>
                   </div>
                 </div>
@@ -167,7 +222,7 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
               to="/about"
               className={`transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
             >
-              About Us
+              {t.about}
             </Link>
 
             {/* Services Dropdown with main link */}
@@ -178,7 +233,7 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                 style={{ display: 'flex', alignItems: 'center' }}
                 onClick={() => setIsServicesDropdownOpen(false)}
               >
-                Services
+                {t.services}
               </Link>
               <button
                 onClick={toggleServicesDropdown}
@@ -209,6 +264,7 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                       onClick={() => setIsServicesDropdownOpen(false)}
                     >
                       Search Engine Optimization (SEO)
+                      {t.seo}
                     </Link>
                     <Link
                       to="/services/smm"
@@ -216,6 +272,7 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                       onClick={() => setIsServicesDropdownOpen(false)}
                     >
                       Social Media Marketing (SMM)
+                      {t.smm}
                     </Link>
                     <Link
                       to="/services/ppc"
@@ -223,6 +280,7 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                       onClick={() => setIsServicesDropdownOpen(false)}
                     >
                       Pay-Per-Click Advertising (PPC)
+                      {t.ppc}
                     </Link>
                     <Link
                       to="/services/content"
@@ -230,6 +288,7 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                       onClick={() => setIsServicesDropdownOpen(false)}
                     >
                       Content Marketing
+                      {t.content}
                     </Link>
                     <Link
                       to="/services/email"
@@ -237,6 +296,7 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                       onClick={() => setIsServicesDropdownOpen(false)}
                     >
                       Email Marketing & Automation
+                      {t.email}
                     </Link>
                     <Link
                       to="/services/web"
@@ -244,6 +304,7 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                       onClick={() => setIsServicesDropdownOpen(false)}
                     >
                       Website Design & Development
+                      {t.web}
                     </Link>
                   </div>
                 </div>
@@ -254,14 +315,14 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
               to="/blog"
               className={`transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
             >
-              Blog
+              {t.blog}
             </Link>
 
             <Link
               to="/contactus"
               className={`transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
             >
-              Contact Us
+              {t.contact}
             </Link>
 
             {/* Icons */}
@@ -303,6 +364,7 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                         onClick={() => { setIsAvatarDropdownOpen(false); window.location.href = '/'; }}
                       >
                         Logout
+                        {t.logout}
                       </button>
                     </div>
                   )}
@@ -340,18 +402,18 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
               {/* Languages Dropdown for Mobile */}
               <details>
                 <summary className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center" style={{ listStyle: 'none' }}>
-                  Languages
+                  English
                 </summary>
                 <div className="flex flex-col ml-4">
-                  <button className={`px-4 py-2 text-gray-700 hover:bg-gray-100 text-left ${language === 'English' ? 'font-bold bg-gray-100' : ''}`} onClick={() => { if (setLanguage) setLanguage('English'); }}>{'English'}</button>
-                  <button className={`px-4 py-2 text-gray-700 hover:bg-gray-100 text-left ${language === 'Arabic' ? 'font-bold bg-gray-100' : ''}`} onClick={() => { if (setLanguage) setLanguage('Arabic'); }}>{'Arabic'}</button>
-                  <button className={`px-4 py-2 text-gray-700 hover:bg-gray-100 text-left ${language === 'Hebrew' ? 'font-bold bg-gray-100' : ''}`} onClick={() => { if (setLanguage) setLanguage('Hebrew'); }}>{'Hebrew'}</button>
+                  <button className={`px-4 py-2 text-gray-700 hover:bg-gray-100 text-left ${language === 'English' ? 'font-bold bg-gray-100' : ''}`} onClick={() => { if (setLanguage) setLanguage('English'); }}>{translations.English.languages}</button>
+                  <button className={`px-4 py-2 text-gray-700 hover:bg-gray-100 text-left ${language === 'Arabic' ? 'font-bold bg-gray-100' : ''}`} onClick={() => { if (setLanguage) setLanguage('Arabic'); }}>{translations.Arabic.languages}</button>
+                  <button className={`px-4 py-2 text-gray-700 hover:bg-gray-100 text-left ${language === 'Hebrew' ? 'font-bold bg-gray-100' : ''}`} onClick={() => { if (setLanguage) setLanguage('Hebrew'); }}>{translations.Hebrew.languages}</button>
                 </div>
               </details>
-              <Link to="/" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
-              <Link to="/home1" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Home1</Link>
-              <Link to="/home2" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Home2</Link>
-              <Link to="/about" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
+              <Link to="/" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>{t.home}</Link>
+              <Link to="/home1" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>{t.home1}</Link>
+              <Link to="/home2" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>{t.home2}</Link>
+              <Link to="/about" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>{t.about}</Link>
               <details open>
                 <summary
                   className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
@@ -362,20 +424,20 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                   }}
                   style={{ listStyle: 'none' }}
                 >
-                  Services
+                  {t.services}
                 </summary>
                 <div className="flex flex-col ml-4">
-                  <Link to="/services/seo" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Search Engine Optimization (SEO)</Link>
-                  <Link to="/services/smm" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Social Media Marketing (SMM)</Link>
-                  <Link to="/services/ppc" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Pay-Per-Click Advertising (PPC)</Link>
-                  <Link to="/services/content" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Content Marketing</Link>
-                  <Link to="/services/email" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Email Marketing & Automation</Link>
-                  <Link to="/services/web" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Website Design & Development</Link>
+                  <Link to="/services/seo" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>{t.seo}</Link>
+                  <Link to="/services/smm" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>{t.smm}</Link>
+                  <Link to="/services/ppc" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>{t.ppc}</Link>
+                  <Link to="/services/content" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>{t.content}</Link>
+                  <Link to="/services/email" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>{t.email}</Link>
+                  <Link to="/services/web" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>{t.web}</Link>
                 </div>
               </details>
-              <Link to="/blog" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Blog</Link>
-              <Link to="/contactus" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</Link>
-              <button className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-left" onClick={() => { localStorage.removeItem("loggedInUser"); setIsMobileMenuOpen(false); window.location.href = "/login"; }}>Logout</button>
+              <Link to="/blog" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>{t.blog}</Link>
+              <Link to="/contactus" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>{t.contact}</Link>
+              <button className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-left" onClick={() => { localStorage.removeItem("loggedInUser"); setIsMobileMenuOpen(false); window.location.href = "/login"; }}>{t.logout}</button>
             </nav>
           </div>
         )}

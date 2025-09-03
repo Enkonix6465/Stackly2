@@ -470,7 +470,7 @@ export default function Home({ darkTheme, setDarkTheme }) {
                 className="px-8 py-4 text-white rounded-lg font-semibold text-lg shadow-lg transition-all duration-300 transform hover:scale-105"
                 style={{ background: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)' }}
               >
-                Get Started Today
+                {content[language].getStarted}
               </button>
             </div>
           </div>
