@@ -16,6 +16,154 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
 export default function Home({ darkTheme, setDarkTheme }) {
+  const [language, setLanguage] = React.useState('English');
+  // Language content map
+  const content = {
+    English: {
+      heroTitle: 'Transform Your Business with',
+      heroGradient: 'Digital Marketing',
+      heroDesc: "Drive growth, increase engagement, and dominate your market with our cutting-edge digital marketing strategies. From SEO to social media, we've got your success covered.",
+      meetTeam: 'Meet Our Team',
+      meetTeamDesc: 'Behind The Creative Process Of Building Your Brand',
+      trendsTips: 'Trends & Tips Corner',
+      trendsTipsList: [
+        "Leverage video content for higher engagement.",
+        "Optimize for voice search in 2025.",
+        "Personalize your email marketing.",
+        "Focus on mobile-first design.",
+        "Utilize AI for smarter ad targeting.",
+        "Build trust with authentic storytelling.",
+        "Invest in SEO for long-term growth.",
+        "Embrace short-form video trends.",
+        "Use analytics to refine your strategy.",
+        "Engage with your audience on social media."
+      ],
+      whyChoose: 'Why Choose Us',
+      whyDesc: "Discover what sets us apart: expertise, data-driven results, 24/7 support, and a proven track record of successful website projects. Partner with us for your website's digital growth and online success.",
+      expertTeam: 'Expert Team',
+      expertTeamDesc: 'Certified professionals with proven website project track records.',
+      dataDriven: 'Data-Driven',
+      dataDrivenDesc: 'Website results backed by analytics and insights.',
+      support: '24/7 Support',
+      supportDesc: 'Round-the-clock website assistance for your success.',
+      provenResults: 'Proven Results',
+      provenResultsDesc: 'Proven track record of successful website campaigns.',
+      learnMore: 'Learn More About Us',
+      ourTopServices: 'Our Top Services',
+      marketingIs: 'marketing is',
+      getStarted: 'Get Started Today',
+      getStartedDesc: "Drive growth, increase engagement, and dominate your market with our cutting-edge digital marketing strategies. From SEO to social media, we've got your success covered.",
+      whatClientsSay: 'What Our Clients Say',
+      realFeedback: 'Real feedback from businesses that trust us! See how we help brands grow.',
+      impactMetricsTitle: 'Impact & Metrics',
+      impactMetricsDesc: "We have successfully launched 50+ digital marketing campaigns, helping brands increase their online presence, generate quality leads, and boost ROI. Our expertise covers SEO, social media, PPC, content marketing, and analytics—empowering businesses to reach their target audience and achieve measurable growth in the digital landscape.",
+      impactMetricsStats: [
+        { value: 12000, label: 'Total Customers' },
+        { value: 320, label: 'Enterprise Clients' },
+        { value: 99, label: 'Uptime Guarantee', suffix: '%' },
+        { value: 75, label: 'AI Integrations' }
+      ],
+      ctaTitle: 'Get Started Today',
+      ctaDesc: "Drive growth, increase engagement, and dominate your market with our cutting-edge digital marketing strategies. From SEO to social media, we've got your success covered.",
+      ctaButton: 'Get Started Today'
+    },
+    Arabic: {
+      heroTitle: 'حوّل عملك مع',
+      heroGradient: 'التسويق الرقمي',
+      heroDesc: "نمِّ عملك، وزد التفاعل، وتفوّق في السوق مع استراتيجياتنا الحديثة في التسويق الرقمي. من تحسين محركات البحث إلى وسائل التواصل الاجتماعي، نجاحك مضمون معنا.",
+      meetTeam: 'تعرف على الفريق',
+      meetTeamDesc: 'وراء عملية بناء علامتك التجارية',
+      trendsTips: 'ركن الاتجاهات والنصائح',
+      trendsTipsList: [
+        "استخدم الفيديو لزيادة التفاعل.",
+        "حسّن لمحتوى البحث الصوتي في 2025.",
+        "خصص حملات البريد الإلكتروني.",
+        "ركز على تصميم متوافق مع الجوال.",
+        "استفد من الذكاء الاصطناعي لاستهداف الإعلانات.",
+        "ابنِ الثقة بقصص واقعية.",
+        "استثمر في تحسين محركات البحث للنمو الطويل.",
+        "اعتمد الفيديوهات القصيرة الرائجة.",
+        "استخدم التحليلات لتحسين الاستراتيجية.",
+        "تفاعل مع جمهورك على وسائل التواصل الاجتماعي."
+      ],
+      whyChoose: 'لماذا نحن',
+      whyDesc: "اكتشف ما يميزنا: خبرة، نتائج مدعومة بالبيانات، دعم على مدار الساعة، وسجل حافل من المشاريع الناجحة. كن شريكنا لنمو موقعك ونجاحك الرقمي.",
+      expertTeam: 'فريق خبراء',
+      expertTeamDesc: 'محترفون معتمدون بسجل مشاريع ناجحة.',
+      dataDriven: 'مدعوم بالبيانات',
+      dataDrivenDesc: 'نتائج المواقع مدعومة بالتحليلات والرؤى.',
+      support: 'دعم 24/7',
+      supportDesc: 'مساعدة مستمرة لنجاح موقعك.',
+      provenResults: 'نتائج مثبتة',
+      provenResultsDesc: 'سجل مثبت لحملات مواقع ناجحة.',
+      learnMore: 'تعرف أكثر علينا',
+      ourTopServices: 'أفضل خدماتنا',
+      marketingIs: 'التسويق هو',
+      getStarted: 'ابدأ الآن',
+      getStartedDesc: "نمِّ عملك، وزد التفاعل، وتفوّق في السوق مع استراتيجياتنا الحديثة في التسويق الرقمي. من تحسين محركات البحث إلى وسائل التواصل الاجتماعي، نجاحك مضمون معنا.",
+      whatClientsSay: 'ماذا يقول عملاؤنا',
+      realFeedback: 'آراء حقيقية من شركات تثق بنا! شاهد كيف نساعد العلامات التجارية على النمو.',
+      impactMetricsTitle: 'الأثر والمؤشرات',
+      impactMetricsDesc: "أطلقنا أكثر من 50 حملة تسويق رقمي ناجحة، وساعدنا العلامات التجارية على زيادة حضورها الرقمي، وجذب العملاء، وزيادة العائد. خبرتنا تشمل تحسين محركات البحث، وسائل التواصل الاجتماعي، PPC، تسويق المحتوى، والتحليلات—نمكّن الشركات من الوصول لجمهورها وتحقيق نمو ملموس.",
+      impactMetricsStats: [
+        { value: 12000, label: 'إجمالي العملاء' },
+        { value: 320, label: 'عملاء الشركات' },
+        { value: 99, label: 'ضمان الجهوزية', suffix: '%' },
+        { value: 75, label: 'تكاملات الذكاء الاصطناعي' }
+      ],
+      ctaTitle: 'ابدأ الآن',
+      ctaDesc: "نمِّ عملك، وزد التفاعل، وتفوّق في السوق مع استراتيجياتنا الحديثة في التسويق الرقمي. من تحسين محركات البحث إلى وسائل التواصل الاجتماعي، نجاحك مضمون معنا.",
+      ctaButton: 'ابدأ الآن'
+    },
+    Hebrew: {
+      heroTitle: 'הפוך את העסק שלך עם',
+      heroGradient: 'שיווק דיגיטלי',
+      heroDesc: "הצע את העסק שלך, הגדל מעורבות, ושלוט בשוק עם אסטרטגיות השיווק הדיגיטלי החדשניות שלנו. מ-SEO ועד מדיה חברתית, ההצלחה שלך מובטחת.",
+      meetTeam: 'הכירו את הצוות',
+      meetTeamDesc: 'מאחורי תהליך בניית המותג שלך',
+      trendsTips: 'פינת טרנדים וטיפים',
+      trendsTipsList: [
+        "השתמשו בתוכן וידאו להגדלת מעורבות.",
+        "בצעו אופטימיזציה לחיפוש קולי ב-2025.",
+        "התאימו אישית את שיווק הדוא\"ל.",
+        "התמקדו בעיצוב מובייל תחילה.",
+        "השתמשו ב-AI למיקוד חכם בפרסום.",
+        "בנו אמון עם סיפור אותנטי.",
+        "השקיעו ב-SEO לצמיחה ארוכת טווח.",
+        "אמצו טרנדים של וידאו קצר.",
+        "השתמשו באנליטיקות לשיפור אסטרטגיה.",
+        "התחברו עם הקהל במדיה החברתית."
+      ],
+      whyChoose: 'למה לבחור בנו',
+      whyDesc: "גלה מה מייחד אותנו: מומחיות, תוצאות מבוססות נתונים, תמיכה 24/7, ורקורד מוכח של פרויקטים מוצלחים. היה שותף שלנו לצמיחה דיגיטלית והצלחה מקוונת.",
+      expertTeam: 'צוות מומחים',
+      expertTeamDesc: 'מקצוענים מוסמכים עם רקורד מוכח.',
+      dataDriven: 'מונע נתונים',
+      dataDrivenDesc: 'תוצאות אתרים מגובות באנליטיקות ותובנות.',
+      support: 'תמיכה 24/7',
+      supportDesc: 'סיוע מתמשך להצלחת האתר שלך.',
+      provenResults: 'תוצאות מוכחות',
+      provenResultsDesc: 'רקורד מוכח של קמפיינים מוצלחים.',
+      learnMore: 'למידע נוסף עלינו',
+      ourTopServices: 'השירותים המובילים שלנו',
+      marketingIs: 'שיווק הוא',
+      getStarted: 'התחל היום',
+      getStartedDesc: "הצע את העסק שלך, הגדל מעורבות, ושלוט בשוק עם אסטרטגיות השיווק הדיגיטלי החדשניות שלנו. מ-SEO ועד מדיה חברתית, ההצלחה שלך מובטחת.",
+      whatClientsSay: 'מה לקוחותינו אומרים',
+      realFeedback: 'משוב אמיתי מעסקים שסומכים עלינו! ראה כיצד אנו עוזרים למותגים לצמוח.',
+      impactMetricsTitle: 'השפעה ומדדים',
+      impactMetricsDesc: "השקנו מעל 50 קמפיינים דיגיטליים מוצלחים, עזרנו למותגים להגדיל נוכחות, לייצר לידים איכותיים ולהגדיל ROI. המומחיות שלנו כוללת SEO, מדיה חברתית, PPC, שיווק תוכן ואנליטיקות—מעצימים עסקים להגיע לקהל היעד ולהשיג צמיחה מדידה.",
+      impactMetricsStats: [
+        { value: 12000, label: 'סה"כ לקוחות' },
+        { value: 320, label: 'לקוחות ארגוניים' },
+        { value: 99, label: 'אחריות זמינות', suffix: '%' },
+        { value: 75, label: 'אינטגרציות AI' }
+      ],
+      ctaTitle: 'התחל היום',
+      ctaDesc: "הצע את העסק שלך, הגדל מעורבות, ושלוט בשוק עם אסטרטגיות השיווק הדיגיטלי החדשניות שלנו. מ-SEO ועד מדיה חברתית, ההצלחה שלך מובטחת.",
+      ctaButton: 'התחל היום'
+    }
+  };
   const navigate = useNavigate();
   const location = useLocation();
   const whoWeAreRef = React.useRef(null);
@@ -66,44 +214,124 @@ export default function Home({ darkTheme, setDarkTheme }) {
     }, 1800);
     return () => clearInterval(interval);
   }, []);
-  const serviceCards = [
-    {
-      image: seoImg,
-      title: "Search Engine Optimization (SEO)",
-      subtitle: "Boost your search rankings and drive organic traffic to your website with our comprehensive SEO strategies. Our SEO experts use the latest techniques in keyword research, on-page and off-page optimization, and technical SEO to ensure your business stands out in search engine results and attracts high-quality leads.",
-      bg: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)'
-    },
-    {
-      image: smmImg,
-      title: "Social Media Marketing (SMM)",
-      subtitle: "Engage with your audience across all major social platforms and build meaningful connections. We create tailored content, manage your profiles, and run targeted ad campaigns to grow your brand presence, increase followers, and drive measurable engagement and conversions.",
-      bg: '#fff'
-    },
-    {
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80",
-      title: "Pay-Per-Click Advertising (PPC)",
-      subtitle: "Drive targeted traffic and maximize ROI with our data-driven PPC campaigns and optimization. We handle everything from keyword selection and ad creation to bid management and analytics, ensuring your ads reach the right audience and deliver the best possible return on investment.",
-      bg: '#fff'
-    },
-    {
-      image: contentImg,
-      title: "Content Marketing",
-      subtitle: "Create compelling content that resonates with your audience and drives meaningful engagement. Our team crafts blogs, articles, infographics, videos, and more to establish your brand as an authority, improve SEO, and nurture customer relationships.",
-      bg: '#fff'
-    },
-    {
-      image: emailImg,
-      title: "Email Marketing & Automation",
-      subtitle: "Nurture leads and drive conversions with personalized email campaigns and automation. We design, segment, and automate email flows to deliver the right message at the right time, increasing open rates, click-throughs, and customer loyalty.",
-      bg: '#fff'
-    },
-    {
-      image: websiteImg,
-      title: "Website Design & Development",
-      subtitle: "Create stunning, responsive websites that convert visitors into customers and drive growth. Our web design and development team builds fast, secure, and user-friendly sites tailored to your brand and business goals, ensuring a seamless experience across all devices.",
-      bg: '#fff'
-    }
-  ];
+  // Service cards translations
+  const serviceCardsData = {
+    English: [
+      {
+        image: seoImg,
+        title: "Search Engine Optimization (SEO)",
+        subtitle: "Boost your search rankings and drive organic traffic to your website with our comprehensive SEO strategies. Our SEO experts use the latest techniques in keyword research, on-page and off-page optimization, and technical SEO to ensure your business stands out in search engine results and attracts high-quality leads.",
+        bg: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)'
+      },
+      {
+        image: smmImg,
+        title: "Social Media Marketing (SMM)",
+        subtitle: "Engage with your audience across all major social platforms and build meaningful connections. We create tailored content, manage your profiles, and run targeted ad campaigns to grow your brand presence, increase followers, and drive measurable engagement and conversions.",
+        bg: '#fff'
+      },
+      {
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80",
+        title: "Pay-Per-Click Advertising (PPC)",
+        subtitle: "Drive targeted traffic and maximize ROI with our data-driven PPC campaigns and optimization. We handle everything from keyword selection and ad creation to bid management and analytics, ensuring your ads reach the right audience and deliver the best possible return on investment.",
+        bg: '#fff'
+      },
+      {
+        image: contentImg,
+        title: "Content Marketing",
+        subtitle: "Create compelling content that resonates with your audience and drives meaningful engagement. Our team crafts blogs, articles, infographics, videos, and more to establish your brand as an authority, improve SEO, and nurture customer relationships.",
+        bg: '#fff'
+      },
+      {
+        image: emailImg,
+        title: "Email Marketing & Automation",
+        subtitle: "Nurture leads and drive conversions with personalized email campaigns and automation. We design, segment, and automate email flows to deliver the right message at the right time, increasing open rates, click-throughs, and customer loyalty.",
+        bg: '#fff'
+      },
+      {
+        image: websiteImg,
+        title: "Website Design & Development",
+        subtitle: "Create stunning, responsive websites that convert visitors into customers and drive growth. Our web design and development team builds fast, secure, and user-friendly sites tailored to your brand and business goals, ensuring a seamless experience across all devices.",
+        bg: '#fff'
+      }
+    ],
+    Arabic: [
+      {
+        image: seoImg,
+        title: "تحسين محركات البحث (SEO)",
+        subtitle: "عزز ترتيب موقعك في نتائج البحث وزد الزيارات العضوية باستراتيجياتنا الشاملة. خبراؤنا يستخدمون أحدث التقنيات في البحث عن الكلمات المفتاحية وتحسين الموقع داخليًا وخارجيًا لضمان تميز عملك وجذب العملاء المناسبين.",
+        bg: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)'
+      },
+      {
+        image: smmImg,
+        title: "تسويق عبر وسائل التواصل الاجتماعي",
+        subtitle: "تفاعل مع جمهورك على جميع المنصات الكبرى وابنِ علاقات قوية. نصمم محتوى مخصص، ندير حساباتك، ونشغّل حملات إعلانية مستهدفة لزيادة حضور علامتك التجارية وعدد المتابعين وتحقيق نتائج ملموسة.",
+        bg: '#fff'
+      },
+      {
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80",
+        title: "إعلانات الدفع مقابل النقرة (PPC)",
+        subtitle: "اجذب زيارات مستهدفة وزد العائد على الاستثمار بحملات PPC مدعومة بالبيانات. ندير كل شيء من اختيار الكلمات وإنشاء الإعلانات إلى إدارة العروض والتحليلات لضمان وصول إعلاناتك للجمهور المناسب وتحقيق أفضل النتائج.",
+        bg: '#fff'
+      },
+      {
+        image: contentImg,
+        title: "تسويق المحتوى",
+        subtitle: "أنشئ محتوى جذابًا يلامس جمهورك ويحقق تفاعلًا حقيقيًا. فريقنا يكتب مقالات، مدونات، فيديوهات، والمزيد لتعزيز علامتك التجارية وتحسين SEO وبناء علاقات مع العملاء.",
+        bg: '#fff'
+      },
+      {
+        image: emailImg,
+        title: "التسويق عبر البريد الإلكتروني والأتمتة",
+        subtitle: "نمِّ العملاء وحفز التحويلات بحملات بريد إلكتروني مخصصة وأتمتة ذكية. نصمم ونقسم ونؤتمت الرسائل لضمان وصولها في الوقت المناسب وزيادة معدلات الفتح والنقر وولاء العملاء.",
+        bg: '#fff'
+      },
+      {
+        image: websiteImg,
+        title: "تصميم وتطوير المواقع",
+        subtitle: "أنشئ موقعًا رائعًا سريع الاستجابة يحول الزوار إلى عملاء ويحقق النمو. فريقنا يبني مواقع سريعة وآمنة وسهلة الاستخدام تلبي أهداف علامتك التجارية وتوفر تجربة سلسة على جميع الأجهزة.",
+        bg: '#fff'
+      }
+    ],
+    Hebrew: [
+      {
+        image: seoImg,
+        title: "קידום אתרים (SEO)",
+        subtitle: "שפר את דירוג האתר שלך והגדל תנועה אורגנית עם אסטרטגיות SEO מקיפות. המומחים שלנו משתמשים בטכניקות מתקדמות במחקר מילות מפתח, אופטימיזציה פנימית וחיצונית, ו-SEO טכני כדי להבטיח שהעסק שלך יבלוט בתוצאות החיפוש וימשוך לקוחות איכותיים.",
+        bg: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)'
+      },
+      {
+        image: smmImg,
+        title: "שיווק במדיה חברתית",
+        subtitle: "התחבר עם הקהל שלך בכל הפלטפורמות המרכזיות ובנה קשרים משמעותיים. אנו יוצרים תוכן מותאם, מנהלים את הפרופילים שלך ומפעילים קמפיינים ממוקדים להגדלת הנוכחות, העוקבים והמעורבות.",
+        bg: '#fff'
+      },
+      {
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80",
+        title: "פרסום בתשלום לפי קליק (PPC)",
+        subtitle: "הגדל תנועה ממוקדת ומקסם ROI עם קמפיינים PPC מבוססי נתונים. אנו מטפלים בכל שלב - בחירת מילות מפתח, יצירת מודעות, ניהול הצעות ומעקב אנליטי - כדי להבטיח שהמודעות שלך יגיעו לקהל הנכון ויביאו תוצאות מיטביות.",
+        bg: '#fff'
+      },
+      {
+        image: contentImg,
+        title: "שיווק תוכן",
+        subtitle: "צור תוכן מרתק שמדבר אל הקהל שלך ומייצר מעורבות אמיתית. הצוות שלנו יוצר בלוגים, מאמרים, אינפוגרפיקות, סרטונים ועוד כדי לבסס את המותג שלך, לשפר SEO ולבנות קשרים עם לקוחות.",
+        bg: '#fff'
+      },
+      {
+        image: emailImg,
+        title: "שיווק בדוא\"ל ואוטומציה",
+        subtitle: "טפח לידים והגדל המרות עם קמפיינים מותאמים ואוטומציה. אנו מעצבים, מחלקים ומבצעים אוטומציה לזרימות דוא\"ל כדי להעביר את המסר הנכון בזמן הנכון ולהגדיל פתיחות, הקלקות ונאמנות.",
+        bg: '#fff'
+      },
+      {
+        image: websiteImg,
+        title: "עיצוב ופיתוח אתרים",
+        subtitle: "צור אתר מדהים, רספונסיבי שממיר מבקרים ללקוחות ומקדם צמיחה. הצוות שלנו בונה אתרים מהירים, מאובטחים ונוחים לשימוש המותאמים למותג ולמטרות העסק שלך, ומבטיח חוויה חלקה בכל המכשירים.",
+        bg: '#fff'
+      }
+    ]
+  };
+  const serviceCards = serviceCardsData[language];
 
   // Slideshow logic for last 3 cards
   const [slideIdx, setSlideIdx] = React.useState(0);
@@ -115,21 +343,55 @@ export default function Home({ darkTheme, setDarkTheme }) {
   }, []);
 
   // Add 2 more services for the Our Top Services section
-  const extendedServiceCards = [
-    ...serviceCards,
-    {
-      image: ourservicesImg,
-      title: "Brand Strategy & Consulting",
-      subtitle: "Develop a powerful brand identity and strategy to stand out in your market. We help you define your mission, values, and unique selling proposition, and create a cohesive brand experience that resonates with your target audience.",
-      bg: '#fff'
-    },
-    {
-      image: ppcImg,
-      title: "Analytics & Conversion Optimization",
-      subtitle: "Leverage analytics to optimize conversions and maximize your marketing ROI. We track user behavior, analyze data, and implement A/B testing to continuously improve your website and campaigns, turning more visitors into loyal customers.",
-      bg: '#fff'
-    }
-  ];
+  // Extended service cards translations
+  const extendedServiceCardsData = {
+    English: [
+      ...serviceCards,
+      {
+        image: ourservicesImg,
+        title: "Brand Strategy & Consulting",
+        subtitle: "Develop a powerful brand identity and strategy to stand out in your market. We help you define your mission, values, and unique selling proposition, and create a cohesive brand experience that resonates with your target audience.",
+        bg: '#fff'
+      },
+      {
+        image: ppcImg,
+        title: "Analytics & Conversion Optimization",
+        subtitle: "Leverage analytics to optimize conversions and maximize your marketing ROI. We track user behavior, analyze data, and implement A/B testing to continuously improve your website and campaigns, turning more visitors into loyal customers.",
+        bg: '#fff'
+      }
+    ],
+    Arabic: [
+      ...serviceCards,
+      {
+        image: ourservicesImg,
+        title: "استراتيجية العلامة التجارية والاستشارات",
+        subtitle: "طور هوية واستراتيجية قوية لعلامتك التجارية للتميز في السوق. نساعدك في تحديد رسالتك وقيمك وعرضك الفريد، وننشئ تجربة متكاملة تلامس جمهورك المستهدف.",
+        bg: '#fff'
+      },
+      {
+        image: ppcImg,
+        title: "تحليلات وتحسين التحويلات",
+        subtitle: "استفد من التحليلات لتحسين التحويلات وزيادة العائد. نتابع سلوك المستخدم، نحلل البيانات، وننفذ اختبارات A/B لتحسين موقعك وحملاتك باستمرار وتحويل المزيد من الزوار إلى عملاء.",
+        bg: '#fff'
+      }
+    ],
+    Hebrew: [
+      ...serviceCards,
+      {
+        image: ourservicesImg,
+        title: "אסטרטגיית מותג וייעוץ",
+        subtitle: "פיתח זהות ואסטרטגיה חזקה למותג שלך כדי לבלוט בשוק. אנו עוזרים לך להגדיר את המשימה, הערכים וההצעה הייחודית שלך, וליצור חוויית מותג מגובשת שמדברת אל קהל היעד שלך.",
+        bg: '#fff'
+      },
+      {
+        image: ppcImg,
+        title: "אנליטיקה ואופטימיזציה להמרות",
+        subtitle: "נצל אנליטיקות כדי לשפר המרות ולמקסם ROI. אנו עוקבים אחרי התנהגות משתמשים, מנתחים נתונים ומבצעים בדיקות A/B כדי לשפר את האתר והקמפיינים שלך ולהפוך יותר מבקרים ללקוחות.",
+        bg: '#fff'
+      }
+    ]
+  };
+  const extendedServiceCards = extendedServiceCardsData[language];
 
   // Slideshow logic for 3-card sliding with direction
   const [serviceSlideIdx, setServiceSlideIdx] = React.useState(0);
@@ -152,9 +414,11 @@ export default function Home({ darkTheme, setDarkTheme }) {
     setServiceSlideIdx((i) => (i + 1) % 2);
   };
 
+  // RTL detection
+  const isRTL = language === 'Arabic' || language === 'Hebrew';
   return (
-  <div className={`relative overflow-hidden min-h-screen ${darkTheme ? 'bg-black' : ''}`}> 
-  <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+    <div className={`relative overflow-hidden min-h-screen ${darkTheme ? 'bg-black' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
+      <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />
       {/* Hero Section */}
   <section className={`relative h-screen ${darkTheme ? 'bg-[#18181c]' : ''}`} data-aos="fade-up">
   {/* Video Background */}
@@ -178,24 +442,22 @@ export default function Home({ darkTheme, setDarkTheme }) {
   <div className={`relative z-20 h-full flex flex-col items-center justify-center text-center px-4 ${darkTheme ? 'text-white' : ''}`}>
           <div className="max-w-4xl mx-auto animate-fade-in-up">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Transform Your Business with
+              {content[language].heroTitle}
               <span
                 className="bg-clip-text text-transparent"
                 style={{
-            background: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)',
+                  background: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
                   color: 'transparent'
                 }}
               >
-                {" "}Digital Marketing
+                {" "}{content[language].heroGradient}
               </span>
             </h1>
-            
             <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto leading-relaxed">
-              Drive growth, increase engagement, and dominate your market with our cutting-edge digital marketing strategies. 
-              From SEO to social media, we've got your success covered.
+              {content[language].heroDesc}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -249,9 +511,9 @@ export default function Home({ darkTheme, setDarkTheme }) {
 
             {/* Right Side - Content */}
             <div className="space-y-6" data-aos="fade-left">
-                <h2 className={`text-4xl md:text-5xl font-bold   ${darkTheme ? 'text-white' : 'text-gray-700'}`}>Why Choose Us</h2>
+                <h2 className={`text-4xl md:text-5xl font-bold   ${darkTheme ? 'text-white' : 'text-gray-700'}`}>{content[language].whyChoose}</h2>
                 <p className={`text-lg leading-relaxed mb-6 ${darkTheme ? 'text-white' : 'text-gray-700'}`}>
-                  Discover what sets us apart: expertise, data-driven results, 24/7 support, and a proven track record of successful website projects. Partner with us for your website's digital growth and online success.
+                  {content[language].whyDesc}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
                   <div className={`flex items-start gap-4 rounded-xl p-4 ${darkTheme ? 'bg-black' : 'bg-[#f6f2fa]'}`}> 
@@ -261,8 +523,8 @@ export default function Home({ darkTheme, setDarkTheme }) {
                       </svg>
                     </div>
                     <div>
-                      <h3 className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Expert Team</h3>
-                      <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Certified professionals with proven website project track records.</p>
+                      <h3 className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>{content[language].expertTeam}</h3>
+                      <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>{content[language].expertTeamDesc}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-4 rounded-xl p-4 ${darkTheme ? 'bg-black' : 'bg-[#f6f2fa]'}`}> 
@@ -272,8 +534,8 @@ export default function Home({ darkTheme, setDarkTheme }) {
                       </svg>
                     </div>
                     <div>
-                      <h3 className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`} >Data-Driven</h3>
-                      <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Website results backed by analytics and insights.</p>
+                      <h3 className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`} >{content[language].dataDriven}</h3>
+                      <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>{content[language].dataDrivenDesc}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-4 rounded-xl p-4 ${darkTheme ? 'bg-black' : 'bg-[#f6f2fa]'}`}> 
@@ -283,8 +545,8 @@ export default function Home({ darkTheme, setDarkTheme }) {
                       </svg>
                     </div>
                     <div>
-                      <h3  className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>24/7 Support</h3>
-                      <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Round-the-clock website assistance for your success.</p>
+                      <h3  className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>{content[language].support}</h3>
+                      <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>{content[language].supportDesc}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-4 rounded-xl p-4 ${darkTheme ? 'bg-black' : 'bg-[#f6f2fa]'}`}> 
@@ -295,8 +557,8 @@ export default function Home({ darkTheme, setDarkTheme }) {
                       </svg>
                     </div>
                     <div>
-                      <h3 className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Proven Results</h3>
-                      <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>Proven track record of successful website campaigns.</p>
+                      <h3 className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>{content[language].provenResults}</h3>
+                      <p className={`text-sm ${darkTheme ? 'text-white' : 'text-gray-600'}`}>{content[language].provenResultsDesc}</p>
                     </div>
                   </div>
                 </div>
@@ -307,7 +569,7 @@ export default function Home({ darkTheme, setDarkTheme }) {
                   style={{ background: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)' }}
                   onClick={() => navigate('/about')}
                 >
-                  Learn More About Us
+                  {content[language].learnMore}
                 </button>
               </div>
             </div>
@@ -328,7 +590,7 @@ export default function Home({ darkTheme, setDarkTheme }) {
           {/* Section Header */}
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: '#fff' }}>
-              Our Top Services
+              {content[language].ourTopServices}
             </h2>
           </div>
 
@@ -403,165 +665,241 @@ export default function Home({ darkTheme, setDarkTheme }) {
 
       {/* Impact Metrics Section (reference style) */}
   <section className={`relative z-10 py-20 ${darkTheme ? 'bg-[#000] text-white' : 'bg-white'}`} data-aos="fade-up">
-  <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in ${darkTheme ? 'bg-black' : ''}`}>
-          <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between mb-12 gap-8">
-            {/* Main Metric and Description (Digital Marketing) */}
-            <div className="flex-1 flex flex-col items-start" data-aos="fade-right">
-              {/* Styled lines as in the reference image */}
-              <div className="mb-2">
-                <span style={{
-                  display: 'block',
-                  color: darkTheme ? '#fff' : '#111',
-                  fontWeight: 700,
-                  fontSize: '2.5rem',
-                  letterSpacing: '1px',
-                  lineHeight: 1
-                }}>marketing is</span>
-                <span style={{
-                  display: 'block',
-                  width: '12rem',
-                  height: '3rem',
-                  overflow: 'hidden',
-                  position: 'relative',
-                }}>
-                  <span style={{
-                    display: 'flex',
-                    color: darkTheme ? '#b57edc' : '#53295a',
-                    fontWeight: 700,
-                    fontSize: '2.5rem',
-                    letterSpacing: '1px',
-                    lineHeight: 1,
-                    transition: 'transform 0.5s cubic-bezier(0.4,0,0.2,1)',
-                    willChange: 'transform',
-                    transform: `translateX(-${currentWordIdx * 12}rem)`
-                  }}>
-                    {animatedWords.map((word, idx) => (
-                      <span key={word} style={{ display: 'block', minWidth: '12rem', textAlign: 'left' }}>{word}</span>
-                    ))}
-                  </span>
-                </span>
-              </div>
-              <div className="flex items-center mb-2">
-                <span className="text-6xl md:text-7xl font-extrabold text-[#53295a] mr-2 metric-scroll" data-target="50">21</span>
-                <span className="text-lg font-semibold slide-in-metric-label" style={{ color: '#8d6fd1' }}>Campaigns Launched</span>
-              </div>
-              <p className="text-lg text-justify text-[#53295a] max-w-2xl mb-4">
-                <span className={`text-lg text-justify max-w-2xl mb-4 ${darkTheme ? 'text-white' : 'text-[#53295a]'}`}>We have successfully launched 50+ digital marketing campaigns, helping brands increase their online presence, generate quality leads, and boost ROI. Our expertise covers SEO, social media, PPC, content marketing, and analytics—empowering businesses to reach their target audience and achieve measurable growth in the digital landscape.</span>
-              </p>
-            </div>
-            {/* Impact Image on the right */}
-            <div className="flex-1 flex justify-center items-center mt-8 lg:mt-0" data-aos="fade-left">
-              <img
-                src={impactImg}
-                alt="Impact Metrics"
-                className="w-full max-w-md rounded-2xl shadow-2xl object-cover"
-                style={{ minHeight: '260px', maxHeight: '340px' }}
-              />
-            </div>
-          </div>
-          <hr className="mb-10" style={{ borderColor: '#b57edc' }} />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="flex flex-col items-center justify-center rounded-xl p-8 shadow-lg animate-zoom-in" style={{ background: 'linear-gradient(135deg, #6a4fc2 0%, #a98be7 100%)' }}>
-              <span className="text-4xl md:text-5xl font-extrabold text-white metric-scroll"><AnimatedNumber value={12000} duration={1500} /></span>
-              <span className="text-lg font-semibold text-white slide-in-left">Total Customers</span>
-            </div>
-            <div className="flex flex-col items-center justify-center rounded-xl p-8 shadow-lg" style={{ background: 'linear-gradient(135deg, #6a4fc2 0%, #a98be7 100%)' }}>
-              <span className="text-4xl md:text-5xl font-extrabold text-white metric-scroll"><AnimatedNumber value={320} duration={1500} /></span>
-              <span className="text-lg font-semibold text-white slide-in-left">Enterprise Clients</span>
-            </div>
-            <div className="flex flex-col items-center justify-center rounded-xl p-8 shadow-lg" style={{ background: 'linear-gradient(135deg, #6a4fc2 0%, #a98be7 100%)' }}>
-              <span className="text-4xl md:text-5xl font-extrabold text-white metric-scroll"><AnimatedNumber value={99} duration={1500} suffix="%" /></span>
-              <span className="text-lg font-semibold text-white slide-in-left">Uptime Guarantee</span>
-            </div>
-            <div className="flex flex-col items-center justify-center rounded-xl p-8 shadow-lg" style={{ background: 'linear-gradient(135deg, #6a4fc2 0%, #a98be7 100%)' }}>
-              <span className="text-4xl md:text-5xl font-extrabold text-white metric-scroll"><AnimatedNumber value={75} duration={1500} /></span>
-              <span className="text-lg font-semibold text-white slide-in-left">AI Integrations</span>
-            </div>
-          </div>
+    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in ${darkTheme ? 'bg-black' : ''}`}>
+      <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between mb-12 gap-8">
+        {/* Main Metric and Description (Digital Marketing) */}
+        <div className="flex-1 flex flex-col items-start" data-aos="fade-right">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#53295a' }}>{content[language].impactMetricsTitle}</h2>
+          <p className={`text-lg text-justify max-w-2xl mb-4 ${darkTheme ? 'text-white' : 'text-[#53295a]'}`}>{content[language].impactMetricsDesc}</p>
         </div>
-      </section>
+        {/* Impact Image on the right */}
+        <div className="flex-1 flex justify-center items-center mt-8 lg:mt-0" data-aos="fade-left">
+          <img
+            src={impactImg}
+            alt="Impact Metrics"
+            className="w-full max-w-md rounded-2xl shadow-2xl object-cover"
+            style={{ minHeight: '260px', maxHeight: '340px' }}
+          />
+        </div>
+      </div>
+      <hr className="mb-10" style={{ borderColor: '#b57edc' }} />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {content[language].impactMetricsStats.map((stat, idx) => (
+          <div key={idx} className="flex flex-col items-center justify-center rounded-xl p-8 shadow-lg animate-zoom-in" style={{ background: 'linear-gradient(135deg, #6a4fc2 0%, #a98be7 100%)' }}>
+            <span className="text-4xl md:text-5xl font-extrabold text-white metric-scroll"><AnimatedNumber value={stat.value} duration={1500} suffix={stat.suffix || ''} /></span>
+            <span className="text-lg font-semibold text-white slide-in-left">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
 
       {/* What Our Clients Say Section */}
   <section className={`relative z-10 py-20`} data-aos="fade-right" style={{ backgroundColor: '#c7a6fa' }}>
-  <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in-up`}>
-          <div className={`rounded-2xl shadow-xl p-10 bg-white bg-opacity-80`}> 
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-6">
-              <div data-aos="fade-right">
-                <h2 className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#53295a' }}>
-                  What Our <span style={{ color: '#a259c6' }}>Clients Say</span>
-                </h2>
-                <p className="text-lg max-w-xl" style={{ color: darkTheme ? '#fff' : '#4b5563' }}>
-                  Real feedback from businesses that trust us! See how we help brands grow.
-                </p>
-              </div>
-              {/* Removed Get a Free Consultation button */}
-            </div>
+    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in-up`}>
+      <div className={`rounded-2xl shadow-xl p-10 bg-white bg-opacity-80`}> 
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-6">
+          <div data-aos="fade-right">
+            <h2 className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#53295a' }}>
+              {content[language].whatClientsSay}
+            </h2>
+            <p className="text-lg max-w-xl" style={{ color: darkTheme ? '#fff' : '#4b5563' }}>
+              {content[language].realFeedback}
+            </p>
+          </div>
+        </div>
             {/* Testimonials Carousel (slideshow, 3 at a time, arrows, 6+ cards) */}
             {(() => {
-              const testimonials = [
-                {
-                  border: '#b57edc',
-                  icon: '#b57edc',
-                  title: 'A Game-Changer for Our Business',
-                  text: 'Edisi Software transformed our outdated website into a sleek, modern platform that boosted our conversions by 47%! The team was professional, creative, and attentive to our needs.',
-                  img: 'https://randomuser.me/api/portraits/men/45.jpg',
-                  name: 'Adnan Ashif',
-                  role: 'CEO, EdisiLogic',
-                  stars: '#b57edc',
-                },
-                {
-                  border: '#a259c6',
-                  icon: '#a259c6',
-                  title: 'Exceptional Service & Outstanding Results',
-                  text: 'From branding to web development, Edisi exceeded our expectations. Their strategic approach and attention to detail helped us create a seamless online experience for our customers.',
-                  img: 'https://randomuser.me/api/portraits/women/65.jpg',
-                  name: 'Sarah Lamin',
-                  role: 'CMO, MarketWork',
-                  stars: '#a259c6',
-                },
-                {
-                  border: '#8d4bb7',
-                  icon: '#8d4bb7',
-                  title: 'Creative, Reliable, and Results-Driven',
-                  text: 'Working with Edisi was a fantastic experience! They delivered a stunning e-commerce website that\'s fast, user-friendly, and beautifully designed. Couldn\'t be happier.',
-                  img: 'https://randomuser.me/api/portraits/women/32.jpg',
-                  name: 'Esther Howard',
-                  role: 'Founder, ShopEase',
-                  stars: '#8d4bb7',
-                },
-                // 3 more demo testimonials
-                {
-                  border: '#b57edc',
-                  icon: '#b57edc',
-                  title: 'Outstanding Support',
-                  text: 'The support team at Edisi is always available and quick to resolve any issues. Their dedication to customer satisfaction is unmatched.',
-                  img: 'https://randomuser.me/api/portraits/men/32.jpg',
-                  name: 'Michael Chen',
-                  role: 'CTO, TechNova',
-                  stars: '#b57edc',
-                },
-                {
-                  border: '#a259c6',
-                  icon: '#a259c6',
-                  title: 'Great Results, Every Time',
-                  text: 'We have worked with Edisi on multiple projects and they always deliver great results. Highly recommended for any digital needs.',
-                  img: 'https://randomuser.me/api/portraits/men/65.jpg',
-                  name: 'David Lee',
-                  role: 'Marketing Director, Brandify',
-                  stars: '#a259c6',
-                },
-                {
-                  border: '#8d4bb7',
-                  icon: '#8d4bb7',
-                  title: 'Professional & Creative',
-                  text: 'Edisi\'s creative team brought our vision to life. The website looks amazing and our customers love it!',
-                  img: 'https://randomuser.me/api/portraits/women/45.jpg',
-                  name: 'Priya Singh',
-                  role: 'Owner, Artistry',
-                  stars: '#8d4bb7',
-                },
-              ];
+              const testimonialsData = {
+                English: [
+                  {
+                    border: '#b57edc',
+                    icon: '#b57edc',
+                    title: 'A Game-Changer for Our Business',
+                    text: 'Edisi Software transformed our outdated website into a sleek, modern platform that boosted our conversions by 47%! The team was professional, creative, and attentive to our needs.',
+                    img: 'https://randomuser.me/api/portraits/men/45.jpg',
+                    name: 'Adnan Ashif',
+                    role: 'CEO, EdisiLogic',
+                    stars: '#b57edc',
+                  },
+                  {
+                    border: '#a259c6',
+                    icon: '#a259c6',
+                    title: 'Exceptional Service & Outstanding Results',
+                    text: 'From branding to web development, Edisi exceeded our expectations. Their strategic approach and attention to detail helped us create a seamless online experience for our customers.',
+                    img: 'https://randomuser.me/api/portraits/women/65.jpg',
+                    name: 'Sarah Lamin',
+                    role: 'CMO, MarketWork',
+                    stars: '#a259c6',
+                  },
+                  {
+                    border: '#8d4bb7',
+                    icon: '#8d4bb7',
+                    title: 'Creative, Reliable, and Results-Driven',
+                    text: 'Working with Edisi was a fantastic experience! They delivered a stunning e-commerce website that\'s fast, user-friendly, and beautifully designed. Couldn\'t be happier.',
+                    img: 'https://randomuser.me/api/portraits/women/32.jpg',
+                    name: 'Esther Howard',
+                    role: 'Founder, ShopEase',
+                    stars: '#8d4bb7',
+                  },
+                  {
+                    border: '#b57edc',
+                    icon: '#b57edc',
+                    title: 'Outstanding Support',
+                    text: 'The support team at Edisi is always available and quick to resolve any issues. Their dedication to customer satisfaction is unmatched.',
+                    img: 'https://randomuser.me/api/portraits/men/32.jpg',
+                    name: 'Michael Chen',
+                    role: 'CTO, TechNova',
+                    stars: '#b57edc',
+                  },
+                  {
+                    border: '#a259c6',
+                    icon: '#a259c6',
+                    title: 'Great Results, Every Time',
+                    text: 'We have worked with Edisi on multiple projects and they always deliver great results. Highly recommended for any digital needs.',
+                    img: 'https://randomuser.me/api/portraits/men/65.jpg',
+                    name: 'David Lee',
+                    role: 'Marketing Director, Brandify',
+                    stars: '#a259c6',
+                  },
+                  {
+                    border: '#8d4bb7',
+                    icon: '#8d4bb7',
+                    title: 'Professional & Creative',
+                    text: 'Edisi\'s creative team brought our vision to life. The website looks amazing and our customers love it!',
+                    img: 'https://randomuser.me/api/portraits/women/45.jpg',
+                    name: 'Priya Singh',
+                    role: 'Owner, Artistry',
+                    stars: '#8d4bb7',
+                  },
+                ],
+                Arabic: [
+                  {
+                    border: '#b57edc',
+                    icon: '#b57edc',
+                    title: 'تغيير جذري لأعمالنا',
+                    text: 'حولت Edisi موقعنا القديم إلى منصة حديثة زادت التحويلات بنسبة 47%! الفريق كان محترفًا ومبدعًا ومتعاونًا للغاية.',
+                    img: 'https://randomuser.me/api/portraits/men/45.jpg',
+                    name: 'عدنان عاشف',
+                    role: 'الرئيس التنفيذي، EdisiLogic',
+                    stars: '#b57edc',
+                  },
+                  {
+                    border: '#a259c6',
+                    icon: '#a259c6',
+                    title: 'خدمة استثنائية ونتائج رائعة',
+                    text: 'من العلامة التجارية إلى تطوير المواقع، فاقت Edisi توقعاتنا. نهجهم الاستراتيجي واهتمامهم بالتفاصيل ساعدنا في تقديم تجربة سلسة للعملاء.',
+                    img: 'https://randomuser.me/api/portraits/women/65.jpg',
+                    name: 'سارة لمين',
+                    role: 'مديرة التسويق، MarketWork',
+                    stars: '#a259c6',
+                  },
+                  {
+                    border: '#8d4bb7',
+                    icon: '#8d4bb7',
+                    title: 'إبداع وموثوقية ونتائج',
+                    text: 'العمل مع Edisi كان رائعًا! أنشأوا موقع تجارة إلكترونية مذهل وسريع وسهل الاستخدام. نحن سعداء جدًا.',
+                    img: 'https://randomuser.me/api/portraits/women/32.jpg',
+                    name: 'إستر هوارد',
+                    role: 'مؤسسة ShopEase',
+                    stars: '#8d4bb7',
+                  },
+                  {
+                    border: '#b57edc',
+                    icon: '#b57edc',
+                    title: 'دعم ممتاز',
+                    text: 'فريق الدعم في Edisi دائمًا متاح وسريع في حل المشاكل. تفانيهم في رضا العملاء لا مثيل له.',
+                    img: 'https://randomuser.me/api/portraits/men/32.jpg',
+                    name: 'مايكل تشين',
+                    role: 'مدير التقنية، TechNova',
+                    stars: '#b57edc',
+                  },
+                  {
+                    border: '#a259c6',
+                    icon: '#a259c6',
+                    title: 'نتائج رائعة دائمًا',
+                    text: 'عملنا مع Edisi في عدة مشاريع ودائمًا يقدمون نتائج ممتازة. أنصح بهم لأي احتياج رقمي.',
+                    img: 'https://randomuser.me/api/portraits/men/65.jpg',
+                    name: 'ديفيد لي',
+                    role: 'مدير التسويق، Brandify',
+                    stars: '#a259c6',
+                  },
+                  {
+                    border: '#8d4bb7',
+                    icon: '#8d4bb7',
+                    title: 'احترافية وإبداع',
+                    text: 'فريق الإبداع في Edisi حول رؤيتنا إلى واقع. الموقع رائع والعملاء يحبونه!',
+                    img: 'https://randomuser.me/api/portraits/women/45.jpg',
+                    name: 'بريا سينغ',
+                    role: 'مالكة Artistry',
+                    stars: '#8d4bb7',
+                  },
+                ],
+                Hebrew: [
+                  {
+                    border: '#b57edc',
+                    icon: '#b57edc',
+                    title: 'שינוי מהותי לעסק שלנו',
+                    text: 'Edisi שדרגו לנו אתר ישן לפלטפורמה מודרנית שהעלתה את ההמרות ב-47%! הצוות היה מקצועי, יצירתי וקשוב.',
+                    img: 'https://randomuser.me/api/portraits/men/45.jpg',
+                    name: 'עדנאן אשרף',
+                    role: 'מנכ"ל, EdisiLogic',
+                    stars: '#b57edc',
+                  },
+                  {
+                    border: '#a259c6',
+                    icon: '#a259c6',
+                    title: 'שירות יוצא דופן ותוצאות מעולות',
+                    text: 'מהמיתוג ועד פיתוח האתר, Edisi עלו על כל הציפיות. הגישה האסטרטגית והקפדה על פרטים יצרו לנו חוויה מושלמת ללקוחות.',
+                    img: 'https://randomuser.me/api/portraits/women/65.jpg',
+                    name: 'שרה למין',
+                    role: 'מנהלת שיווק, MarketWork',
+                    stars: '#a259c6',
+                  },
+                  {
+                    border: '#8d4bb7',
+                    icon: '#8d4bb7',
+                    title: 'יצירתיות, אמינות ותוצאות',
+                    text: 'העבודה עם Edisi הייתה מצוינת! הם בנו לנו אתר איקומרס מדהים, מהיר ונוח. אנחנו מרוצים מאוד.',
+                    img: 'https://randomuser.me/api/portraits/women/32.jpg',
+                    name: 'אסתר הווארד',
+                    role: 'מייסדת ShopEase',
+                    stars: '#8d4bb7',
+                  },
+                  {
+                    border: '#b57edc',
+                    icon: '#b57edc',
+                    title: 'תמיכה יוצאת דופן',
+                    text: 'צוות התמיכה של Edisi תמיד זמין ומהיר בפתרון בעיות. המסירות שלהם לשביעות רצון לקוחות היא ללא תחרות.',
+                    img: 'https://randomuser.me/api/portraits/men/32.jpg',
+                    name: 'מייקל צ׳ן',
+                    role: 'CTO, TechNova',
+                    stars: '#b57edc',
+                  },
+                  {
+                    border: '#a259c6',
+                    icon: '#a259c6',
+                    title: 'תוצאות מעולות תמיד',
+                    text: 'עבדנו עם Edisi על מספר פרויקטים ותמיד קיבלנו תוצאות מצוינות. ממליץ לכל צורך דיגיטלי.',
+                    img: 'https://randomuser.me/api/portraits/men/65.jpg',
+                    name: 'דוד לי',
+                    role: 'מנהל שיווק, Brandify',
+                    stars: '#a259c6',
+                  },
+                  {
+                    border: '#8d4bb7',
+                    icon: '#8d4bb7',
+                    title: 'מקצועיות ויצירתיות',
+                    text: 'צוות הקריאייטיב של Edisi הגשים לנו את החזון. האתר נראה מדהים והלקוחות אוהבים אותו!',
+                    img: 'https://randomuser.me/api/portraits/women/45.jpg',
+                    name: 'פריה סינג',
+                    role: 'בעלים, Artistry',
+                    stars: '#8d4bb7',
+                  },
+                ]
+              };
+              const testimonials = testimonialsData[language];
               const [testimonialIdx, setTestimonialIdx] = React.useState(0);
               React.useEffect(() => {
                 const timer = setInterval(() => {
@@ -628,34 +966,33 @@ export default function Home({ darkTheme, setDarkTheme }) {
       </section>
       {/* CTA Section (moved below testimonials) */}
   <section className={`relative z-20 py-20 ${darkTheme ? 'bg-[#000] text-white' : 'bg-white'}`} data-aos="fade-left">
-  <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in ${darkTheme ? 'bg-black' : ''}`}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* Left: Content */}
-            <div className="order-2 md:order-1">
-              <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-                <span className={`${darkTheme ? 'text-white' : 'text-black'}`}>Get Started </span>
-                <span className="text-[#a259c6]">Today</span>
-              </h2>
-              <p className="text-lg mb-8 text-justify text-[#53295a] max-w-2xl">
-                <span className={`text-lg mb-8 text-justify max-w-2xl ${darkTheme ? 'text-white' : 'text-[#53295a]'}`}>Drive growth, increase engagement, and dominate your market with our cutting-edge digital marketing strategies. 
-                From SEO to social media, we've got your success covered.</span>
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={() => navigate('/contactus')}
-                  className="px-8 py-4 text-white rounded-lg font-semibold text-lg shadow-lg transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-[#b57edc] via-[#a259c6] to-[#6c3483]"
-                >
-                  Get Started Today
-                </button>
-              </div>
-            </div>
-            {/* Right: Image */}
-            <div className="flex justify-center order-1 md:order-2">
-              <img src={websiteImg} alt="Get Started" className="w-full max-w-md rounded-2xl shadow-2xl object-cover" style={{ minHeight: '260px', maxHeight: '340px' }} />
-            </div>
+    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in ${darkTheme ? 'bg-black' : ''}`}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        {/* Left: Content */}
+        <div className="order-2 md:order-1">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
+            <span className={`${darkTheme ? 'text-white' : 'text-black'}`}>{content[language].ctaTitle.split(' ')[0]} </span>
+            <span className="text-[#a259c6]">{content[language].ctaTitle.split(' ').slice(1).join(' ')}</span>
+          </h2>
+          <p className="text-lg mb-8 text-justify text-[#53295a] max-w-2xl">
+            <span className={`text-lg mb-8 text-justify max-w-2xl ${darkTheme ? 'text-white' : 'text-[#53295a]'}`}>{content[language].ctaDesc}</span>
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button
+              onClick={() => navigate('/contactus')}
+              className="px-8 py-4 text-white rounded-lg font-semibold text-lg shadow-lg transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-[#b57edc] via-[#a259c6] to-[#6c3483]"
+            >
+              {content[language].ctaButton}
+            </button>
           </div>
         </div>
-      </section>
+        {/* Right: Image */}
+        <div className="flex justify-center order-1 md:order-2">
+          <img src={websiteImg} alt="Get Started" className="w-full max-w-md rounded-2xl shadow-2xl object-cover" style={{ minHeight: '260px', maxHeight: '340px' }} />
+        </div>
+      </div>
+    </div>
+  </section>
   <Footer darkTheme={darkTheme} />
     </div>
   );

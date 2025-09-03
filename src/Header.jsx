@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "./assets/logo.png";
 
-export default function Header({ darkTheme, setDarkTheme }) {
+export default function Header({ darkTheme, setDarkTheme, language, setLanguage }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
+  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   // Robust initials logic: handle both string and object for loggedInUser
   let initials = "?";
   let loggedInUser = localStorage.getItem("loggedInUser");
@@ -38,6 +39,10 @@ export default function Header({ darkTheme, setDarkTheme }) {
   }
   const [isHomeDropdownOpen, setIsHomeDropdownOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const handleLanguageSelect = (lang) => {
+    setIsLanguageDropdownOpen(false);
+    if (setLanguage) setLanguage(lang);
+  };
 
   const toggleHomeDropdown = () => {
     setIsHomeDropdownOpen(!isHomeDropdownOpen);
@@ -66,6 +71,52 @@ export default function Header({ darkTheme, setDarkTheme }) {
 
           {/* Navigation and Icons */}
           <div className={`hidden md:flex items-center space-x-8 ${darkTheme ? 'text-white' : 'text-gray-700'}`}>
+            {/* Languages Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsLanguageDropdownOpen((v) => !v)}
+                className={`flex items-center space-x-1 transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
+              >
+                <span>Languages</span>
+                <svg
+                  className={`w-4 h-4 transition-transform duration-200 ${isLanguageDropdownOpen ? "rotate-180" : ""}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              {isLanguageDropdownOpen && (
+                <div className="absolute top-full left-0 mt-2 w-40 bg-white rounded-md shadow-lg border border-gray-200 z-50">
+                  <div className="py-1">
+                    <button
+                      className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${language === 'English' ? 'font-bold bg-gray-100' : ''}`}
+                      onClick={() => handleLanguageSelect('English')}
+                    >
+                      English
+                    </button>
+                    <button
+                      className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${language === 'Arabic' ? 'font-bold bg-gray-100' : ''}`}
+                      onClick={() => handleLanguageSelect('Arabic')}
+                    >
+                      Arabic
+                    </button>
+                    <button
+                      className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${language === 'Hebrew' ? 'font-bold bg-gray-100' : ''}`}
+                      onClick={() => handleLanguageSelect('Hebrew')}
+                    >
+                      Hebrew
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
             {/* Home Dropdown */}
             <div className="relative">
               <button
@@ -286,6 +337,17 @@ export default function Header({ darkTheme, setDarkTheme }) {
         {isMobileMenuOpen && (
           <div className="fixed top-0 left-0 h-full w-4/5 max-w-xs bg-white shadow-lg border-r border-gray-200 z-50 transition-transform duration-300" style={{ minHeight: '100vh' }}>
             <nav className="flex flex-col py-2 sticky top-0">
+              {/* Languages Dropdown for Mobile */}
+              <details>
+                <summary className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center" style={{ listStyle: 'none' }}>
+                  Languages
+                </summary>
+                <div className="flex flex-col ml-4">
+                  <button className={`px-4 py-2 text-gray-700 hover:bg-gray-100 text-left ${language === 'English' ? 'font-bold bg-gray-100' : ''}`} onClick={() => { if (setLanguage) setLanguage('English'); }}>{'English'}</button>
+                  <button className={`px-4 py-2 text-gray-700 hover:bg-gray-100 text-left ${language === 'Arabic' ? 'font-bold bg-gray-100' : ''}`} onClick={() => { if (setLanguage) setLanguage('Arabic'); }}>{'Arabic'}</button>
+                  <button className={`px-4 py-2 text-gray-700 hover:bg-gray-100 text-left ${language === 'Hebrew' ? 'font-bold bg-gray-100' : ''}`} onClick={() => { if (setLanguage) setLanguage('Hebrew'); }}>{'Hebrew'}</button>
+                </div>
+              </details>
               <Link to="/" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
               <Link to="/home1" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Home1</Link>
               <Link to="/home2" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Home2</Link>

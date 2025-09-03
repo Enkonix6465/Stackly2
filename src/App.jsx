@@ -18,30 +18,32 @@ import EmailMarketingAutomation from "./pages/servicepages/Email Marketing & Aut
 import WebsiteDesignDevelopment from "./pages/servicepages/Website Design & Development";
 
 
+
 import { useState } from "react";
 
 export default function App() {
   const [darkTheme, setDarkTheme] = useState(false);
+  const [language, setLanguage] = useState('English');
   return (
     <Router>
       <Routes>
         <Route path="/" element={<IndexSplash />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/home1" element={<Home1 darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-  <Route path="/blog" element={<Blog darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-  <Route path="/blog/article/:id" element={<ArticleDetail darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-  <Route path="/admin" element={<AdminDashboard darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-        <Route path="/home2" element={<Home2 darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-        <Route path="/about" element={<AboutUs darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-  <Route path="/contactus" element={<ContactUsHero darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-        <Route path="/services" element={<Services darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-  <Route path="/services/seo" element={<SearchEngineOptimization darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-  <Route path="/services/smm" element={<SocialMediaMarketing darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-  <Route path="/services/ppc" element={<PayPerClickAdvertising darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-  <Route path="/services/content" element={<ContentMarketing darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-  <Route path="/services/email" element={<EmailMarketingAutomation darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
-  <Route path="/services/web" element={<WebsiteDesignDevelopment darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
+        <Route path="/home1" element={<Home1 darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/blog" element={<Blog darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/blog/article/:id" element={<ArticleDetail darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/admin" element={<AdminDashboard darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/home2" element={<Home2 darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/about" element={<AboutUs darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/contactus" element={<ContactUsHero darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/services" element={<Services darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/services/seo" element={<SearchEngineOptimization darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/services/smm" element={<SocialMediaMarketing darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/services/ppc" element={<PayPerClickAdvertising darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/services/content" element={<ContentMarketing darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/services/email" element={<EmailMarketingAutomation darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
+        <Route path="/services/web" element={<WebsiteDesignDevelopment darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
