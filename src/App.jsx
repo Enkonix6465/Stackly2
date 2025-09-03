@@ -50,8 +50,7 @@ export default function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
-        <Footer darkTheme={darkTheme} language={language} />
-      </div>
+       </div>
     </Router>
   );
 }
