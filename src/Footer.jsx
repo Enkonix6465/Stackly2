@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import logo from "./assets/logo.png";
 const translations = {
   English: {
     brand: "Digital Marketing",
@@ -124,7 +125,7 @@ export default function Footer({ darkTheme, language = 'English' }) {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
         {/* Logo and Brand */}
         <div className="md:col-span-1 flex flex-col items-start">
-          <img src={require("./assets/logo.png")} alt="Logo" className="h-14 mb-4" />
+          <img src={logo} alt="Logo" className="h-14 mb-4" />
           <span className={`font-bold text-xl ${darkTheme ? 'text-white' : 'text-[#53295a]'}`}>{t.brand}</span>
           <span className={`${darkTheme ? 'text-[#a259c6]' : 'text-[#7c5dc7]'} text-sm mt-1`}>{t.partner}</span>
           <span className={`${darkTheme ? 'text-[#7c5dc7]' : 'text-[#a259c6]'} text-sm`}>{t.solutions}</span>
