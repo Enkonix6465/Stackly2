@@ -7,7 +7,7 @@ export default function Services({ darkTheme, setDarkTheme }) {
     const content = {
         English: {
             heroTitle: 'Our Services',
-            heroDesc: 'Discover the full suite of digital marketing solutions we offer to grow your business online.',
+            heroDesc: 'Discover the full suite of digital marketing solutions we offer to grow your business online. From SEO and social media to PPC, content, email marketing, and web development, our expert team delivers strategies that drive real results, boost your brand, and help you reach new customers.',
             servicesTitle: 'Our Services',
             servicesCards: [
                 {
@@ -268,7 +268,7 @@ export default function Services({ darkTheme, setDarkTheme }) {
                     muted
                     playsInline
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-60 z-10"></div>
+                <div className="absolute inset-0 bg-black bg-opacity-80 z-10"></div>
                 <div className="relative z-20 flex flex-col items-center justify-center text-center w-full px-4">
                     <h1 className={`text-4xl md:text-6xl font-extrabold mb-2 drop-shadow-lg ${darkTheme ? 'text-white' : 'text-[#a259c6]'}`}>{content[language].heroTitle}</h1>
                     <p className={`text-lg md:text-xl mb-2 max-w-2xl mx-auto drop-shadow-md ${darkTheme ? 'text-white' : 'text-white'}`}>{content[language].heroDesc}</p>
@@ -349,7 +349,7 @@ export default function Services({ darkTheme, setDarkTheme }) {
                                 <li key={idx} className="flex items-center"><span className={`inline-block w-3 h-3 rounded-full ${idx%2===0 ? 'bg-[#a259c6]' : 'bg-[#7c5dc7]'} mr-3`}></span><span className="font-semibold text-[#232136]">{award}</span></li>
                             ))}
                         </ul>
-                        <div className="text-sm text-gray-500">{content[language].awardsNote}</div>
+                        <div className="text-sm font-bold text-[#232136]" style={{textShadow: '0 1px 2px #fff, 0 0 1px #232136'}}> {content[language].awardsNote}</div>
                     </div>
                     {/* Right: Image */}
                     <div className="md:w-1/2 w-full flex justify-center">
@@ -362,7 +362,7 @@ export default function Services({ darkTheme, setDarkTheme }) {
             <section className={`w-full py-16 flex flex-col items-center ${darkTheme ? 'bg-black' : 'bg-gradient-to-br from-[#f5f3ff] via-[#f3e8ff] to-[#f8fafc]'}`} data-aos="fade-up" dir={isRTL ? 'rtl' : 'ltr'}>
                 <h2 className={`text-4xl md:text-5xl font-extrabold text-center mb-4 ${darkTheme ? 'text-white' : 'text-[#7c5dc7]'}`}>{content[language].ctaTitle}</h2>
                 <p className="text-lg text-[#232136] mb-8 text-center max-w-2xl">{content[language].ctaDesc}</p>
-                <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <div className="flex flex-col sm:flex-row gap-6 justify-center items-center w-full">
                     <button className="bg-[#7c5dc7] hover:bg-[#a259c6] text-white font-semibold px-10 py-3 rounded-xl shadow-lg transition-all text-lg">{content[language].ctaBtn1}</button>
                     <button className="border-2 border-[#7c5dc7] text-[#7c5dc7] font-semibold px-10 py-3 rounded-xl bg-white hover:bg-[#f5fafd] transition-all text-lg">{content[language].ctaBtn2}</button>
                 </div>

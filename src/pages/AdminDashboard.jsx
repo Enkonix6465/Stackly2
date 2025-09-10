@@ -23,7 +23,8 @@ const translations = {
     analytics: "אנליטיקה",
     integrations: "אינטגרציות",
     totalUsers: "סה\"כ משתמשים רשומים",
-    noUsers: "אין משתמשים רשומים עדיין.",
+  noUsers: "אין משתמשים רשומים עדיין.",
+  noUserGrowthData: "אין נתוני צמיחת משתמשים.",
     campaignsOverview: "סקירת קמפיינים",
     totalUsersStat: "סה\"כ משתמשים",
     todaysRegistrations: "הרשמות היום",
@@ -84,7 +85,8 @@ const translations = {
     analytics: "Analytics",
     integrations: "Integrations",
     totalUsers: "Total Registered Users",
-    noUsers: "No registered users yet.",
+  noUsers: "No registered users yet.",
+  noUserGrowthData: "No user growth data available.",
     campaignsOverview: "Campaigns Overview",
     totalUsersStat: "Total Users",
     todaysRegistrations: "Today's Registrations",
@@ -152,7 +154,8 @@ const translations = {
     analytics: "تحليلات",
     integrations: "التكاملات",
     totalUsers: "إجمالي المستخدمين المسجلين",
-    noUsers: "لا يوجد مستخدمون مسجلون بعد.",
+  noUsers: "لا يوجد مستخدمون مسجلون بعد.",
+  noUserGrowthData: "لا توجد بيانات نمو المستخدمين.",
     campaignsOverview: "نظرة عامة على الحملات",
     totalUsersStat: "إجمالي المستخدمين",
     todaysRegistrations: "تسجيلات اليوم",
@@ -213,12 +216,20 @@ const translations = {
   },
 };
 
-export default function AdminDashboard({ darkTheme, setDarkTheme, language = 'en', setLanguage }) {
-  // Use language prop if provided, else local state
-  const [localLanguage, setLocalLanguage] = useState(language);
-  const currentLanguage = language || localLanguage;
-  const t = translations[currentLanguage] || translations['en'];
-  const isRTL = ['ar', 'he'].includes(currentLanguage);
+// Map UI language names to translation keys
+const languageMap = {
+  English: 'en',
+  Arabic: 'ar',
+  Hebrew: 'he',
+};
+
+export default function AdminDashboard({ darkTheme, setDarkTheme, language = 'English', setLanguage }) {
+  // Always use the language prop from Header for sync
+  const langKey = languageMap[language] || 'en';
+  const t = translations[langKey] || translations['en'];
+  const isRTL = langKey === 'ar' || langKey === 'he';
+  // Sidebar collapse state
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   // State for editing a blog
   const [editForm, setEditForm] = useState({
     title: '',
@@ -425,13 +436,13 @@ export default function AdminDashboard({ darkTheme, setDarkTheme, language = 'en
   };
 
   return (
-    <div className={`relative max-w-screen min-h-screen ${darkTheme ? 'bg-[#18181c]' : ''}`} dir={isRTL ? "rtl" : "ltr"}>
+  <div className={`relative max-w-screen min-h-screen pt-[72px] ${darkTheme ? 'bg-[#18181c]' : ''}`} dir={isRTL ? "rtl" : "ltr"}>
       {/* Header with language selector */}
       <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} language={language} setLanguage={setLanguage} />
       <div className="flex flex-1 flex-col md:flex-row">
         {/* Mobile Sidebar Toggle */}
         <div className="md:hidden w-full flex justify-between items-center px-4 py-2 bg-[#f3eaff] border-b border-[#e5d6fa] sticky top-0 z-30">
-          <h2 className={`text-xl font-bold ${darkTheme ? 'text-[#f3eaff]' : 'text-[#53295a]'}`}>☰ {t.dashboard}</h2>
+          <h2 className={`text-xl font-bold ${darkTheme ? 'text-[#f3eaff]' : 'text-[#53295a]'}`}>{t.dashboard}</h2>
           <div className="flex gap-2 items-center">
             <select
               className="rounded px-2 py-1 border border-[#a259c6] text-[#a259c6] bg-white"
@@ -442,54 +453,62 @@ export default function AdminDashboard({ darkTheme, setDarkTheme, language = 'en
                 <option key={sec.key} value={sec.key}>{t[sec.labelKey]}</option>
               ))}
             </select>
-            <select
-              className="rounded px-2 py-1 border border-[#a259c6] text-[#a259c6] bg-white"
-              value={currentLanguage}
-              onChange={e => {
-                if (setLanguage) setLanguage(e.target.value);
-                setLocalLanguage(e.target.value);
-              }}
-            >
-              <option value="en">English</option>
-              <option value="ar">العربية</option>
-              <option value="he">עברית</option>
-            </select>
-            <span className="ml-2 font-semibold text-[#53295a]">English</span>
+            {/* Language dropdown removed: language is now only controlled from the main header */}
           </div>
         </div>
-        {/* Sidebar for desktop */}
-        <aside className={`hidden md:flex w-56 flex-col p-4 border-r ${darkTheme ? 'bg-[#232136] border-[#3a2352]' : 'bg-[#f3eaff] border-[#e5d6fa]'}`}> 
-          <div className="mb-6 flex flex-col gap-2">
-            <h2 className={`text-xl font-bold text-center ${darkTheme ? 'text-[#f3eaff]' : 'text-[#53295a]'}`}>☰ {t.dashboard}</h2>
-            <select
-              className="rounded px-2 py-1 border border-[#a259c6] text-[#a259c6] bg-white"
-              value={currentLanguage}
-              onChange={e => {
-                if (setLanguage) setLanguage(e.target.value);
-                setLocalLanguage(e.target.value);
-              }}
-            >
-              <option value="en">English</option>
-              <option value="ar">العربية</option>
-              <option value="he">עברית</option>
-            </select>
+        {/* Sidebar for desktop with collapse/expand */}
+  <aside className={`hidden md:flex flex-col border-r transition-all duration-300 h-screen z-40 ${sidebarCollapsed ? 'w-16 p-2' : 'w-56 p-4'} ${darkTheme ? 'bg-[#232136] border-[#3a2352]' : 'bg-[#f3eaff] border-[#e5d6fa]'}`}> 
+          <div className={`mb-6 flex flex-col gap-2 ${sidebarCollapsed ? 'items-center' : ''}`}>
+            <div className="flex items-center justify-between w-full">
+              <h2 className={`text-xl font-bold ${sidebarCollapsed ? 'text-center w-full' : ''} ${darkTheme ? 'text-[#f3eaff]' : 'text-[#53295a]'}`}>{!sidebarCollapsed && t.dashboard}</h2>
+              <button
+                className={`ml-auto p-1 rounded ${darkTheme ? 'bg-[#3a2352] text-[#f3eaff]' : 'bg-[#e5d6fa] text-[#53295a]'} transition`}
+                title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                onClick={() => setSidebarCollapsed((prev) => !prev)}
+              >
+                {sidebarCollapsed ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                )}
+              </button>
+            </div>
+            {/* Language dropdown removed from sidebar */}
           </div>
           {sections.map((sec) => (
             <button
               key={sec.key}
-              className={`text-left px-4 py-2 rounded mb-2 font-medium flex items-center transition ${activeSection === sec.key ? (darkTheme ? 'bg-[#a259c6] text-white border-2 border-[#f3eaff]' : 'bg-[#a259c6] text-white border-2 border-[#53295a]') : (darkTheme ? 'text-[#f3eaff] hover:bg-[#232136]' : 'text-[#53295a] hover:bg-[#e5d6fa]')}`}
+              className={`flex items-center transition text-left rounded mb-2 font-medium w-full ${sidebarCollapsed ? 'justify-center px-0 py-2' : 'px-4 py-2'} ${activeSection === sec.key ? (darkTheme ? 'bg-[#a259c6] text-white border-2 border-[#f3eaff]' : 'bg-[#a259c6] text-white border-2 border-[#53295a]') : (darkTheme ? 'text-[#f3eaff] hover:bg-[#232136]' : 'text-[#53295a] hover:bg-[#e5d6fa]')}`}
               style={activeSection === sec.key ? { boxShadow: `0 0 0 2px #a259c6` } : {}}
               onClick={() => setActiveSection(sec.key)}
+              title={sidebarCollapsed ? t[sec.labelKey] : undefined}
             >
-              {t[sec.labelKey]}
+              {sidebarCollapsed ? (
+                // Use icons for each section, fallback to a dot
+                sec.key === 'users' ? (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87M16 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                ) : sec.key === 'campaigns' ? (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" /></svg>
+                ) : sec.key === 'content' ? (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" /><path d="M8 2v4M16 2v4M2 10h20" /></svg>
+                ) : sec.key === 'leads' ? (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-8 0v2" /><circle cx="12" cy="7" r="4" /></svg>
+                ) : sec.key === 'analytics' ? (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M11 19V6M6 19v-4M16 19v-2M21 19V9" /></svg>
+                ) : sec.key === 'integrations' ? (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 008.7 19a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004 8.7a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33h.09A1.65 1.65 0 008.7 5a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09A1.65 1.65 0 0015 5c.26.01.52.07.76.18.24.11.47.25.68.42l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v.09c.01.26.07.52.18.76.11.24.25.47.42.68l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-1.82.33h-.09A1.65 1.65 0 0019 15z" /></svg>
+                ) : (
+                  <span className="h-2 w-2 bg-gray-400 rounded-full inline-block"></span>
+                )
+              ) : (
+                t[sec.labelKey]
+              )}
             </button>
           ))}
         </aside>
         {/* Main Content */}
-        <main className={`flex-1 p-2 md:p-8 ${darkTheme ? 'bg-[#18181c] text-white' : ''}`}> 
-          <header className={`p-4 rounded mb-6 text-2xl font-bold border shadow-sm tracking-wide ${darkTheme ? 'bg-[#232136] border-[#3a2352] text-[#a259c6]' : 'bg-white border-[#e5d6fa] text-[#a259c6]'}`}> 
-            {t.dashboard}
-          </header>
+  <main className={`flex-1 p-2 md:p-8 ${darkTheme ? 'bg-[#f3eaff] text-white' : 'bg-[#f3eaff] text-[#232136]'}`}> 
+          {/* Removed Admin Dashboard title from main content area since sidebar highlights it */}
           {/* Section Content */}
           {activeSection === "users" && (
             <section>
@@ -522,86 +541,86 @@ export default function AdminDashboard({ darkTheme, setDarkTheme, language = 'en
           )}
           {activeSection === "campaigns" && (
             <section>
-              <h2 className="text-2xl font-bold mb-4 text-violet-500">{t.campaignsOverview}</h2>
+              <h2 className="text-2xl font-bold mb-4 text-black">{t.campaignsOverview}</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-gradient-to-br from-violet-800 to-violet-600 rounded-md p-6 text-center shadow-md">
-                  <h3 className="text-lg font-semibold mb-2 text-white">{t.totalUsersStat}</h3>
+                <div className="bg-[#a259c6] rounded-md p-6 text-center shadow-md">
+                  <h3 className="text-lg font-semibold mb-2 text-black">{t.totalUsersStat}</h3>
                   <p className="text-2xl font-bold text-white">{users.length}</p>
-                  <span className="block text-violet-200 mt-2">{t.campaignsOverview} - {t.totalUsersStat}</span>
+                  <span className="block text-white mt-2">{t.campaignsOverview} - {t.totalUsersStat}</span>
                 </div>
-                <div className="bg-gradient-to-br from-violet-700 to-violet-500 rounded-md p-6 text-center shadow-md">
-                  <h3 className="text-lg font-semibold mb-2 text-white">{t.todaysRegistrations}</h3>
+                <div className="bg-[#a259c6] rounded-md p-6 text-center shadow-md">
+                  <h3 className="text-lg font-semibold mb-2 text-black">{t.todaysRegistrations}</h3>
                   <p className="text-2xl font-bold text-white">{todaysRegistrations}</p>
-                  <span className="block text-violet-200 mt-2">{t.campaignsOverview} - {t.todaysRegistrations}</span>
+                  <span className="block text-white mt-2">{t.campaignsOverview} - {t.todaysRegistrations}</span>
                 </div>
-                <div className="bg-gradient-to-br from-violet-600 to-violet-400 rounded-md p-6 text-center shadow-md">
-                  <h3 className="text-lg font-semibold mb-2 text-white">{t.peakDay}</h3>
+                <div className="bg-[#a259c6] rounded-md p-6 text-center shadow-md">
+                  <h3 className="text-lg font-semibold mb-2 text-black">{t.peakDay}</h3>
                   <p className="text-2xl font-bold text-white">{peakDay}</p>
-                  <span className="block text-violet-200 mt-2">{t.campaignsOverview} - {t.peakDay}</span>
+                  <span className="block text-white mt-2">{t.campaignsOverview} - {t.peakDay}</span>
                 </div>
               </div>
             </section>
           )}
           {activeSection === "content" && (
             <section>
-              <h2 className="text-2xl font-bold mb-4 text-violet-500">{t.contentManagement}</h2>
+              <h2 className="text-2xl font-bold mb-4 text-black">{t.contentManagement}</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div className="bg-gradient-to-br from-violet-900 to-violet-700 rounded-md p-6 shadow-md cursor-pointer hover:from-violet-800 hover:to-violet-600">
-                  <h3 className="text-lg font-semibold mb-2 flex items-center text-white">
+                <div className="bg-[#a259c6] rounded-md p-6 shadow-md cursor-pointer">
+                  <h3 className="text-lg font-semibold mb-2 flex items-center text-black">
                     <span role="img" aria-label="blog" className="mr-2">📝</span>
-                    <span className="text-violet-300">{t.blogPosts}</span>
+                    <span className="text-white">{t.blogPosts}</span>
                   </h3>
-                  <p className="text-violet-100">{t.blogPosts}: {t.contentManagement}</p>
+                  <p className="text-white">{t.blogPosts}: {t.contentManagement}</p>
                 </div>
-                <div className="bg-gradient-to-br from-violet-900 to-violet-700 rounded-md p-6 shadow-md cursor-pointer hover:from-violet-800 hover:to-violet-600">
-                  <h3 className="text-lg font-semibold mb-2 flex items-center text-white">
+                <div className="bg-[#a259c6] rounded-md p-6 shadow-md cursor-pointer">
+                  <h3 className="text-lg font-semibold mb-2 flex items-center text-black">
                     <span role="img" aria-label="social" className="mr-2">📋</span>
-                    <span className="text-pink-300">{t.socialMediaContent}</span>
+                    <span className="text-white">{t.socialMediaContent}</span>
                   </h3>
-                  <p className="text-violet-100">{t.socialMediaContent}: {t.contentManagement}</p>
+                  <p className="text-white">{t.socialMediaContent}: {t.contentManagement}</p>
                 </div>
-                <div className="bg-gradient-to-br from-violet-900 to-violet-700 rounded-md p-6 shadow-md cursor-pointer hover:from-violet-800 hover:to-violet-600">
-                  <h3 className="text-lg font-semibold mb-2 flex items-center text-white">
+                <div className="bg-[#a259c6] rounded-md p-6 shadow-md cursor-pointer">
+                  <h3 className="text-lg font-semibold mb-2 flex items-center text-black">
                     <span role="img" aria-label="email" className="mr-2">📧</span>
-                    <span className="text-green-300">{t.emailCampaigns}</span>
+                    <span className="text-white">{t.emailCampaigns}</span>
                   </h3>
-                  <p className="text-violet-100">{t.emailCampaigns}: {t.contentManagement}</p>
+                  <p className="text-white">{t.emailCampaigns}: {t.contentManagement}</p>
                 </div>
               </div>
-              <div className="bg-gradient-to-br from-violet-900 to-violet-700 rounded-md p-6 mb-6 min-h-[60px] text-violet-200">
+              <div className="bg-[#a259c6] rounded-md p-6 mb-6 min-h-[60px] text-white">
                 [{t.contentManagement} {t.blogPosts} {t.socialMediaContent} {t.emailCampaigns}]
               </div>
             </section>
           )}
           {activeSection === "leads" && (
             <section>
-              <h2 className={`text-xl font-bold mb-4 ${isRTL ? 'text-right' : ''}`}>{t.leadsSection}</h2>
+              <h2 className={`text-xl font-bold mb-4 text-black ${isRTL ? 'text-right' : ''}`}>{t.leadsSection}</h2>
               <div className={`flex gap-6 flex-wrap mb-8 ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
-                <div className="bg-gradient-to-br from-violet-900 to-violet-700 rounded-lg shadow-lg p-4 w-64 text-center">
-                  <h4 className="font-bold text-violet-200">{t.aishaName || 'Aisha Khan'}</h4>
-                  <p className="text-violet-100">{t.aishaRole || 'Content Strategist'}</p>
-                  <p className="text-violet-100 mt-2">{t.emailLabel || t.email || 'Email'}: aisha@digital.com</p>
-                  <p className="text-violet-100">{t.phoneLabel || t.phone || 'Phone'}: +91 99887 66554</p>
+                <div className="bg-[#a259c6] rounded-lg shadow-lg p-4 w-64 text-center">
+                  <h4 className="font-bold text-black">{t.aishaName || 'Aisha Khan'}</h4>
+                  <p className="text-white">{t.aishaRole || 'Content Strategist'}</p>
+                  <p className="text-white mt-2">{t.emailLabel || t.email || 'Email'}: aisha@digital.com</p>
+                  <p className="text-white">{t.phoneLabel || t.phone || 'Phone'}: +91 99887 66554</p>
                 </div>
-                <div className="bg-gradient-to-br from-violet-900 to-violet-700 rounded-lg shadow-lg p-4 w-64 text-center">
-                  <h4 className="font-bold text-violet-200">{t.rahulName || 'Rahul Verma'}</h4>
-                  <p className="text-violet-100">{t.rahulRole || 'SEO Specialist'}</p>
-                  <p className="text-violet-100 mt-2">{t.emailLabel || t.email || 'Email'}: rahul@digital.com</p>
-                  <p className="text-violet-100">{t.phoneLabel || t.phone || 'Phone'}: +91 91234 56789</p>
+                <div className="bg-[#a259c6] rounded-lg shadow-lg p-4 w-64 text-center">
+                  <h4 className="font-bold text-black">{t.rahulName || 'Rahul Verma'}</h4>
+                  <p className="text-white">{t.rahulRole || 'SEO Specialist'}</p>
+                  <p className="text-white mt-2">{t.emailLabel || t.email || 'Email'}: rahul@digital.com</p>
+                  <p className="text-white">{t.phoneLabel || t.phone || 'Phone'}: +91 91234 56789</p>
                 </div>
-                <div className="bg-gradient-to-br from-violet-900 to-violet-700 rounded-lg shadow-lg p-4 w-64 text-center">
-                  <h4 className="font-bold text-violet-200">{t.priyaName || 'Priya Sharma'}</h4>
-                  <p className="text-violet-100">{t.priyaRole || 'Digital Marketing Lead'}</p>
-                  <p className="text-violet-100 mt-2">{t.emailLabel || t.email || 'Email'}: priya@digital.com</p>
-                  <p className="text-violet-100">{t.phoneLabel || t.phone || 'Phone'}: +91 98765 43210</p>
+                <div className="bg-[#a259c6] rounded-lg shadow-lg p-4 w-64 text-center">
+                  <h4 className="font-bold text-black">{t.priyaName || 'Priya Sharma'}</h4>
+                  <p className="text-white">{t.priyaRole || 'Digital Marketing Lead'}</p>
+                  <p className="text-white mt-2">{t.emailLabel || t.email || 'Email'}: priya@digital.com</p>
+                  <p className="text-white">{t.phoneLabel || t.phone || 'Phone'}: +91 98765 43210</p>
                 </div>
               </div>
-              <div className="mt-8 bg-gradient-to-br from-violet-800 to-violet-600 p-6 rounded shadow">
-                <h2 className={`text-orange-200 text-xl font-bold mb-4 ${isRTL ? 'text-right' : ''}`}>{t.leadershipInsights}</h2>
+              <div className="mt-8 bg-[#a259c6] p-6 rounded shadow text-white">
+                <h2 className={`text-xl font-bold mb-4 text-black ${isRTL ? 'text-right' : ''}`}>{t.leadershipInsights}</h2>
                 <div className={`flex gap-4 mb-6 ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
-                  <div className="flex-1 bg-gradient-to-br from-violet-900 to-violet-700 p-4 rounded text-center font-bold text-violet-100">{t.totalLeads}<br />124</div>
-                  <div className="flex-1 bg-gradient-to-br from-violet-900 to-violet-700 p-4 rounded text-center font-bold text-violet-100">{t.activeCampaigns}<br />18</div>
-                  <div className="flex-1 bg-gradient-to-br from-violet-900 to-violet-700 p-4 rounded text-center font-bold text-violet-100">{t.successRate}<br />92%</div>
+                  <div className="flex-1 bg-[#a259c6] p-4 rounded text-center font-bold text-white">{t.totalLeads}<br />124</div>
+                  <div className="flex-1 bg-[#a259c6] p-4 rounded text-center font-bold text-white">{t.activeCampaigns}<br />18</div>
+                  <div className="flex-1 bg-[#a259c6] p-4 rounded text-center font-bold text-white">{t.successRate}<br />92%</div>
                 </div>
                 <div className="mb-4">
                   <h4 className={`font-bold text-white ${isRTL ? 'text-right' : ''}`}>{t.teamPerformance}</h4>
@@ -613,17 +632,17 @@ export default function AdminDashboard({ darkTheme, setDarkTheme, language = 'en
                     <div className="bg-gradient-to-r from-violet-400 to-violet-200 h-6 rounded" style={{ width: "70%" }}>70%</div>
                   </div>
                 </div>
-                <div className={`bg-gradient-to-br from-violet-900 to-violet-700 p-4 rounded mt-4 italic text-center text-violet-200 ${isRTL ? 'text-right' : ''}`}>{t.quote}<br /><span className="block mt-2 text-violet-100">{t.quoteAuthor}</span></div>
+                <div className={`bg-[#a259c6] p-4 rounded mt-4 italic text-center text-white ${isRTL ? 'text-right' : ''}`}>{t.quote}<br /><span className="block mt-2 text-white">{t.quoteAuthor}</span></div>
               </div>
             </section>
           )}
           {activeSection === "analytics" && (
             <section>
               <h2 className="text-2xl font-bold mb-4 text-[#53295a]">{t.userAnalytics}</h2>
-              <div className="bg-gradient-to-br from-[#7c3aed] to-[#a259c6] p-6 rounded shadow mb-4">
-                <UserGrowthChart data={chartData} />
+              <div className="bg-[#a259c6] p-6 rounded shadow mb-4">
+                <UserGrowthChart data={chartData} noDataText={t.noUserGrowthData || t.noUsers || "No user growth data available."} />
               </div>
-              <div className="bg-gradient-to-br from-[#7c3aed] to-[#a259c6] text-white p-4 rounded font-semibold mb-4">
+              <div className="bg-[#a259c6] text-white p-4 rounded font-semibold mb-4">
                 <p>{t.totalUsers}: {users.length}</p>
                 <p>{t.totalLogins}: {loginHistory.length}</p>
               </div>
@@ -632,23 +651,23 @@ export default function AdminDashboard({ darkTheme, setDarkTheme, language = 'en
           {activeSection === "integrations" && (
             <section>
               <h2 className="text-xl font-bold mb-4">{t.integrationsSection}</h2>
-              <div className="bg-gradient-to-br from-violet-900 to-violet-700 p-6 rounded shadow">
+              <div className="bg-[#a259c6] p-6 rounded shadow text-white">
                 <div className="mb-4">
                   <h3 className="font-bold mb-2 text-violet-200">{t.googleAnalytics}</h3>
                   <input type="text" className="w-full p-2 rounded mb-2 text-black" placeholder={t.enterGA} />
-                  <button className="px-4 py-2 bg-gradient-to-r from-violet-700 to-violet-500 rounded text-white font-semibold hover:from-violet-600 hover:to-violet-400">{t.testConnection}</button>
+                  <button className="px-4 py-2 bg-white text-[#a259c6] rounded font-semibold border border-[#a259c6] hover:bg-[#a259c6] hover:text-white transition">{t.testConnection}</button>
                 </div>
                 <div className="mb-4">
                   <h3 className="font-bold mb-2 text-violet-200">{t.facebookPixel}</h3>
                   <input type="text" className="w-full p-2 rounded mb-2 text-black" placeholder={t.enterFB} />
-                  <button className="px-4 py-2 bg-gradient-to-r from-violet-700 to-violet-500 rounded text-white font-semibold hover:from-violet-600 hover:to-violet-400">{t.testConnection}</button>
+                  <button className="px-4 py-2 bg-white text-[#a259c6] rounded font-semibold border border-[#a259c6] hover:bg-[#a259c6] hover:text-white transition">{t.testConnection}</button>
                 </div>
                 <div className="mb-4">
                   <h3 className="font-bold mb-2 text-violet-200">{t.mailchimp}</h3>
                   <input type="text" className="w-full p-2 rounded mb-2 text-black" placeholder={t.enterMC} />
-                  <button className="px-4 py-2 bg-gradient-to-r from-violet-700 to-violet-500 rounded text-white font-semibold hover:from-violet-600 hover:to-violet-400">{t.testConnection}</button>
+                  <button className="px-4 py-2 bg-white text-[#a259c6] rounded font-semibold border border-[#a259c6] hover:bg-[#a259c6] hover:text-white transition">{t.testConnection}</button>
                 </div>
-                <button className="w-full py-2 bg-gradient-to-r from-violet-700 to-violet-500 text-white rounded font-semibold hover:from-violet-600 hover:to-violet-400 transition mt-4">{t.saveIntegrations}</button>
+                <button className="w-full py-2 bg-white text-[#a259c6] rounded font-semibold border border-[#a259c6] hover:bg-[#a259c6] hover:text-white transition mt-4">{t.saveIntegrations}</button>
               </div>
             </section>
           )}

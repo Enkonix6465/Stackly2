@@ -1,4 +1,5 @@
 
+
 import { useState } from "react";
 
 const translations = {
@@ -97,7 +98,8 @@ export default function Login() {
       }}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
-      <div className={`${darkTheme ? 'bg-[#232136] text-white' : 'bg-white text-gray-800'} rounded-lg shadow-lg flex w-full max-w-4xl overflow-hidden relative`}>
+      <>
+        <div className={`${darkTheme ? 'bg-[#232136] text-white' : 'bg-white text-gray-800'} rounded-lg shadow-lg flex w-full max-w-4xl overflow-hidden relative`}>
         <div className="flex-1 flex flex-col justify-center p-10 relative">
           <div className="flex justify-between items-center mb-4">
             <button
@@ -118,8 +120,8 @@ export default function Login() {
               <option value="he">עברית</option>
             </select>
           </div>
-          <h1 className={`text-2xl font-bold mb-2 ${darkTheme ? 'text-white' : 'text-gray-800'}`}>{t.welcome}</h1>
-          <p className={`mb-6 ${darkTheme ? 'text-gray-300' : 'text-gray-600'}`}>{t.loginToAccount}</p>
+          <h1 className={`text-2xl font-bold mb-2 text-center ${darkTheme ? 'text-white' : 'text-gray-800'}`}>{t.welcome}</h1>
+          <p className={`mb-6 text-center ${darkTheme ? 'text-gray-300' : 'text-gray-600'}`}>{t.loginToAccount}</p>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className={`block mb-1 font-semibold ${darkTheme ? 'text-white' : 'text-gray-700'}`}>{t.email}</label>
@@ -165,6 +167,14 @@ export default function Login() {
                 {t.register}
               </Link>
             </p>
+            {/* Image inside the form, below the content, only on mobile */}
+            <div className="w-full flex items-center justify-center bg-gray-100 mt-4 rounded-b-lg overflow-hidden md:hidden">
+              <img
+                src={welcomebg1}
+                alt={t.welcome}
+                className="object-cover w-full h-48"
+              />
+            </div>
           </form>
         </div>
         <div className="flex-1 hidden md:flex items-center justify-center bg-gray-100">
@@ -174,7 +184,8 @@ export default function Login() {
             className="object-cover w-full h-full"
           />
         </div>
-      </div>
+  </div> {/* close card div */}
+      </>
     </div>
   );
 } 

@@ -21,9 +21,9 @@ ChartJS.register(
   Legend
 );
 
-export default function UserGrowthChart({ data }) {
+export default function UserGrowthChart({ data, noDataText }) {
   if (!data || data.length === 0) {
-    return <div className="p-4 text-gray-500">No user growth data available.</div>;
+    return <div className="p-4 text-white">{noDataText || "No user growth data available."}</div>;
   }
 
   const chartData = {

@@ -442,7 +442,7 @@ export default function Home({ darkTheme, setDarkTheme }) {
   <div className={`relative z-20 h-full flex flex-col items-center justify-center text-center px-4 ${darkTheme ? 'text-white' : ''}`}>
           <div className="max-w-4xl mx-auto animate-fade-in-up">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              {content[language].heroTitle}
+              <span className="text-[#a259c6]">{content[language].heroTitle}</span>
               <span
                 className="bg-clip-text text-transparent"
                 style={{
@@ -456,7 +456,7 @@ export default function Home({ darkTheme, setDarkTheme }) {
                 {" "}{content[language].heroGradient}
               </span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed text-white">
               {content[language].heroDesc}
             </p>
             

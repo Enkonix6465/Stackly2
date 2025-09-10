@@ -15,7 +15,7 @@ const translations = {
     heroDesc: "We’d love to hear from you! Whether you have a question or want to discuss a project, our team is ready to help.",
     cards: [
       { img: contact1, title: "Our Location", detail: "123 Main Street, Hyderabad, India" },
-      { img: contact2, title: "Email Us", detail: "stackly.com" },
+  { img: contact2, title: "Email Us", detail: "stackly@gmail.com" },
       { img: contact3, title: "Call Us", detail: "+91 98765 43210" }
     ],
     contactTitle: "Contact Us",
@@ -48,7 +48,7 @@ const translations = {
     heroDesc: "يسعدنا التواصل معك! سواء كان لديك سؤال أو ترغب في مناقشة مشروع، فريقنا جاهز لمساعدتك.",
     cards: [
       { img: contact1, title: "موقعنا", detail: "123 شارع رئيسي، حيدر أباد، الهند" },
-      { img: contact2, title: "راسلنا عبر البريد الإلكتروني", detail: "stackly.com" },
+  { img: contact2, title: "راسلنا عبر البريد الإلكتروني", detail: "stackly@gmail.com" },
       { img: contact3, title: "اتصل بنا", detail: "+91 98765 43210" }
     ],
     contactTitle: "اتصل بنا",
@@ -81,7 +81,7 @@ const translations = {
     heroDesc: "נשמח לשמוע ממך! בין אם יש לך שאלה או רוצה לדון בפרויקט, הצוות שלנו מוכן לעזור.",
     cards: [
       { img: contact1, title: "המיקום שלנו", detail: "123 רחוב ראשי, היידראבאד, הודו" },
-      { img: contact2, title: "שלח לנו אימייל", detail: "stackly.com" },
+  { img: contact2, title: "שלח לנו אימייל", detail: "stackly@gmail.com" },
       { img: contact3, title: "התקשר אלינו", detail: "+91 98765 43210" }
     ],
     contactTitle: "צור קשר",
@@ -190,6 +190,17 @@ const ContactUsHero = ({ darkTheme, setDarkTheme, language = "English", setLangu
           <p className="max-w-2xl text-lg md:text-xl" data-aos="fade-up" data-aos-delay="200">
             {t.heroDesc}
           </p>
+          <button
+            className="mt-8 px-8 py-3 rounded-full bg-[#a259c6] hover:bg-[#7c5dc7] text-white font-bold text-lg shadow-lg transition duration-200"
+            onClick={() => {
+              const formSection = document.getElementById('contact-form-section');
+              if (formSection) formSection.scrollIntoView({ behavior: 'smooth' });
+            }}
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            {t.contactNow || 'Contact Us Now'}
+          </button>
         </div>
       </section>
 
@@ -216,7 +227,7 @@ const ContactUsHero = ({ darkTheme, setDarkTheme, language = "English", setLangu
     </section>
 
       {/* Contact Form Section */}
-  <section className={`py-16 w-full ${darkTheme ? 'bg-black' : 'bg-white'}`}> 
+  <section id="contact-form-section" className={`py-16 w-full ${darkTheme ? 'bg-black' : 'bg-white'}`}> 
         <div className="w-full px-2">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-violet-700">
             {t.contactTitle}

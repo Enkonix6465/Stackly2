@@ -114,64 +114,18 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
   const t = translations[language] || translations['English'];
 
   return (
-    <header className={`${darkTheme ? 'bg-[#18181c] text-white border-[#232136]' : 'bg-white text-[#232136] border-gray-200'} shadow-sm border-b relative z-50`} style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center">
-              <img src={logo} alt="STACKLY" className="h-8 w-auto" />
-            </Link>
-          </div>
+  <header className={`${darkTheme ? 'bg-[#18181c] text-white border-[#232136]' : 'bg-white text-[#232136] border-gray-200'} shadow-sm border-b fixed top-0 left-0 w-full z-50`} style={{ direction: isRTL ? 'rtl' : 'ltr', minHeight: '72px' }}>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-between items-center min-h-[72px] h-[72px]">
+        {/* Logo */}
+        <div className="flex items-center h-full">
+          <Link to="/" className="flex items-center h-full">
+            <img src={logo} alt="STACKLY" className="h-10 w-auto object-contain" style={{maxHeight:'40px', border: 'none', boxShadow: 'none'}} />
+          </Link>
+        </div>
 
           {/* Navigation and Icons */}
           <div className={`hidden md:flex items-center space-x-8 ${darkTheme ? 'text-white' : 'text-gray-700'}`}>
-            {/* Languages Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setIsLanguageDropdownOpen((v) => !v)}
-                className={`flex items-center space-x-1 transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
-              >
-                <span>English</span>
-                <svg
-                  className={`w-4 h-4 transition-transform duration-200 ${isLanguageDropdownOpen ? "rotate-180" : ""}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-              {isLanguageDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-40 bg-white rounded-md shadow-lg border border-gray-200 z-50">
-                  <div className="py-1">
-                    <button
-                      className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${language === 'English' ? 'font-bold bg-gray-100' : ''}`}
-                      onClick={() => handleLanguageSelect('English')}
-                    >
-                      English
-                    </button>
-                    <button
-                      className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${language === 'Arabic' ? 'font-bold bg-gray-100' : ''}`}
-                      onClick={() => handleLanguageSelect('Arabic')}
-                    >
-                      {translations.Arabic.languages}
-                    </button>
-                    <button
-                      className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${language === 'Hebrew' ? 'font-bold bg-gray-100' : ''}`}
-                      onClick={() => handleLanguageSelect('Hebrew')}
-                    >
-                      {translations.Hebrew.languages}
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
             {/* Home Dropdown */}
             <div className="relative">
               <button
@@ -325,7 +279,7 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
               {t.contact}
             </Link>
 
-            {/* Icons */}
+            {/* Icons and Language Dropdown */}
             <div className="flex items-center space-x-4 ml-4">
               {/* Dark mode toggle */}
               <button
@@ -363,12 +317,58 @@ export default function Header({ darkTheme, setDarkTheme, language, setLanguage 
                         className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-orange-100"
                         onClick={() => { setIsAvatarDropdownOpen(false); window.location.href = '/'; }}
                       >
-                        Logout
                         {t.logout}
                       </button>
                     </div>
                   )}
                 </>
+              </div>
+
+              {/* Languages Dropdown (moved here) */}
+              <div className="relative">
+                <button
+                  onClick={() => setIsLanguageDropdownOpen((v) => !v)}
+                  className={`flex items-center space-x-1 transition-colors duration-200 ${darkTheme ? 'text-white hover:text-[#a259c6]' : 'text-gray-700 hover:text-blue-600'}`}
+                >
+                  <span>English</span>
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-200 ${isLanguageDropdownOpen ? "rotate-180" : ""}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                {isLanguageDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-40 bg-white rounded-md shadow-lg border border-gray-200 z-50">
+                    <div className="py-1">
+                      <button
+                        className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${language === 'English' ? 'font-bold bg-gray-100' : ''}`}
+                        onClick={() => handleLanguageSelect('English')}
+                      >
+                        English
+                      </button>
+                      <button
+                        className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${language === 'Arabic' ? 'font-bold bg-gray-100' : ''}`}
+                        onClick={() => handleLanguageSelect('Arabic')}
+                      >
+                        {translations.Arabic.languages}
+                      </button>
+                      <button
+                        className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${language === 'Hebrew' ? 'font-bold bg-gray-100' : ''}`}
+                        onClick={() => handleLanguageSelect('Hebrew')}
+                      >
+                        {translations.Hebrew.languages}
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
