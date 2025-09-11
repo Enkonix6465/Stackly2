@@ -45,6 +45,7 @@ import { useNavigate, Link } from "react-router-dom";
 import welcomebg from "../assets/welcomebg.jpg";
 import welcomebg1 from "../assets/welcomebg1.jpg";
 
+
 export default function Login() {
   const [language, setLanguage] = useState("en");
   const t = translations[language];
@@ -53,6 +54,11 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [darkTheme, setDarkTheme] = useState(false);
+  const [showForgot, setShowForgot] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotStep, setForgotStep] = useState(1); // 1: email, 2: new password
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -85,6 +91,45 @@ export default function Login() {
     } else {
       alert("Invalid credentials. Please try again.");
     }
+  };
+
+  // Forgot password logic
+  const handleForgotEmail = (e) => {
+    e.preventDefault();
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find((u) => u.email === forgotEmail);
+    if (user || forgotEmail === "admin@enkonix.in") {
+      setForgotStep(2);
+    } else {
+      alert("Email not registered.");
+    }
+  };
+
+  const handleResetPassword = (e) => {
+    e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+    if (forgotEmail === "admin@enkonix.in") {
+      // Update admin password in localStorage (if needed)
+      alert("Admin password reset is not allowed here.");
+      return;
+    }
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    users = users.map((u) => {
+      if (u.email === forgotEmail) {
+        return { ...u, password: newPassword };
+      }
+      return u;
+    });
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("Password reset successful. Please login with your new password.");
+    setShowForgot(false);
+    setForgotStep(1);
+    setForgotEmail("");
+    setNewPassword("");
+    setConfirmPassword("");
   };
 
   return (
@@ -122,60 +167,140 @@ export default function Login() {
           </div>
           <h1 className={`text-2xl font-bold mb-2 text-center ${darkTheme ? 'text-white' : 'text-gray-800'}`}>{t.welcome}</h1>
           <p className={`mb-6 text-center ${darkTheme ? 'text-gray-300' : 'text-gray-600'}`}>{t.loginToAccount}</p>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label className={`block mb-1 font-semibold ${darkTheme ? 'text-white' : 'text-gray-700'}`}>{t.email}</label>
-              <input
-                type="email"
-                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder={t.email}
-              />
-            </div>
-            <div className="mb-4">
-              <label className={`block mb-1 font-semibold ${darkTheme ? 'text-white' : 'text-gray-700'}`}>{t.password}</label>
-              <div className="relative">
+          {!showForgot ? (
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label className={`block mb-1 font-semibold ${darkTheme ? 'text-white' : 'text-gray-700'}`}>{t.email}</label>
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type="email"
                   className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
-                  placeholder={t.password}
+                  placeholder={t.email}
                 />
+              </div>
+              <div className="mb-2">
+                <label className={`block mb-1 font-semibold ${darkTheme ? 'text-white' : 'text-gray-700'}`}>{t.password}</label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    placeholder={t.password}
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-2 top-2 text-gray-500 text-sm px-2 py-1 focus:outline-none"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    tabIndex={-1}
+                  >
+                    {showPassword ? t.hide : t.show}
+                  </button>
+                </div>
+              </div>
+              <div className="mb-4 text-right">
                 <button
                   type="button"
-                  className="absolute right-2 top-2 text-gray-500 text-sm px-2 py-1 focus:outline-none"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                  tabIndex={-1}
+                  className="text-blue-500 hover:underline text-sm"
+                  onClick={() => setShowForgot(true)}
                 >
-                  {showPassword ? t.hide : t.show}
+                  Forgot Password?
                 </button>
               </div>
-            </div>
-            <button
-              type="submit"
-              className="w-full py-2 bg-gradient-to-r from-[#b57edc] via-[#a259c6] to-[#6c3483] text-white rounded font-semibold transition"
-            >
-              {t.login}
-            </button>
-            <p className="mt-4 text-center text-sm">
-              {t.dontHaveAccount} {" "}
-              <Link to="/register" className="text-blue-500 hover:underline">
-                {t.register}
-              </Link>
-            </p>
-            {/* Image inside the form, below the content, only on mobile */}
-            <div className="w-full flex items-center justify-center bg-gray-100 mt-4 rounded-b-lg overflow-hidden md:hidden">
-              <img
-                src={welcomebg1}
-                alt={t.welcome}
-                className="object-cover w-full h-48"
-              />
-            </div>
-          </form>
+              <button
+                type="submit"
+                className="w-full py-2 bg-gradient-to-r from-[#b57edc] via-[#a259c6] to-[#6c3483] text-white rounded font-semibold transition"
+              >
+                {t.login}
+              </button>
+              <p className="mt-4 text-center text-sm">
+                {t.dontHaveAccount} {" "}
+                <Link to="/register" className="text-blue-500 hover:underline">
+                  {t.register}
+                </Link>
+              </p>
+              {/* Image inside the form, below the content, only on mobile */}
+              <div className="w-full flex items-center justify-center bg-gray-100 mt-4 rounded-b-lg overflow-hidden md:hidden">
+                <img
+                  src={welcomebg1}
+                  alt={t.welcome}
+                  className="object-cover w-full h-48"
+                />
+              </div>
+            </form>
+          ) : (
+            <form onSubmit={forgotStep === 1 ? handleForgotEmail : handleResetPassword}>
+              {forgotStep === 1 ? (
+                <>
+                  <div className="mb-4">
+                    <label className={`block mb-1 font-semibold ${darkTheme ? 'text-white' : 'text-gray-700'}`}>Enter your registered email</label>
+                    <input
+                      type="email"
+                      className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                      value={forgotEmail}
+                      onChange={(e) => setForgotEmail(e.target.value)}
+                      required
+                      placeholder="Email"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full py-2 bg-gradient-to-r from-[#b57edc] via-[#a259c6] to-[#6c3483] text-white rounded font-semibold transition mb-2"
+                  >
+                    Next
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full py-2 bg-gray-300 text-gray-700 rounded font-semibold transition"
+                    onClick={() => { setShowForgot(false); setForgotStep(1); setForgotEmail(""); }}
+                  >
+                    Back to Login
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="mb-4">
+                    <label className={`block mb-1 font-semibold ${darkTheme ? 'text-white' : 'text-gray-700'}`}>New Password</label>
+                    <input
+                      type="password"
+                      className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      required
+                      placeholder="New Password"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className={`block mb-1 font-semibold ${darkTheme ? 'text-white' : 'text-gray-700'}`}>Confirm Password</label>
+                    <input
+                      type="password"
+                      className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      required
+                      placeholder="Confirm Password"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full py-2 bg-gradient-to-r from-[#b57edc] via-[#a259c6] to-[#6c3483] text-white rounded font-semibold transition mb-2"
+                  >
+                    Reset Password
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full py-2 bg-gray-300 text-gray-700 rounded font-semibold transition"
+                    onClick={() => { setShowForgot(false); setForgotStep(1); setForgotEmail(""); setNewPassword(""); setConfirmPassword(""); }}
+                  >
+                    Back to Login
+                  </button>
+                </>
+              )}
+            </form>
+          )}
         </div>
         <div className="flex-1 hidden md:flex items-center justify-center bg-gray-100">
           <img
@@ -188,4 +313,4 @@ export default function Login() {
       </>
     </div>
   );
-} 
+}
